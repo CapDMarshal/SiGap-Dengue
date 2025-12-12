@@ -7,7 +7,10 @@ import Navbar from './components/Navbar'
 import { createClient } from '../utils/supabase/client'
 import { User } from '@supabase/supabase-js'
 
-const MapTilerMap = dynamic(() => import('./components/Maptiler'), {
+import TipsCard from '@/components/TipsCard'
+import TipsDetailCard from '@/components/TipsDetailCard'
+
+const MapTilerMap = dynamic(() => import('./components/Maptilermap'), {
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center h-full">
@@ -18,6 +21,71 @@ const MapTilerMap = dynamic(() => import('./components/Maptiler'), {
     </div>
   ),
 })
+
+const tipsData = [
+  {
+    title: 'Menguras & Membersihkan',
+    description: 'Kuras dan bersihkan tempat penampungan air seperti bak mandi, ember, vas bunga minimal seminggu sekali',
+    footerText: '✓ Bak mandi  ✓ Ember air  ✓ Vas bunga',
+    icon: (
+      <svg className="w-7 h-7 text-red-700" fill="currentColor" viewBox="0 0 32 32">
+        <path d="M28 13.25h-24c-0.414 0-0.75 0.336-0.75 0.75s0.336 0.75 0.75 0.75h1.821l3.353 15.41c0.076 0.34 0.375 0.59 0.732 0.59h12.188c0.357 0 0.656-0.25 0.731-0.585l3.354-15.41h1.82c0.414 0 0.75-0.336 0.75-0.75s-0.336-0.75-0.75-0.75zM6.779 10.752c0.414 0 0.749-0.335 0.75-0.749 0-2.498 1.384-4.673 3.427-5.8 1.417-0.785 3.107-1.247 4.904-1.247 1.806 0 3.502 0.466 4.976 1.285 2.063 1.142 3.437 3.306 3.437 5.791 0 0.414 0.336 0.75 0.75 0.75s0.749-0.335 0.75-0.749c0-3.040-1.67-5.689-4.143-7.080-1.639-0.914-3.595-1.451-5.676-1.451-2.072 0-4.020 0.533-5.714 1.47-2.529 1.415-4.211 4.077-4.211 7.131 0 0.414 0.335 0.749 0.749 0.75z" />
+      </svg>
+    )
+  },
+  {
+    title: 'Menutup Rapat',
+    description: 'Tutup rapat-rapat tempat penyimpanan air dan wadah yang berpotensi menampung air hujan',
+    footerText: '✓ Tong air  ✓ Drum  ✓ Tempayan',
+    icon: (
+      <svg className="w-7 h-7 text-red-700" fill="currentColor" viewBox="0 0 24 24">
+        <ellipse cx="12" cy="6" rx="7" ry="2" fill="currentColor" />
+        <rect x="5" y="6" width="14" height="12" rx="1" />
+        <ellipse cx="12" cy="18" rx="7" ry="2" fill="currentColor" opacity="0.8" />
+        <path d="M6 10H18M6 14H18" stroke="white" strokeWidth="1" opacity="0.3" />
+        <rect x="10" y="4" width="4" height="1.5" rx="0.5" fill="currentColor" opacity="0.5" />
+      </svg>
+    )
+  },
+  {
+    title: 'Mendaur Ulang',
+    description: 'Manfaatkan atau daur ulang barang bekas yang dapat menampung air seperti kaleng, ban bekas',
+    footerText: '✓ Kaleng bekas  ✓ Ban bekas  ✓ Botol plastik',
+    icon: (
+      <svg className="w-7 h-7 text-red-700" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8 3.1l1.4 2.2-1.6 1.1 1.3 0.3 2.8 0.6 0.6-2.7 0.4-1.4-1.8 1.1-2-3.3h-2.2l-2.6 4.3 1.7 1z" />
+        <path d="M16 12l-2.7-4.3-1.7 1 2 3.3h-2.6v-2l-3 3 3 3v-2h3.7z" />
+        <path d="M2.4 12v0l1.4-2.3 1.7 1.1-0.9-4.2-2.8 0.7-1.3 0.3 1.6 1-2.1 3.4 1.3 2h5.7v-2z" />
+      </svg>
+    )
+  },
+  {
+    title: 'Plus Proteksi',
+    description: 'Tambahan perlindungan dengan menanam tanaman anti nyamuk dan menggunakan obat nyamuk',
+    footerText: '✓ Lavender  ✓ Serai wangi  ✓ Lotion anti nyamuk',
+    icon: (
+      <svg className="w-7 h-7 text-red-700" fill="currentColor" viewBox="0 0 24 24">
+        <path clipRule="evenodd" d="M10.4269 2.42148C11.4003 1.85951 12.5996 1.8595 13.573 2.42148L19.5087 5.84848C20.4821 6.41046 21.0817 7.44904 21.0817 8.573V15.427C21.0817 16.551 20.4821 17.5895 19.5087 18.1515L13.573 21.5785C12.5996 22.1405 11.4003 22.1405 10.4269 21.5785L4.49122 18.1515C3.51784 17.5895 2.91821 16.551 2.91821 15.427V8.573C2.91821 7.44904 3.51784 6.41046 4.49122 5.84848L10.4269 2.42148ZM15.75 12C15.75 12.4142 15.4142 12.75 15 12.75H12.75V15C12.75 15.4142 12.4142 15.75 12 15.75C11.5858 15.75 11.25 15.4142 11.25 15V12.75H9C8.58579 12.75 8.25 12.4142 8.25 12C8.25 11.5858 8.58579 11.25 9 11.25H11.25V9C11.25 8.58579 11.5858 8.25 12 8.25C12.4142 8.25 12.75 8.58579 12.75 9V11.25H15C15.4142 11.25 15.75 11.5858 15.75 12Z" fillRule="evenodd" />
+      </svg>
+    )
+  }
+];
+
+const gejalaItems = [
+  'Demam tinggi mendadak (38°C - 40°C) selama 2-7 hari',
+  'Sakit kepala hebat dan nyeri di belakang mata',
+  'Nyeri otot dan sendi di seluruh tubuh',
+  'Mual, muntah, dan hilang nafsu makan',
+  'Ruam merah pada kulit'
+];
+
+const dokterItems = [
+  'Demam tidak turun setelah 3 hari',
+  'Muntah terus-menerus dan tidak bisa makan/minum',
+  'Nyeri perut hebat dan terus-menerus',
+  'Pendarahan (mimisan, gusi berdarah)',
+  'Lemas, gelisah, atau pingsan'
+];
 
 // FAQ Accordion Component
 const FAQAccordion = () => {
@@ -248,17 +316,7 @@ export default function Home() {
   }, [hasShot])
 
 
-  // Auto-scroll to tips when animation complete
-  useEffect(() => {
-    if (isComplete) {
-      setTimeout(() => {
-        const tipsSection = document.getElementById('tips-section')
-        if (tipsSection) {
-          tipsSection.scrollIntoView({ behavior: 'smooth' })
-        }
-      }, 500)
-    }
-  }, [isComplete])
+
 
   // Tips section fade-in animation with Intersection Observer
   useEffect(() => {
@@ -704,6 +762,24 @@ export default function Home() {
         </section>
       </div>
 
+      {/* FAQ/Edukasi Section */}
+      <section className="min-h-screen bg-white flex items-center">
+        <div className="mx-auto max-w-screen-xl px-4 py-20 w-full">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              Pertanyaan Umum tentang DBD
+            </h2>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+              Pertanyaan umum seputar DBD yang perlu Anda ketahui untuk pencegahan dan penanganan yang tepat
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <FAQAccordion />
+          </div>
+        </div>
+      </section>
+
       {/* Quick Tips Cards Section */}
       <section id="tips-section" className="min-h-screen bg-gray-50 flex items-center relative overflow-hidden">
         {/* Parallax Background Layer */}
@@ -748,94 +824,15 @@ export default function Home() {
               transition: 'transform 1s ease-out, opacity 1s ease-out'
             }}
           >
-            {/* Card 1: Menguras */}
-            <div className="group bg-red-50 rounded-xl p-5 shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 border border-red-200">
-              <div className="text-center">
-                <div className="w-14 h-14 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center group-hover:bg-red-200 transition-colors">
-                  <svg className="w-7 h-7 text-red-700" fill="currentColor" viewBox="0 0 32 32">
-                    <path d="M28 13.25h-24c-0.414 0-0.75 0.336-0.75 0.75s0.336 0.75 0.75 0.75h1.821l3.353 15.41c0.076 0.34 0.375 0.59 0.732 0.59h12.188c0.357 0 0.656-0.25 0.731-0.585l3.354-15.41h1.82c0.414 0 0.75-0.336 0.75-0.75s-0.336-0.75-0.75-0.75zM6.779 10.752c0.414 0 0.749-0.335 0.75-0.749 0-2.498 1.384-4.673 3.427-5.8 1.417-0.785 3.107-1.247 4.904-1.247 1.806 0 3.502 0.466 4.976 1.285 2.063 1.142 3.437 3.306 3.437 5.791 0 0.414 0.336 0.75 0.75 0.75s0.749-0.335 0.75-0.749c0-3.040-1.67-5.689-4.143-7.080-1.639-0.914-3.595-1.451-5.676-1.451-2.072 0-4.020 0.533-5.714 1.47-2.529 1.415-4.211 4.077-4.211 7.131 0 0.414 0.335 0.749 0.749 0.75z" />
-                  </svg>
-                </div>
-                <h3 className="text-base font-semibold text-gray-900 mb-2">
-                  Menguras & Membersihkan
-                </h3>
-                <p className="text-gray-600 text-sm leading-relaxed mb-3">
-                  Kuras dan bersihkan tempat penampungan air seperti bak mandi, ember, vas bunga minimal seminggu sekali
-                </p>
-                <div className="text-xs text-red-700 font-medium">
-                  ✓ Bak mandi  ✓ Ember air  ✓ Vas bunga
-                </div>
-              </div>
-            </div>
-
-            {/* Card 2: Menutup */}
-            <div className="group bg-red-50 rounded-xl p-5 shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 border border-red-200">
-              <div className="text-center">
-                <div className="w-14 h-14 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center group-hover:bg-red-200 transition-colors">
-                  <svg className="w-7 h-7 text-red-700" fill="currentColor" viewBox="0 0 24 24">
-                    {/* Drum with water and lid */}
-                    <ellipse cx="12" cy="6" rx="7" ry="2" fill="currentColor" />
-                    <rect x="5" y="6" width="14" height="12" rx="1" />
-                    <ellipse cx="12" cy="18" rx="7" ry="2" fill="currentColor" opacity="0.8" />
-                    {/* Water waves */}
-                    <path d="M6 10H18M6 14H18" stroke="white" strokeWidth="1" opacity="0.3" />
-                    {/* Lid handle */}
-                    <rect x="10" y="4" width="4" height="1.5" rx="0.5" fill="currentColor" opacity="0.5" />
-                  </svg>
-                </div>
-                <h3 className="text-base font-semibold text-gray-900 mb-2">
-                  Menutup Rapat
-                </h3>
-                <p className="text-gray-600 text-sm leading-relaxed mb-3">
-                  Tutup rapat-rapat tempat penyimpanan air dan wadah yang berpotensi menampung air hujan
-                </p>
-                <div className="text-xs text-red-700 font-medium">
-                  ✓ Tong air  ✓ Drum  ✓ Tempayan
-                </div>
-              </div>
-            </div>
-
-            {/* Card 3: Mendaur Ulang */}
-            <div className="group bg-red-50 rounded-xl p-5 shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 border border-red-200">
-              <div className="text-center">
-                <div className="w-14 h-14 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center group-hover:bg-red-200 transition-colors">
-                  <svg className="w-7 h-7 text-red-700" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M8 3.1l1.4 2.2-1.6 1.1 1.3 0.3 2.8 0.6 0.6-2.7 0.4-1.4-1.8 1.1-2-3.3h-2.2l-2.6 4.3 1.7 1z" />
-                    <path d="M16 12l-2.7-4.3-1.7 1 2 3.3h-2.6v-2l-3 3 3 3v-2h3.7z" />
-                    <path d="M2.4 12v0l1.4-2.3 1.7 1.1-0.9-4.2-2.8 0.7-1.3 0.3 1.6 1-2.1 3.4 1.3 2h5.7v-2z" />
-                  </svg>
-                </div>
-                <h3 className="text-base font-semibold text-gray-900 mb-2">
-                  Mendaur Ulang
-                </h3>
-                <p className="text-gray-600 text-sm leading-relaxed mb-3">
-                  Manfaatkan atau daur ulang barang bekas yang dapat menampung air seperti kaleng, ban bekas
-                </p>
-                <div className="text-xs text-red-700 font-medium">
-                  ✓ Kaleng bekas  ✓ Ban bekas  ✓ Botol plastik
-                </div>
-              </div>
-            </div>
-
-            {/* Card 4: Plus (Tambahan) */}
-            <div className="group bg-red-50 rounded-xl p-5 shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 border border-red-200">
-              <div className="text-center">
-                <div className="w-14 h-14 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center group-hover:bg-red-200 transition-colors">
-                  <svg className="w-7 h-7 text-red-700" fill="currentColor" viewBox="0 0 24 24">
-                    <path clipRule="evenodd" d="M10.4269 2.42148C11.4003 1.85951 12.5996 1.8595 13.573 2.42148L19.5087 5.84848C20.4821 6.41046 21.0817 7.44904 21.0817 8.573V15.427C21.0817 16.551 20.4821 17.5895 19.5087 18.1515L13.573 21.5785C12.5996 22.1405 11.4003 22.1405 10.4269 21.5785L4.49122 18.1515C3.51784 17.5895 2.91821 16.551 2.91821 15.427V8.573C2.91821 7.44904 3.51784 6.41046 4.49122 5.84848L10.4269 2.42148ZM15.75 12C15.75 12.4142 15.4142 12.75 15 12.75H12.75V15C12.75 15.4142 12.4142 15.75 12 15.75C11.5858 15.75 11.25 15.4142 11.25 15V12.75H9C8.58579 12.75 8.25 12.4142 8.25 12C8.25 11.5858 8.58579 11.25 9 11.25H11.25V9C11.25 8.58579 11.5858 8.25 12 8.25C12.4142 8.25 12.75 8.58579 12.75 9V11.25H15C15.4142 11.25 15.75 11.5858 15.75 12Z" fillRule="evenodd" />
-                  </svg>
-                </div>
-                <h3 className="text-base font-semibold text-gray-900 mb-2">
-                  Plus Proteksi
-                </h3>
-                <p className="text-gray-600 text-sm leading-relaxed mb-3">
-                  Tambahan perlindungan dengan menanam tanaman anti nyamuk dan menggunakan obat nyamuk
-                </p>
-                <div className="text-xs text-red-700 font-medium">
-                  ✓ Lavender  ✓ Serai wangi  ✓ Lotion anti nyamuk
-                </div>
-              </div>
-            </div>
+            {tipsData.map((tip, index) => (
+              <TipsCard
+                key={index}
+                icon={tip.icon}
+                title={tip.title}
+                description={tip.description}
+                footerText={tip.footerText}
+              />
+            ))}
           </div>
 
           {/* Additional Information Section */}
@@ -848,96 +845,35 @@ export default function Home() {
             }}
           >
             {/* Gejala DBD */}
-            <div className="bg-red-50 rounded-xl p-6 border border-red-200">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
-                  <svg className="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 100 100">
-                    <path d="M50,12.5c-20.712,0-37.5,16.793-37.5,37.502C12.5,70.712,29.288,87.5,50,87.5c20.712,0,37.5-16.788,37.5-37.498C87.5,29.293,70.712,12.5,50,12.5z M53.826,70.86c0,0.72-0.584,1.304-1.304,1.304h-5.044c-0.72,0-1.304-0.583-1.304-1.304V46.642c0-0.72,0.584-1.304,1.304-1.304h5.044c0.72,0,1.304,0.583,1.304,1.304V70.86z M49.969,39.933c-2.47,0-4.518-2.048-4.518-4.579c0-2.53,2.048-4.518,4.518-4.518c2.531,0,4.579,1.987,4.579,4.518C54.549,37.885,52.5,39.933,49.969,39.933z" />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-semibold text-red-800">Waspadai Gejala DBD</h3>
-              </div>
-              <ul className="space-y-2 text-sm text-red-700">
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-red-500 rounded-full"></span>
-                  Demam tinggi mendadak (38°C - 40°C) selama 2-7 hari
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-red-500 rounded-full"></span>
-                  Sakit kepala hebat dan nyeri di belakang mata
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-red-500 rounded-full"></span>
-                  Nyeri otot dan sendi di seluruh tubuh
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-red-500 rounded-full"></span>
-                  Mual, muntah, dan hilang nafsu makan
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-red-500 rounded-full"></span>
-                  Ruam merah pada kulit
-                </li>
-              </ul>
-            </div>
+            <TipsDetailCard
+              icon={
+                <svg className="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 100 100">
+                  <path d="M50,12.5c-20.712,0-37.5,16.793-37.5,37.502C12.5,70.712,29.288,87.5,50,87.5c20.712,0,37.5-16.788,37.5-37.498C87.5,29.293,70.712,12.5,50,12.5z M53.826,70.86c0,0.72-0.584,1.304-1.304,1.304h-5.044c-0.72,0-1.304-0.583-1.304-1.304V46.642c0-0.72,0.584-1.304,1.304-1.304h5.044c0.72,0,1.304,0.583,1.304,1.304V70.86z M49.969,39.933c-2.47,0-4.518-2.048-4.518-4.579c0-2.53,2.048-4.518,4.518-4.518c2.531,0,4.579,1.987,4.579,4.518C54.549,37.885,52.5,39.933,49.969,39.933z" />
+                </svg>
+              }
+              title="Waspadai Gejala DBD"
+              items={gejalaItems}
+              variant="red"
+            />
 
             {/* Kapan Harus ke Dokter */}
-            <div className="bg-yellow-50 rounded-xl p-6 border border-yellow-200">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
-                  <svg className="w-5 h-5 text-yellow-600" fill="currentColor" viewBox="0 0 16 16">
-                    <path clipRule="evenodd" d="M13 1H3V5H0V15H16V5H13V1ZM7 6V8H5V10H7V12H9V10H11V8H9V6H7Z" fillRule="evenodd" />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-semibold text-yellow-800">Segera ke Dokter Jika</h3>
-              </div>
-              <ul className="space-y-2 text-sm text-yellow-700">
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-yellow-500 rounded-full"></span>
-                  Demam tidak turun setelah 3 hari
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-yellow-500 rounded-full"></span>
-                  Muntah terus-menerus dan tidak bisa makan/minum
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-yellow-500 rounded-full"></span>
-                  Nyeri perut hebat dan terus-menerus
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-yellow-500 rounded-full"></span>
-                  Pendarahan (mimisan, gusi berdarah)
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-yellow-500 rounded-full"></span>
-                  Lemas, gelisah, atau pingsan
-                </li>
-              </ul>
-            </div>
+            <TipsDetailCard
+              icon={
+                <svg className="w-5 h-5 text-yellow-600" fill="currentColor" viewBox="0 0 16 16">
+                  <path clipRule="evenodd" d="M13 1H3V5H0V15H16V5H13V1ZM7 6V8H5V10H7V12H9V10H11V8H9V6H7Z" fillRule="evenodd" />
+                </svg>
+              }
+              title="Segera ke Dokter Jika"
+              items={dokterItems}
+              variant="yellow"
+            />
           </div>
 
 
         </div>
       </section>
 
-      {/* FAQ/Edukasi Section */}
-      <section className="min-h-screen bg-white flex items-center">
-        <div className="mx-auto max-w-screen-xl px-4 py-20 w-full">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              Pertanyaan Umum tentang DBD
-            </h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              Pertanyaan umum seputar DBD yang perlu Anda ketahui untuk pencegahan dan penanganan yang tepat
-            </p>
-          </div>
-
-          <div className="max-w-4xl mx-auto">
-            <FAQAccordion />
-          </div>
-        </div>
-      </section>
-
+      {/* Peta Sebaran DBD Section */}
       <section className="min-h-screen relative z-0 flex items-center bg-white"
         style={{ backgroundColor: '#fafafa' }}>
         <div className="mx-auto max-w-screen-xl px-4 py-20 w-full">

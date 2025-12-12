@@ -255,15 +255,15 @@ export default function AboutPage() {
                 <div className="text-center -mt-16 pb-8 px-6">
                   <div className="w-32 h-32 rounded-full bg-gray-200 border-4 border-white mx-auto mb-4 flex items-center justify-center overflow-hidden">
                     <Image
-                      src="/images/zakki.jpg"
-                      alt="Zakki Farian"
+                      src="/images/marshal.png"
+                      alt="Fardila Bintang Adinata"
                       width={128}
                       height={128}
                       className="w-full h-auto text-gray-400"
                     />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    Zakki Farian
+                    Fardila Bintang Adinata
                   </h3>
                   <p className="text-red-700 font-medium mb-3">Machine Learning Engineer</p>
                   <p className="text-gray-600 text-sm mb-4">
@@ -278,15 +278,15 @@ export default function AboutPage() {
                 <div className="text-center -mt-16 pb-8 px-6">
                   <div className="w-32 h-32 rounded-full bg-gray-200 border-4 border-white mx-auto mb-4 flex items-center justify-center overflow-hidden">
                     <Image
-                      src="/images/ridho.jpg"
-                      alt="Ridho Ardiansyah"
+                      src="/images/alip.png"
+                      alt="Alif Arya Kusuma"
                       width={128}
                       height={128}
                       className="w-full h-auto text-gray-400"
                     />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    Ridho Ardiansyah
+                    Alif Arya Kusuma
                   </h3>
                   <p className="text-red-700 font-medium mb-3">UI/UX Designer & Developer</p>
                   <p className="text-gray-600 text-sm mb-4">
@@ -299,15 +299,15 @@ export default function AboutPage() {
                 <div className="text-center -mt-16 pb-8 px-6">
                   <div className="w-32 h-32 rounded-full bg-gray-200 border-4 border-white mx-auto mb-4 flex items-center justify-center overflow-hidden">
                     <Image
-                      src="/images/joko.jpg"
-                      alt="Joko Yuliyanto"
+                      src="/images/dika.png"
+                      alt="Alif Arya Kusuma"
                       width={128}
                       height={128}
                       className="w-full h-auto text-gray-400"
                     />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    Joko Yuliyanto
+                    Andhika Prasetyo
                   </h3>
                   <p className="text-red-700 font-medium mb-3">Full Stack Developer</p>
                   <p className="text-gray-600 text-sm mb-4">

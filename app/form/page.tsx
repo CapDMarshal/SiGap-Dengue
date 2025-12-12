@@ -37,6 +37,10 @@ export default function FormPage() {
 function Step1() {
   const [user, setUser] = useState<User | null>(null)
   const supabase = createClient()
+  const [isDodging, setIsDodging] = useState(true)
+  const [isHunting, setIsHunting] = useState(true)
+  const [isFalling, setIsFalling] = useState(false)
+  const [isShot, setIsShot] = useState(false)
 
   useEffect(() => {
     // Get initial user
@@ -60,12 +64,100 @@ function Step1() {
   }, [])
 
   return (
-    <div className="flex flex-col items-center py-8 gap-y-12">
-      <img
-        src="/dengue.png"
-        alt="Dengue Illustration"
-        className="w-48 max-w-[50%]"
-      />
+    <div className="flex flex-col items-center pt-36 pb-24 gap-y-20">
+      {/* Animated mosquito illustration */}
+      <div className="relative w-full max-w-md p-6 sm:p-12 mx-auto">
+        <style jsx>{`
+          @keyframes mosquito-dodge {
+            0%, 100% { transform: translate(0, 0) rotate(12deg); }
+            25% { transform: translate(15px, -10px) rotate(-5deg); }
+            50% { transform: translate(-20px, 10px) rotate(25deg); }
+            75% { transform: translate(10px, 15px) rotate(0deg); }
+          }
+          
+          @keyframes crosshair-hunt {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(-15px, 10px) scale(1.05); }
+            50% { transform: translate(20px, -12px) scale(0.95); }
+            75% { transform: translate(-10px, -15px) scale(1.02); }
+          }
+          
+          @keyframes mosquito-fall {
+            0% { transform: translate(0, 0) rotate(12deg); opacity: 1; }
+            50% { transform: translate(0, 150px) rotate(180deg); opacity: 0.5; }
+            100% { transform: translate(0, 300px) rotate(360deg); opacity: 0; }
+          }
+          
+          @keyframes crosshair-lock {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(0, 0) scale(1.1); }
+          }
+          
+          @keyframes shot-flash {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+          }
+        `}</style>
+
+        <div className="absolute inset-0 flex items-center justify-center">
+          {/* Mosquito */}
+          <div
+            style={{
+              animation: isFalling
+                ? 'mosquito-fall 1.5s ease-in forwards'
+                : isDodging
+                  ? 'mosquito-dodge 3s ease-in-out infinite'
+                  : 'none',
+              transform: !isDodging && !isFalling ? 'rotate(12deg)' : undefined
+            }}
+          >
+            <img
+              src="/mosquito2.png"
+              alt="Mosquito Illustration"
+              className="w-32 h-32 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 object-contain"
+              style={{
+                filter: isShot ? 'brightness(0.5)' : 'none',
+                transition: 'filter 0.3s'
+              }}
+            />
+          </div>
+
+          {/* Red Crosshair - Appears when hunting */}
+          <div
+            className="absolute inset-0 flex items-center justify-center pointer-events-none"
+            style={{
+              opacity: isHunting ? 0.9 : 0,
+              animation: isShot
+                ? 'crosshair-lock 0.5s ease-in-out'
+                : isHunting
+                  ? 'crosshair-hunt 3s ease-in-out infinite'
+                  : 'none',
+              transition: 'opacity 0.5s'
+            }}
+          >
+            <svg className="w-48 h-48 lg:w-72 lg:h-72 text-red-500" viewBox="0 0 100 100" fill="none" stroke="currentColor">
+              <circle cx="50" cy="50" r="45" strokeWidth={isShot ? "3" : "1.5"} opacity={isShot ? "1" : "0.6"} style={{ transition: 'all 0.3s' }} />
+              <circle cx="50" cy="50" r="35" strokeWidth="1" opacity="0.4" />
+              <line x1="50" y1="5" x2="50" y2="25" strokeWidth="2" strokeLinecap="round" opacity={isShot ? "1" : "0.8"} />
+              <line x1="50" y1="75" x2="50" y2="95" strokeWidth="2" strokeLinecap="round" opacity={isShot ? "1" : "0.8"} />
+              <line x1="5" y1="50" x2="25" y2="50" strokeWidth="2" strokeLinecap="round" opacity={isShot ? "1" : "0.8"} />
+              <line x1="75" y1="50" x2="95" y2="50" strokeWidth="2" strokeLinecap="round" opacity={isShot ? "1" : "0.8"} />
+              <circle cx="50" cy="50" r={isShot ? "4" : "2"} fill="currentColor" style={{ transition: 'r 0.3s' }} />
+            </svg>
+          </div>
+
+          {/* Shot Flash Effect */}
+          {isShot && !isFalling && (
+            <div
+              className="absolute inset-0 bg-red-500 rounded-full pointer-events-none"
+              style={{
+                animation: 'shot-flash 0.3s ease-out',
+                mixBlendMode: 'screen'
+              }}
+            />
+          )}
+        </div>
+      </div>
       <div className="flex flex-col text-3xl font-extrabold sm:text-5xl gap-x-2">
         <span> Deteksi DBD hanya dengan </span>
         <span className="text-red-700"> beberapa pertanyaan saja! </span>
@@ -283,11 +375,11 @@ function FormGejalaUtama({ formData, setFormData }: FormProps) {
               </p>
             </label>
           </div>
-            <ul className="w-1/4 items-center text-sm font-medium bg-white rounded-lg sm:flex">
+            <ul className="w-full sm:w-1/2 items-center text-sm font-medium bg-white rounded-lg sm:flex gap-4 sm:gap-6 sm:divide-x sm:divide-gray-200">
             {['Iya', 'Tidak'].map((choice, index) => {
               const checked = formData.KDEMA === choice
               return (
-              <li key={choice} className="w-full rounded-lg border border-gray-200">
+              <li key={choice} className="flex-1 rounded-lg border border-gray-200">
                 <div
                 className={`flex items-center px-8 transition-colors duration-200 rounded-lg ${
                   checked ? 'bg-red-700 text-white' : 'bg-white text-gray-900'
@@ -483,13 +575,14 @@ function FormGejalaTambahan({ formData, setFormData }: FormProps) {
                     <p className="font-normal text-gray-700">{symptom.desc}</p>
                   </label>
                 </div>
-                <ul className="w-full items-center text-sm font-medium bg-white border border-gray-200 rounded-lg sm:flex">
+                <ul className="w-full items-center text-sm font-medium bg-white border border-gray-200 rounded-lg sm:flex gap-6 sm:gap-8 sm:divide-x sm:divide-gray-200">
                   {['Iya', 'Tidak'].map((choice, index) => {
                     const checked = formData[symptom.code] === choice
                     return (
                       <li
                         key={choice}
-                        className="w-full rounded-lg"
+                        className="flex-1 rounded-lg"
+                        style={{ minWidth: 0 }}
                       >
                         <div
                           className={`flex items-center px-8 transition-colors duration-200 rounded-lg ${
@@ -566,11 +659,11 @@ function FormUjiLab({ formData, setFormData }: FormProps) {
               </p>
             </label>
           </div>
-            <ul className="w-1/4 items-center text-sm font-medium bg-white rounded-lg sm:flex">
+            <ul className="w-full sm:w-1/2 items-center text-sm font-medium bg-white rounded-lg sm:flex gap-4 sm:gap-6 sm:divide-x sm:divide-gray-200">
             {['Sudah', 'Belum'].map((choice, index) => {
               const checked = formData.ULABO === choice
               return (
-              <li key={choice} className="w-full rounded-lg border border-gray-200">
+              <li key={choice} className="flex-1 rounded-lg border border-gray-200">
                 <div
                 className={`flex items-center px-8 transition-colors duration-200 rounded-lg ${
                   checked ? 'bg-red-700 text-white' : 'bg-white text-gray-900'

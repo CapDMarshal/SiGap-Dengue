@@ -7,7 +7,7 @@ import Navbar from './components/Navbar'
 import { createClient } from '../utils/supabase/client'
 import { User } from '@supabase/supabase-js'
 
-const LeafletMap = dynamic(() => import('./components/LeafletMap'), {
+const MapTilerMap = dynamic(() => import('./components/Maptiler'), {
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center h-full">
@@ -975,7 +975,7 @@ export default function Home() {
               </div>
             )}
             {!isLoadingPlot && plotData && isMounted && (
-              <LeafletMap
+              <MapTilerMap
                 data={plotData.data}
                 layout={plotData.layout}
               />

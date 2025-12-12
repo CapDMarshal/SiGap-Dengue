@@ -26,10 +26,10 @@ const FAQAccordion = () => {
   const faqData = [
     {
       question: "Bagaimana mengenali gejala awal DBD?",
-      icon: "🌡️",
+      icon: "❓",
       color: "red",
       content: [
-        { icon: "🔥", text: "Demam tinggi mendadak (38°C - 40°C) tanpa sebab yang jelas" },
+        { icon: "🌡️", text: "Demam tinggi mendadak (38°C - 40°C) tanpa sebab yang jelas" },
         { icon: "🤕", text: "Sakit kepala hebat yang terasa menusuk, terutama di area belakang mata" },
         { icon: "💪", text: "Nyeri otot dan sendi yang membuat tubuh terasa sangat pegal" },
         { icon: "🤢", text: "Mual, muntah, dan hilang nafsu makan secara tiba-tiba" },
@@ -310,14 +310,14 @@ export default function Home() {
               {/* Left Content */}
               <div className="text-left space-y-6 lg:pr-8">
                 <div className="inline-flex items-center gap-2 bg-red-50 border border-red-200 px-4 py-2 rounded-full text-red-600 text-sm font-medium">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                   Deteksi Dini. Akurat. Terpercaya.
                 </div>
 
                 <div className="space-y-4">
-                  <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight">
+                  <h1 className="text-4xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
                     <span className="block">Deteksi DBD</span>
                     <span className="block text-red-600">lebih dini!</span>
                   </h1>
@@ -612,30 +612,37 @@ export default function Home() {
                     </div>
 
                     {/* Medical Icons around mosquito */}
-                    <div className="absolute top-8 left-1/2 transform -translate-x-1/2 text-red-400 animate-bounce">
+                    <div className="absolute top-8 left-1/2 transform -translate-x-1/2 text-red-400 animate-bounce rotate-125">
                       <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                        {/* Top half - white */}
+                        <path d="M7 14 L7 9 Q7 4 12 4 Q17 4 17 9 L17 14 Z" fill="white" />
+                        {/* Bottom half - red */}
+                        <path d="M7 14 L7 19 Q7 24 12 24 Q17 24 17 19 L17 14 Z" fill="currentColor" />
+                        {/* Dividing line */}
+                        <path d="M7 14 L17 14" stroke="currentColor" strokeWidth="1" fill="none" />
                       </svg>
                     </div>
 
                     {/* Blood drop */}
                     <div className="absolute top-16 right-12 text-red-500 animate-pulse">
                       <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2s-8 8.5-8 12a8 8 0 1 0 16 0c0-3.5-8-12-8-12z" />
+                        <path d="M12 2C12 2 6 8 6 13C6 16.866 9.134 20 13 20C16.866 20 20 16.866 20 13C20 8 12 2 12 2Z" />
                       </svg>
                     </div>
 
                     {/* Temperature/thermometer */}
                     <div className="absolute bottom-16 left-12 text-red-400 animate-pulse" style={{ animationDelay: '0.5s' }}>
                       <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M15 13V5a3 3 0 0 0-6 0v8a5 5 0 1 0 6 0zM12 4a1 1 0 0 1 1 1v7.5a3 3 0 1 1-2 0V5a1 1 0 0 1 1-1z" />
+                        <rect x="10" y="3" width="4" height="12" rx="2" />
+                        <circle cx="12" cy="18" r="4" />
+                        <rect x="11" y="5" width="2" height="9" fill="white" opacity="0.3" />
                       </svg>
                     </div>
 
                     {/* Medical cross */}
                     <div className="absolute bottom-8 right-16 text-red-300 animate-pulse" style={{ animationDelay: '1s' }}>
                       <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+                        <path d="M14 2H10V10H2V14H10V22H14V14H22V10H14V2Z" />
                       </svg>
                     </div>
 
@@ -652,14 +659,22 @@ export default function Home() {
                     {/* Heart pulse */}
                     <div className="absolute bottom-20 right-8 text-red-400 animate-pulse" style={{ animationDelay: '2s' }}>
                       <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                        <path d="M12 21L10.55 19.7C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5C22 12.28 18.6 15.36 13.45 19.7L12 21Z" />
                       </svg>
                     </div>
 
                     {/* DNA strand */}
-                    <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-red-200 animate-spin" style={{ animationDuration: '10s' }}>
+                    <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-red-300 animate-spin" style={{ animationDuration: '10s' }}>
                       <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M4 4h4v4H4V4zm6 0h4v4h-4V4zm6 0h4v4h-4V4zM4 10h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4zM4 16h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4z" />
+                        <circle cx="8" cy="4" r="2" />
+                        <circle cx="16" cy="8" r="2" />
+                        <circle cx="8" cy="12" r="2" />
+                        <circle cx="16" cy="16" r="2" />
+                        <circle cx="8" cy="20" r="2" />
+                        <line x1="8" y1="4" x2="16" y2="8" stroke="currentColor" strokeWidth="1.5" />
+                        <line x1="16" y1="8" x2="8" y2="12" stroke="currentColor" strokeWidth="1.5" />
+                        <line x1="8" y1="12" x2="16" y2="16" stroke="currentColor" strokeWidth="1.5" />
+                        <line x1="16" y1="16" x2="8" y2="20" stroke="currentColor" strokeWidth="1.5" />
                       </svg>
                     </div>
                   </div>
@@ -719,9 +734,7 @@ export default function Home() {
               Langkah-langkah sederhana untuk melindungi diri dan keluarga dari bahaya Demam Berdarah Dengue
             </p>
             <div className="inline-flex items-center gap-2 bg-red-50 border border-red-200 px-4 py-2 rounded-full text-red-600 text-sm font-medium">
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM9 7a1 1 0 11-2 0 1 1 0 012 0zM7 10a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1H8a1 1 0 01-1-1v-3z" />
-              </svg>
+              <span className="font-bold text-base">3M+</span>
               Metode 3M Plus - Cara Terbukti Efektif
             </div>
           </div>
@@ -739,9 +752,8 @@ export default function Home() {
             <div className="group bg-red-50 rounded-xl p-5 shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 border border-red-200">
               <div className="text-center">
                 <div className="w-14 h-14 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center group-hover:bg-red-200 transition-colors">
-                  <svg className="w-7 h-7 text-red-700" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2s-8 8.5-8 12a8 8 0 1 0 16 0c0-3.5-8-12-8-12zm0 18a6 6 0 0 1-6-6c0-2.17 3.5-6.5 6-9.47C14.5 7.5 18 11.83 18 14a6 6 0 0 1-6 6z" />
-                    <circle cx="12" cy="14" r="2" fill="white" />
+                  <svg className="w-7 h-7 text-red-700" fill="currentColor" viewBox="0 0 32 32">
+                    <path d="M28 13.25h-24c-0.414 0-0.75 0.336-0.75 0.75s0.336 0.75 0.75 0.75h1.821l3.353 15.41c0.076 0.34 0.375 0.59 0.732 0.59h12.188c0.357 0 0.656-0.25 0.731-0.585l3.354-15.41h1.82c0.414 0 0.75-0.336 0.75-0.75s-0.336-0.75-0.75-0.75zM6.779 10.752c0.414 0 0.749-0.335 0.75-0.749 0-2.498 1.384-4.673 3.427-5.8 1.417-0.785 3.107-1.247 4.904-1.247 1.806 0 3.502 0.466 4.976 1.285 2.063 1.142 3.437 3.306 3.437 5.791 0 0.414 0.336 0.75 0.75 0.75s0.749-0.335 0.75-0.749c0-3.040-1.67-5.689-4.143-7.080-1.639-0.914-3.595-1.451-5.676-1.451-2.072 0-4.020 0.533-5.714 1.47-2.529 1.415-4.211 4.077-4.211 7.131 0 0.414 0.335 0.749 0.749 0.75z" />
                   </svg>
                 </div>
                 <h3 className="text-base font-semibold text-gray-900 mb-2">
@@ -761,9 +773,14 @@ export default function Home() {
               <div className="text-center">
                 <div className="w-14 h-14 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center group-hover:bg-red-200 transition-colors">
                   <svg className="w-7 h-7 text-red-700" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z" />
-                    <path d="M7 10h10v7H7z" opacity="0.6" />
-                    <path d="M9 7h6v2H9z" />
+                    {/* Drum with water and lid */}
+                    <ellipse cx="12" cy="6" rx="7" ry="2" fill="currentColor" />
+                    <rect x="5" y="6" width="14" height="12" rx="1" />
+                    <ellipse cx="12" cy="18" rx="7" ry="2" fill="currentColor" opacity="0.8" />
+                    {/* Water waves */}
+                    <path d="M6 10H18M6 14H18" stroke="white" strokeWidth="1" opacity="0.3" />
+                    {/* Lid handle */}
+                    <rect x="10" y="4" width="4" height="1.5" rx="0.5" fill="currentColor" opacity="0.5" />
                   </svg>
                 </div>
                 <h3 className="text-base font-semibold text-gray-900 mb-2">
@@ -782,9 +799,10 @@ export default function Home() {
             <div className="group bg-red-50 rounded-xl p-5 shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 border border-red-200">
               <div className="text-center">
                 <div className="w-14 h-14 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center group-hover:bg-red-200 transition-colors">
-                  <svg className="w-7 h-7 text-red-700" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2v6l4-4-4-4zM21 9l-4 4 4 4v-8zM12 22v-6l-4 4 4 4zM3 15l4-4-4-4v8z" />
-                    <circle cx="12" cy="12" r="2" opacity="0.6" />
+                  <svg className="w-7 h-7 text-red-700" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 3.1l1.4 2.2-1.6 1.1 1.3 0.3 2.8 0.6 0.6-2.7 0.4-1.4-1.8 1.1-2-3.3h-2.2l-2.6 4.3 1.7 1z" />
+                    <path d="M16 12l-2.7-4.3-1.7 1 2 3.3h-2.6v-2l-3 3 3 3v-2h3.7z" />
+                    <path d="M2.4 12v0l1.4-2.3 1.7 1.1-0.9-4.2-2.8 0.7-1.3 0.3 1.6 1-2.1 3.4 1.3 2h5.7v-2z" />
                   </svg>
                 </div>
                 <h3 className="text-base font-semibold text-gray-900 mb-2">
@@ -804,8 +822,7 @@ export default function Home() {
               <div className="text-center">
                 <div className="w-14 h-14 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center group-hover:bg-red-200 transition-colors">
                   <svg className="w-7 h-7 text-red-700" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-                    <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.3" />
+                    <path clipRule="evenodd" d="M10.4269 2.42148C11.4003 1.85951 12.5996 1.8595 13.573 2.42148L19.5087 5.84848C20.4821 6.41046 21.0817 7.44904 21.0817 8.573V15.427C21.0817 16.551 20.4821 17.5895 19.5087 18.1515L13.573 21.5785C12.5996 22.1405 11.4003 22.1405 10.4269 21.5785L4.49122 18.1515C3.51784 17.5895 2.91821 16.551 2.91821 15.427V8.573C2.91821 7.44904 3.51784 6.41046 4.49122 5.84848L10.4269 2.42148ZM15.75 12C15.75 12.4142 15.4142 12.75 15 12.75H12.75V15C12.75 15.4142 12.4142 15.75 12 15.75C11.5858 15.75 11.25 15.4142 11.25 15V12.75H9C8.58579 12.75 8.25 12.4142 8.25 12C8.25 11.5858 8.58579 11.25 9 11.25H11.25V9C11.25 8.58579 11.5858 8.25 12 8.25C12.4142 8.25 12.75 8.58579 12.75 9V11.25H15C15.4142 11.25 15.75 11.5858 15.75 12Z" fillRule="evenodd" />
                   </svg>
                 </div>
                 <h3 className="text-base font-semibold text-gray-900 mb-2">
@@ -834,8 +851,8 @@ export default function Home() {
             <div className="bg-red-50 rounded-xl p-6 border border-red-200">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
-                  <svg className="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" />
+                  <svg className="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 100 100">
+                    <path d="M50,12.5c-20.712,0-37.5,16.793-37.5,37.502C12.5,70.712,29.288,87.5,50,87.5c20.712,0,37.5-16.788,37.5-37.498C87.5,29.293,70.712,12.5,50,12.5z M53.826,70.86c0,0.72-0.584,1.304-1.304,1.304h-5.044c-0.72,0-1.304-0.583-1.304-1.304V46.642c0-0.72,0.584-1.304,1.304-1.304h5.044c0.72,0,1.304,0.583,1.304,1.304V70.86z M49.969,39.933c-2.47,0-4.518-2.048-4.518-4.579c0-2.53,2.048-4.518,4.518-4.518c2.531,0,4.579,1.987,4.579,4.518C54.549,37.885,52.5,39.933,49.969,39.933z" />
                   </svg>
                 </div>
                 <h3 className="text-lg font-semibold text-red-800">Waspadai Gejala DBD</h3>
@@ -868,9 +885,8 @@ export default function Home() {
             <div className="bg-yellow-50 rounded-xl p-6 border border-yellow-200">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
-                  <svg className="w-5 h-5 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10 2L3 7v11c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V7l-7-5z" />
-                    <path d="M9 10h2v6H9v-6zm0-4h2v2H9V6z" fill="white" />
+                  <svg className="w-5 h-5 text-yellow-600" fill="currentColor" viewBox="0 0 16 16">
+                    <path clipRule="evenodd" d="M13 1H3V5H0V15H16V5H13V1ZM7 6V8H5V10H7V12H9V10H11V8H9V6H7Z" fillRule="evenodd" />
                   </svg>
                 </div>
                 <h3 className="text-lg font-semibold text-yellow-800">Segera ke Dokter Jika</h3>
@@ -1170,7 +1186,7 @@ export default function Home() {
       <section className="py-16 bg-gradient-to-r from-red-600 to-red-800">
         <div className="mx-auto max-w-screen-xl px-4">
           <div className="text-center text-white">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl mb-4">
               Deteksi DBD Sejak Dini
             </h2>
             <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto opacity-90">

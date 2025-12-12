@@ -80,6 +80,19 @@ export default function SignUpForm({ onSuccess }: SignUpFormProps) {
     setLoading(true)
 
     try {
+      // Debug logging: show payload (without full password) and where it will redirect
+      try {
+        console.groupCollapsed('SignUp Debug')
+        console.debug('payload', {
+          email,
+          passwordMask: password ? `${'*'.repeat(Math.min(3, password.length))} (length:${password.length})` : null,
+          redirectTo: `${window.location.origin}/form`,
+          full_name: fullName,
+        })
+      } catch (_) {
+        // ignore any console errors in older browsers
+      }
+
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
@@ -91,7 +104,18 @@ export default function SignUpForm({ onSuccess }: SignUpFormProps) {
         },
       })
 
-      if (error) throw error
+      // Log the raw response for debugging
+      try {
+        console.debug('supabase.auth.signUp response', { data, error })
+      } catch (_) {}
+
+      if (error) {
+        // Provide detailed console output to help debug 500 from Supabase
+        try {
+          console.error('SignUp error', error)
+        } catch (_) {}
+        throw error
+      }
 
       if (data.user?.identities?.length === 0) {
         // Email already registered
@@ -116,9 +140,18 @@ export default function SignUpForm({ onSuccess }: SignUpFormProps) {
         }, 2000)
       }
     } catch (error: any) {
+      // More verbose logging for the UI and console
+      try {
+        console.groupEnd()
+      } catch (_) {}
+
+      try {
+        console.error('Signup caught error (UI will show message):', error)
+      } catch (_) {}
+
       setMessage({
         type: 'error',
-        text: error.message || 'Terjadi kesalahan. Silakan coba lagi.',
+        text: error?.message || 'Terjadi kesalahan. Silakan coba lagi.',
       })
     } finally {
       setLoading(false)

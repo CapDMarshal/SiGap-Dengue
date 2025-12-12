@@ -23,6 +23,11 @@ CREATE POLICY "Public articles are viewable by everyone"
 ON public.news_articles FOR SELECT
 USING (true);
 
+-- Policy: Allow authenticated users and service role to insert news articles
+CREATE POLICY "Authenticated users can insert news articles"
+ON public.news_articles FOR INSERT
+WITH CHECK (true);
+
 
 -- Table: dengue_checks
 -- Used in: lib/dengue-service.ts

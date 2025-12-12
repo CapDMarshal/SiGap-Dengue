@@ -117,7 +117,7 @@ export default function PreventionChecklistPage() {
       .select('*')
       .eq('user_id', userId)
       .eq('week_start', weekStart)
-      .single()
+      .maybeSingle()
 
     if (existingProgress) {
       setWeeklyProgress(existingProgress)

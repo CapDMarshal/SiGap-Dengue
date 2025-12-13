@@ -10,13 +10,13 @@ import { createClient } from '../../utils/supabase/client'
 
 export default function RegisterPage() {
   const router = useRouter()
-  const supabase = createClient()
 
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     // Check if user is already logged in
     const checkUser = async () => {
+      const supabase = createClient()
       const {
         data: { session },
       } = await supabase.auth.getSession()
@@ -25,12 +25,13 @@ export default function RegisterPage() {
       }
     }
     checkUser()
-  }, [router, supabase])
+  }, [router])
 
   const handleGoogleAuth = async () => {
     setLoading(true)
 
     try {
+      const supabase = createClient()
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
@@ -63,7 +64,8 @@ export default function RegisterPage() {
                     alt="Dengue Logo"
                     width={96}
                     height={96}
-                    className="w-24 mx-auto mb-4"
+                    priority
+                    className="mx-auto mb-4"
                   />
                   <h1 className="text-3xl font-extrabold text-gray-900">
                     Daftar Akun

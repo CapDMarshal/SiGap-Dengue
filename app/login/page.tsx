@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import Navbar from '../components/Navbar'
 import LoginForm from '../components/LoginForm'
 import { createClient } from '../../utils/supabase/client'
@@ -77,10 +78,13 @@ function LoginContent() {
             <div className="mx-auto max-w-md w-full">
               <div className="bg-white rounded-lg shadow-lg p-8">
                 <div className="text-center mb-8">
-                  <img
+                  <Image
                     src="/dengue.png"
                     alt="Dengue Logo"
-                    className="w-24 mx-auto mb-4"
+                    width={96}
+                    height={96}
+                    priority
+                    className="mx-auto mb-4"
                   />
                   <h1 className="text-3xl font-extrabold text-gray-900">
                     Masuk

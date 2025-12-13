@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense } from 'react'
+import { Suspense, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Navbar from '../components/Navbar'
 import Stepper from '../components/Stepper'
@@ -10,16 +10,17 @@ import Step2Container from '../components/form/Step2Container'
 function FormContent() {
   const searchParams = useSearchParams()
   const step = parseInt(searchParams.get('step') || '0')
+  const [currentStep, setCurrentStep] = useState(1)
 
   return (
-    <div>
+    <div className="min-h-screen bg-slate-50">
       <Navbar active="form" />
       <div style={{ top: 0, marginTop: 80 }}>
-        <Stepper active={step} />
+        <Stepper active={step} currentStep={currentStep} />
       </div>
 
       {step === 0 && <Step1Landing />}
-      {step === 1 && <Step2Container />}
+      {step === 1 && <Step2Container onStepChange={setCurrentStep} />}
     </div>
   )
 }

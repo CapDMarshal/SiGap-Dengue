@@ -68,7 +68,7 @@ export default function FormUjiLab({ formData, setFormData }: FormProps) {
                             <img
                                 src="/white-blood-cell.png"
                                 alt="Question"
-                                className="w-16 flex-shrink-0"
+                                className={`w-16 flex-shrink-0 transition-all ${isUjiLabDisabled ? 'grayscale opacity-50' : ''}`}
                             />
                             <label className="flex flex-col flex-1">
                                 <h5 className="mb-2 text-xl font-medium tracking-tight text-gray-900">
@@ -83,7 +83,7 @@ export default function FormUjiLab({ formData, setFormData }: FormProps) {
                         <input
                             type="number"
                             name="JWBCS"
-                            className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-700 focus:border-red-700 block p-2.5"
+                            className={`w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-700 focus:border-red-700 block p-2.5 transition-all ${isUjiLabDisabled ? 'grayscale opacity-50 cursor-not-allowed' : ''}`}
                             min={1.0}
                             max={15.0}
                             step={0.1}
@@ -101,7 +101,7 @@ export default function FormUjiLab({ formData, setFormData }: FormProps) {
                             <img
                                 src="/red-blood-cells.png"
                                 alt="Question"
-                                className="w-16 flex-shrink-0"
+                                className={`w-16 flex-shrink-0 transition-all ${isUjiLabDisabled ? 'grayscale opacity-50' : ''}`}
                             />
                             <label className="flex flex-col flex-1">
                                 <h5 className="mb-2 text-xl font-medium tracking-tight text-gray-900">
@@ -116,7 +116,7 @@ export default function FormUjiLab({ formData, setFormData }: FormProps) {
                         <input
                             type="number"
                             name="HEMOG"
-                            className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-700 focus:border-red-700 block p-2.5"
+                            className={`w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-700 focus:border-red-700 block p-2.5 transition-all ${isUjiLabDisabled ? 'grayscale opacity-50 cursor-not-allowed' : ''}`}
                             min={10.0}
                             max={20.0}
                             step={0.1}
@@ -136,7 +136,7 @@ export default function FormUjiLab({ formData, setFormData }: FormProps) {
                             <img
                                 src="/blood-test.png"
                                 alt="Question"
-                                className="w-16 flex-shrink-0"
+                                className={`w-16 flex-shrink-0 transition-all ${isUjiLabDisabled ? 'grayscale opacity-50' : ''}`}
                             />
                             <label className="flex flex-col flex-1">
                                 <h5 className="mb-2 text-xl font-medium tracking-tight text-gray-900">
@@ -151,7 +151,7 @@ export default function FormUjiLab({ formData, setFormData }: FormProps) {
                         <input
                             type="number"
                             name="HEMAT"
-                            className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-700 focus:border-red-700 block p-2.5"
+                            className={`w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-700 focus:border-red-700 block p-2.5 transition-all ${isUjiLabDisabled ? 'grayscale opacity-50 cursor-not-allowed' : ''}`}
                             min={1}
                             max={70}
                             step={1}
@@ -169,7 +169,7 @@ export default function FormUjiLab({ formData, setFormData }: FormProps) {
                             <img
                                 src="/thermometer.png"
                                 alt="Question"
-                                className="w-16 flex-shrink-0"
+                                className={`w-16 flex-shrink-0 transition-all ${isUjiLabDisabled ? 'grayscale opacity-50' : ''}`}
                             />
                             <label className="flex flex-col flex-1">
                                 <h5 className="mb-2 text-xl font-medium tracking-tight text-gray-900">
@@ -183,7 +183,7 @@ export default function FormUjiLab({ formData, setFormData }: FormProps) {
                         <input
                             type="number"
                             name="JPLAT"
-                            className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-700 focus:border-red-700 block p-2.5"
+                            className={`w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-700 focus:border-red-700 block p-2.5 transition-all ${isUjiLabDisabled ? 'grayscale opacity-50 cursor-not-allowed' : ''}`}
                             min={1}
                             max={700}
                             step={1}

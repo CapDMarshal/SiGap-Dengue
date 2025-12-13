@@ -130,7 +130,7 @@ export default function Navbar({ active }: NavbarProps) {
 
   return (
     <nav className="bg-white dark:bg-white fixed w-full z-50 top-0 start-0 border-2 border-gray-200">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 relative">
         <div className="flex items-center space-x-3 rtl:space-x-reverse w-fit">
           <a
             href="/"
@@ -139,7 +139,7 @@ export default function Navbar({ active }: NavbarProps) {
             rel="noopener noreferrer"
           >
             {/* Logo untuk mobile - ukuran lebih kecil */}
-            <img src="/dengue.png" className="h-8 md:h-10" alt="Dengue Checker Logo" />
+            <img src="/dengue.png" className="h-8 md:h-10" alt="SiGap Dengue Logo" />
           </a>
         </div>
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse gap-3">
@@ -282,7 +282,7 @@ export default function Navbar({ active }: NavbarProps) {
         </div>
         <div
           className={`items-center justify-between ${isOpen ? '' : 'hidden'
-            } w-full md:flex md:w-auto md:order-1`}
+            } w-full md:flex md:w-auto md:order-1 md:absolute md:left-1/2 md:-translate-x-1/2`}
           id="navbar-sticky"
         >
           <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
@@ -385,7 +385,7 @@ export default function Navbar({ active }: NavbarProps) {
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className={`w-5 h-5 ${active === 'checklist'
-                      ? 'text-red-600'
+                      ? 'text-red-700'
                       : 'text-gray-900 group-hover:text-red-700'
                       }`}
                     viewBox="0 0 24 24"

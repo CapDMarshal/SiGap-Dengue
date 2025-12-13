@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
+import Footer from './components/Footer'
 import Navbar from './components/Navbar'
 import { createClient } from '../utils/supabase/client'
 import { User } from '@supabase/supabase-js'
@@ -205,7 +206,7 @@ const FAQAccordion = () => {
                 </p>
                 <Link
                   href="/form"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-medium transition-colors shadow-md hover:shadow-lg"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-red-700 hover:bg-red-700 text-white rounded-lg text-sm font-medium transition-colors shadow-md hover:shadow-lg"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -367,7 +368,7 @@ export default function Home() {
 
               {/* Left Content */}
               <div className="text-left space-y-6 lg:pr-8">
-                <div className="inline-flex items-center gap-2 bg-red-50 border border-red-200 px-4 py-2 rounded-full text-red-600 text-sm font-medium">
+                <div className="inline-flex items-center gap-2 bg-red-100 border border-red-700 px-4 py-2 rounded-full text-red-700 text-sm font-medium">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
@@ -517,15 +518,15 @@ export default function Home() {
                 {/* Stats */}
                 <div className="flex gap-8 pt-8">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-red-600">98%</div>
+                    <div className="text-2xl font-bold text-red-700">98%</div>
                     <div className="text-gray-500 text-sm">Akurasi</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-red-600">5 Menit</div>
+                    <div className="text-2xl font-bold text-red-700">5 Menit</div>
                     <div className="text-gray-500 text-sm">Hasil Cepat</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-red-600">24/7</div>
+                    <div className="text-2xl font-bold text-red-700">24/7</div>
                     <div className="text-gray-500 text-sm">Tersedia</div>
                   </div>
                 </div>
@@ -536,8 +537,8 @@ export default function Home() {
                 <div className="relative">
                   {/* Main Background Circle */}
                   <div className="relative w-80 h-80 lg:w-96 lg:h-96 mx-auto">
-                    <div className="absolute inset-0 bg-gradient-to-br from-red-500 to-red-600 rounded-full shadow-xl opacity-10"></div>
-                    <div className="absolute inset-4 bg-gradient-to-br from-red-400 to-red-500 rounded-full opacity-20"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-red-700 to-red-700 rounded-full shadow-xl opacity-10"></div>
+                    <div className="absolute inset-4 bg-gradient-to-br from-red-400 to-red-700 rounded-full opacity-20"></div>
 
                     {/* Main Mosquito Illustration - Scroll-triggered Hunt Sequence */}
                     <div className="absolute inset-16 flex items-center justify-center">
@@ -608,7 +609,7 @@ export default function Home() {
                           transition: 'opacity 0.5s'
                         }}
                       >
-                        <svg className="w-48 h-48 lg:w-72 lg:h-72 text-red-500" viewBox="0 0 100 100" fill="none" stroke="currentColor">
+                        <svg className="w-48 h-48 lg:w-72 lg:h-72 text-red-700" viewBox="0 0 100 100" fill="none" stroke="currentColor">
                           {/* Outer circle */}
                           <circle
                             cx="50"
@@ -660,7 +661,7 @@ export default function Home() {
                       {/* Shot Flash Effect */}
                       {isShot && !isFalling && (
                         <div
-                          className="absolute inset-0 bg-red-500 rounded-full pointer-events-none"
+                          className="absolute inset-0 bg-red-700 rounded-full pointer-events-none"
                           style={{
                             animation: 'shot-flash 0.3s ease-out',
                             mixBlendMode: 'screen'
@@ -682,7 +683,7 @@ export default function Home() {
                     </div>
 
                     {/* Blood drop */}
-                    <div className="absolute top-16 right-12 text-red-500 animate-pulse">
+                    <div className="absolute top-16 right-12 text-red-700 animate-pulse">
                       <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 2C12 2 6 8 6 13C6 16.866 9.134 20 13 20C16.866 20 20 16.866 20 13C20 8 12 2 12 2Z" />
                       </svg>
@@ -809,7 +810,7 @@ export default function Home() {
             <p className="text-gray-600 text-base lg:text-lg max-w-2xl mx-auto mb-4">
               Langkah-langkah sederhana untuk melindungi diri dan keluarga dari bahaya Demam Berdarah Dengue
             </p>
-            <div className="inline-flex items-center gap-2 bg-red-50 border border-red-200 px-4 py-2 rounded-full text-red-600 text-sm font-medium">
+            <div className="inline-flex items-center gap-2 bg-red-100 border border-red-700 px-4 py-2 rounded-full text-red-700 text-sm font-medium">
               <span className="font-bold text-base">3M+</span>
               Metode 3M Plus - Cara Terbukti Efektif
             </div>
@@ -847,7 +848,7 @@ export default function Home() {
             {/* Gejala DBD */}
             <TipsDetailCard
               icon={
-                <svg className="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 100 100">
+                <svg className="w-5 h-5 text-red-700" fill="currentColor" viewBox="0 0 100 100">
                   <path d="M50,12.5c-20.712,0-37.5,16.793-37.5,37.502C12.5,70.712,29.288,87.5,50,87.5c20.712,0,37.5-16.788,37.5-37.498C87.5,29.293,70.712,12.5,50,12.5z M53.826,70.86c0,0.72-0.584,1.304-1.304,1.304h-5.044c-0.72,0-1.304-0.583-1.304-1.304V46.642c0-0.72,0.584-1.304,1.304-1.304h5.044c0.72,0,1.304,0.583,1.304,1.304V70.86z M49.969,39.933c-2.47,0-4.518-2.048-4.518-4.579c0-2.53,2.048-4.518,4.518-4.518c2.531,0,4.579,1.987,4.579,4.518C54.549,37.885,52.5,39.933,49.969,39.933z" />
                 </svg>
               }
@@ -902,10 +903,10 @@ export default function Home() {
             {!isLoadingPlot && !plotData && (
               <div className="flex items-center justify-center h-full">
                 <div className="text-center">
-                  <svg className="w-16 h-16 text-red-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-16 h-16 text-red-700 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                   </svg>
-                  <p className="text-red-500 font-medium">Gagal memuat data peta</p>
+                  <p className="text-red-700 font-medium">Gagal memuat data peta</p>
                   <p className="text-gray-500 text-sm mt-2">Silakan refresh halaman atau coba lagi nanti</p>
                 </div>
               </div>
@@ -1183,97 +1184,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white">
-        <div className="mx-auto max-w-screen-xl px-4 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {/* Column 1: About */}
-            <div className="col-span-1 md:col-span-2">
-              <div className="flex items-center gap-3 mb-4">
-                <img src="/dengue.png" className="h-10" alt="UTY Logo" />
-                <h3 className="text-xl font-bold">Dengue Checker</h3>
-              </div>
-              <p className="text-gray-400 mb-4">
-                Sistem deteksi dini Demam Berdarah Dengue berbasis AI untuk membantu masyarakat Indonesia mendapatkan diagnosa lebih cepat dan akurat.
-              </p>
-
-            </div>
-
-            {/* Column 2: Quick Links */}
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Tautan Cepat</h4>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/" className="text-gray-400 hover:text-white transition-colors">
-                    Beranda
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/form" className="text-gray-400 hover:text-white transition-colors">
-                    Periksa Sekarang
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/about" className="text-gray-400 hover:text-white transition-colors">
-                    Tentang
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/history" className="text-gray-400 hover:text-white transition-colors">
-                    Riwayat
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/login" className="text-gray-400 hover:text-white transition-colors">
-                    Masuk
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Column 3: Resources */}
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Informasi</h4>
-              <ul className="space-y-2">
-                <li>
-                  <a
-                    href="https://www.who.int/news-room/fact-sheets/detail/dengue-and-severe-dengue"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    Tentang DBD (WHO)
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.kemkes.go.id"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    Kemenkes RI
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://uty.ac.id"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    Tentang UTY
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Bottom Bar */}
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; {new Date().getFullYear()} Dengue Checker - Universitas Teknologi Yogyakarta. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

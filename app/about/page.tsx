@@ -37,7 +37,7 @@ export default function AboutPage() {
               <div>
                 <img
                   src="/dengue.png"
-                  alt="Dengue Checker"
+                  alt="SiGap Dengue"
                   className="w-full max-w-md mx-auto"
                 />
               </div>

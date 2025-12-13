@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import NextImage from 'next/image'
 import Navbar from '../components/Navbar'
 
 // Interface untuk artikel berita
@@ -159,10 +160,13 @@ export default function ArticlesPage() {
                     <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
                       <div className="aspect-video bg-gradient-to-r from-red-400 to-red-500 overflow-hidden">
                         {article.urlToImage ? (
-                          <img
+                          <NextImage
                             src={article.urlToImage}
                             alt={article.title}
+                            width={800}
+                            height={450}
                             className="w-full h-full object-cover"
+                            unoptimized // External images from news API
                             onError={(e) => {
                               e.currentTarget.style.display = 'none'
                               e.currentTarget.parentElement!.innerHTML = '<div class="w-full h-full flex items-center justify-center text-white text-6xl">📰</div>'

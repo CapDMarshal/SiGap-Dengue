@@ -21,13 +21,24 @@ export default function HeroSection({ user, isLoading }: HeroSectionProps) {
     const isShot = hasShot && shootProgress > 0.2
     const isFalling = hasShot && shootProgress > 0.4
 
-    // Simple shoot animation on first scroll
+    // Simple shoot animation on scroll - resets when scrolling back up
     useEffect(() => {
+        let lastScrollY = window.scrollY
+
         const handleScroll = () => {
-            // Trigger shoot on any scroll in hero section
-            if (window.scrollY > 10 && !hasShot) {
+            const currentScrollY = window.scrollY
+
+            // Reset animation when scrolling back to top
+            if (currentScrollY < 10 && hasShot) {
+                setHasShot(false)
+                setShootProgress(0)
+            }
+            // Trigger shoot on scroll down
+            else if (currentScrollY > 10 && !hasShot) {
                 setHasShot(true)
             }
+
+            lastScrollY = currentScrollY
         }
 
         window.addEventListener('scroll', handleScroll, { passive: true })

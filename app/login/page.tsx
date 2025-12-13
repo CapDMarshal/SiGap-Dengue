@@ -44,11 +44,14 @@ function LoginContent() {
       console.log('Window location:', window.location.href)
       console.log('Window origin:', window.location.origin)
       console.log('Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL)
-      
+
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+        },
       })
-      
+
       console.log('Auth response:', { data, error })
 
       if (error) throw error

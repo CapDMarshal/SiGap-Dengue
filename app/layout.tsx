@@ -16,6 +16,7 @@ export default function RootLayout({
     <html lang="id">
       <head>
         <link rel="shortcut icon" href="/uty_logo.png" type="image/x-icon" />
+        <link rel="preload" as="image" href="/magnifying_glass.jpg" />
       </head>
       <body>
         {children}

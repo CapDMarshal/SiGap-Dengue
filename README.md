@@ -1,7 +1,7 @@
-# Dengue Checker 🦟
+# SiGap Dengue 🦟
 
 <div align="center">
-  <img src="public/dengue.png" alt="Dengue Checker Logo" width="120"/>
+  <img src="public/dengue.png" alt="SiGap Dengue Logo" width="120"/>
   
   <p><strong>Sistem Deteksi Dini Demam Berdarah Dengue Berbasis AI</strong></p>
   
@@ -17,7 +17,7 @@
 
 ## 📖 Tentang Aplikasi
 
-**Dengue Checker** adalah aplikasi web yang dirancang untuk membantu masyarakat Indonesia melakukan deteksi dini Demam Berdarah Dengue (DBD) secara mandiri. Dengan memanfaatkan algoritma Machine Learning seperti **Logistic Regression** dan **Support Vector Machine (SVM)**, aplikasi ini dapat memprediksi kemungkinan seseorang terkena DBD berdasarkan gejala klinis dan hasil laboratorium.
+**SiGap Dengue** adalah aplikasi web yang dirancang untuk membantu masyarakat Indonesia melakukan deteksi dini Demam Berdarah Dengue (DBD) secara mandiri. Dengan memanfaatkan algoritma Machine Learning seperti **Logistic Regression** dan **Support Vector Machine (SVM)**, aplikasi ini dapat memprediksi kemungkinan seseorang terkena DBD berdasarkan gejala klinis dan hasil laboratorium.
 
 ### 🎯 Manfaat Aplikasi
 
@@ -548,5 +548,5 @@ Aplikasi ini **BUKAN** pengganti diagnosis medis profesional. Hasil prediksi han
 
 <div align="center">
   <p>Made with ❤️ for Indonesian Healthcare</p>
-  <p>© 2025 Dengue Checker - Universitas Teknologi Yogyakarta</p>
+  <p>© 2025 SiGap Dengue - Universitas Teknologi Yogyakarta</p>
 </div>

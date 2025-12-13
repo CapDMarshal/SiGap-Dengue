@@ -86,7 +86,7 @@ export default function ProfilePage() {
       requirement: '10 minggu berturut-turut ≥50%',
       isEarned: false
     },
-    
+
     // Perfect Completion Streaks
     {
       id: 'perfect_3_weeks',
@@ -118,7 +118,7 @@ export default function ProfilePage() {
       requirement: '10 minggu 100% berturut-turut',
       isEarned: false
     },
-    
+
     // Completion Milestones
     {
       id: 'total_10_weeks',
@@ -166,7 +166,7 @@ export default function ProfilePage() {
     const getUser = async () => {
       const { data: { user } } = await supabase.auth.getUser()
       setUser(user)
-      
+
       if (user) {
         await Promise.all([
           loadUserProfile(user.id),
@@ -182,16 +182,16 @@ export default function ProfilePage() {
   const loadUserProfile = async (userId: string) => {
     try {
       console.log('Loading profile for user:', userId)
-      
+
       const { data: profile, error } = await supabase
         .from('user_profiles')
         .select('*')
         .eq('id', userId)
         .single()
-      
+
       if (error) {
         console.error('Profile query error:', error)
-        
+
         // If profile doesn't exist, try to create one
         if (error.code === 'PGRST116') {
           console.log('Profile not found, creating new profile...')
@@ -199,10 +199,10 @@ export default function ProfilePage() {
           return
         }
       }
-      
+
       console.log('Profile loaded:', profile)
       setUserProfile(profile)
-      
+
     } catch (error) {
       console.error('Error loading user profile:', error)
       // Try to create profile if it doesn't exist
@@ -213,32 +213,32 @@ export default function ProfilePage() {
   const createUserProfile = async (userId: string) => {
     try {
       console.log('Creating profile for user:', userId)
-      
+
       // Get user metadata from auth
       const { data: { user: authUser } } = await supabase.auth.getUser()
-      
+
       const profileData = {
         id: userId,
-        full_name: authUser?.user_metadata?.full_name || 
-                   authUser?.user_metadata?.name || 
-                   authUser?.email?.split('@')[0] || 
-                   'User',
+        full_name: authUser?.user_metadata?.full_name ||
+          authUser?.user_metadata?.name ||
+          authUser?.email?.split('@')[0] ||
+          'User',
         avatar_url: authUser?.user_metadata?.avatar_url || null
       }
-      
+
       const { data: newProfile, error } = await supabase
         .from('user_profiles')
         .insert([profileData])
         .select()
         .single()
-      
+
       if (error) {
         console.error('Error creating profile:', error)
       } else {
         console.log('Profile created successfully:', newProfile)
         setUserProfile(newProfile)
       }
-      
+
     } catch (error) {
       console.error('Error in createUserProfile:', error)
     }
@@ -272,10 +272,10 @@ export default function ProfilePage() {
       const averageCompletion = Math.round(
         weeklyRecords.reduce((sum, record) => sum + record.completion_percentage, 0) / totalWeeks
       )
-      
+
       // Calculate current and longest streak
       const { currentStreak, longestStreak } = calculateStreaks(weeklyRecords)
-      
+
       // Get earned badges count
       const { count: badgeCount } = await supabase
         .from('user_achievements')
@@ -303,7 +303,7 @@ export default function ProfilePage() {
     let tempStreak = 0
 
     // Sort by week_start descending to calculate current streak
-    const sortedRecords = [...records].sort((a, b) => 
+    const sortedRecords = [...records].sort((a, b) =>
       new Date(b.week_start).getTime() - new Date(a.week_start).getTime()
     )
 
@@ -317,7 +317,7 @@ export default function ProfilePage() {
     }
 
     // Calculate longest streak
-    const sortedForLongest = [...records].sort((a, b) => 
+    const sortedForLongest = [...records].sort((a, b) =>
       new Date(a.week_start).getTime() - new Date(b.week_start).getTime()
     )
 
@@ -343,7 +343,7 @@ export default function ProfilePage() {
 
       const updatedBadges = allBadges.map(badge => {
         const earnedBadge = { ...badge }
-        
+
         if (!weeklyRecords || weeklyRecords.length === 0) {
           return earnedBadge
         }
@@ -355,7 +355,7 @@ export default function ProfilePage() {
               earnedBadge.earnedAt = weeklyRecords[0].week_start
             }
             break
-            
+
           case 'consistent_3_weeks':
           case 'consistent_5_weeks':
           case 'consistent_10_weeks':
@@ -367,7 +367,7 @@ export default function ProfilePage() {
               target: targetWeeks
             }
             break
-            
+
           case 'perfect_3_weeks':
           case 'perfect_5_weeks':
           case 'perfect_10_weeks':
@@ -379,7 +379,7 @@ export default function ProfilePage() {
               target: perfectTarget
             }
             break
-            
+
           case 'total_10_weeks':
           case 'total_25_weeks':
             const totalTarget = parseInt(badge.id.split('_')[1])
@@ -389,7 +389,7 @@ export default function ProfilePage() {
               target: totalTarget
             }
             break
-            
+
           case 'average_80_percent':
             if (weeklyRecords.length >= 5) {
               const average = weeklyRecords.reduce((sum, record) => sum + record.completion_percentage, 0) / weeklyRecords.length
@@ -400,12 +400,12 @@ export default function ProfilePage() {
               }
             }
             break
-            
+
           case 'monthly_champion':
             earnedBadge.isEarned = checkMonthlyChampion(weeklyRecords)
             break
         }
-        
+
         return earnedBadge
       })
 
@@ -419,7 +419,7 @@ export default function ProfilePage() {
     let longestPerfectStreak = 0
     let tempStreak = 0
 
-    const sortedRecords = [...records].sort((a, b) => 
+    const sortedRecords = [...records].sort((a, b) =>
       new Date(a.week_start).getTime() - new Date(b.week_start).getTime()
     )
 
@@ -438,7 +438,7 @@ export default function ProfilePage() {
   const checkMonthlyChampion = (records: any[]) => {
     // Group records by month and check if any month has 4 consecutive weeks with 100%
     const monthGroups: { [key: string]: any[] } = {}
-    
+
     records.forEach(record => {
       const monthKey = record.week_start.substring(0, 7) // YYYY-MM
       if (!monthGroups[monthKey]) {
@@ -456,7 +456,7 @@ export default function ProfilePage() {
         }
       }
     }
-    
+
     return false
   }
 
@@ -470,8 +470,8 @@ export default function ProfilePage() {
     }
   }
 
-  const filteredBadges = selectedCategory === 'all' 
-    ? badges 
+  const filteredBadges = selectedCategory === 'all'
+    ? badges
     : badges.filter(badge => badge.category === selectedCategory)
 
   if (loading) {
@@ -515,25 +515,25 @@ export default function ProfilePage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar active="profile" />
-      
+
       <div className="pt-20">
         {/* Header */}
-        <div className="bg-gradient-to-r from-red-600 to-red-800 text-white">
+        <div className="bg-gradient-to-r from-red-700 to-red-900 text-white">
           <div className="max-w-6xl mx-auto px-4 py-12">
             <div className="flex items-center gap-6">
               <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center text-3xl font-bold">
-                {userProfile?.full_name?.[0]?.toUpperCase() || 
-                 user?.user_metadata?.full_name?.[0]?.toUpperCase() || 
-                 user?.user_metadata?.name?.[0]?.toUpperCase() || 
-                 user.email?.[0]?.toUpperCase() || 'U'}
+                {userProfile?.full_name?.[0]?.toUpperCase() ||
+                  user?.user_metadata?.full_name?.[0]?.toUpperCase() ||
+                  user?.user_metadata?.name?.[0]?.toUpperCase() ||
+                  user.email?.[0]?.toUpperCase() || 'U'}
               </div>
               <div>
                 <h1 className="text-3xl font-bold mb-2">
-                  {userProfile?.full_name || 
-                   user?.user_metadata?.full_name || 
-                   user?.user_metadata?.name || 
-                   user.email?.split('@')[0] || 
-                   'User'}
+                  {userProfile?.full_name ||
+                    user?.user_metadata?.full_name ||
+                    user?.user_metadata?.name ||
+                    user.email?.split('@')[0] ||
+                    'User'}
                 </h1>
                 <p className="text-red-100">
                   {user.email}
@@ -574,7 +574,7 @@ export default function ProfilePage() {
               <div>
                 <h3 className="font-semibold text-gray-800 mb-2">Rata-rata Completion</h3>
                 <div className="w-full bg-gray-200 rounded-full h-3 mb-2">
-                  <div 
+                  <div
                     className="bg-gradient-to-r from-red-500 to-red-600 h-3 rounded-full"
                     style={{ width: `${stats?.averageCompletion || 0}%` }}
                   ></div>
@@ -603,11 +603,10 @@ export default function ProfilePage() {
                 <button
                   key={category.key}
                   onClick={() => setSelectedCategory(category.key)}
-                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                    selectedCategory === category.key
-                      ? 'bg-red-700 text-white'
-                      : 'bg-white text-gray-700 border border-gray-300 hover:bg-red-50'
-                  }`}
+                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${selectedCategory === category.key
+                    ? 'bg-red-700 text-white'
+                    : 'bg-white text-gray-700 border border-gray-300 hover:bg-red-50'
+                    }`}
                 >
                   {category.label} ({category.count})
                 </button>
@@ -618,13 +617,12 @@ export default function ProfilePage() {
           {/* Badges Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredBadges.map((badge) => (
-              <div 
+              <div
                 key={badge.id}
-                className={`relative bg-white rounded-xl shadow-lg overflow-hidden border-2 transition-all duration-300 ${
-                  badge.isEarned 
-                    ? 'border-green-200 bg-gradient-to-br from-green-50 to-white' 
-                    : 'border-gray-200 bg-gradient-to-br from-gray-50 to-white opacity-75'
-                }`}
+                className={`relative bg-white rounded-xl shadow-lg overflow-hidden border-2 transition-all duration-300 ${badge.isEarned
+                  ? 'border-green-200 bg-gradient-to-br from-green-50 to-white'
+                  : 'border-gray-200 bg-gradient-to-br from-gray-50 to-white opacity-75'
+                  }`}
               >
                 {/* Badge Icon */}
                 <div className={`h-32 flex items-center justify-center bg-gradient-to-r ${badge.color}`}>
@@ -635,7 +633,7 @@ export default function ProfilePage() {
                     </div>
                   )}
                 </div>
-                
+
                 {/* Badge Content */}
                 <div className="p-6">
                   <div className="flex items-center gap-2 mb-2">
@@ -643,15 +641,15 @@ export default function ProfilePage() {
                       {badge.category.charAt(0).toUpperCase() + badge.category.slice(1)}
                     </span>
                   </div>
-                  
+
                   <h3 className="text-lg font-bold text-gray-900 mb-2">
                     {badge.name}
                   </h3>
-                  
+
                   <p className="text-gray-600 text-sm mb-3">
                     {badge.description}
                   </p>
-                  
+
                   <div className="text-xs text-gray-500 mb-3">
                     Syarat: {badge.requirement}
                   </div>
@@ -664,20 +662,20 @@ export default function ProfilePage() {
                         <span>{badge.progress.current}/{badge.progress.target}</span>
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-2">
-                        <div 
+                        <div
                           className="bg-gradient-to-r from-red-400 to-red-600 h-2 rounded-full transition-all duration-300"
                           style={{ width: `${Math.min((badge.progress.current / badge.progress.target) * 100, 100)}%` }}
                         ></div>
                       </div>
                     </div>
                   )}
-                  
+
                   {badge.isEarned && badge.earnedAt && (
                     <div className="text-xs text-green-600 font-medium">
                       Diraih: {new Date(badge.earnedAt).toLocaleDateString('id-ID')}
                     </div>
                   )}
-                  
+
                   {!badge.isEarned && (
                     <div className="text-xs text-gray-500">
                       Belum tercapai
@@ -689,11 +687,11 @@ export default function ProfilePage() {
           </div>
 
           {/* Call to Action */}
-          <div className="mt-12 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-8 border border-blue-200 text-center">
-            <h3 className="text-2xl font-bold text-blue-900 mb-4">
+          <div className="mt-12 bg-gradient-to-r from-red-50 to-red-100 rounded-xl p-8 border border-red-200 text-center">
+            <h3 className="text-2xl font-bold text-red-900 mb-4">
               Raih Badge Selanjutnya! 🎯
             </h3>
-            <p className="text-blue-800 mb-6">
+            <p className="text-red-800 mb-6">
               Lakukan checklist pencegahan secara konsisten untuk membuka badge baru dan meningkatkan level pencegahan DBD Anda.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -705,7 +703,7 @@ export default function ProfilePage() {
               </Link>
               <Link
                 href="/history"
-                className="bg-white border border-blue-300 text-blue-700 px-6 py-3 rounded-lg font-medium hover:bg-blue-50 transition-colors"
+                className="bg-white border border-red-300 text-red-700 px-6 py-3 rounded-lg font-medium hover:bg-red-50 transition-colors"
               >
                 Lihat Riwayat
               </Link>

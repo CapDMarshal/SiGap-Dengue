@@ -10,11 +10,11 @@ export default function AboutPage() {
 
       <div style={{ top: 0, marginTop: 80 }}>
         {/* Hero Section */}
-        <section className="bg-gradient-to-r from-red-600 to-red-800 text-white py-16">
+        <section className="bg-gradient-to-r from-red-700 to-red-900 text-white py-16">
           <div className="mx-auto max-w-screen-xl px-4">
             <div className="text-center">
               <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                Tentang Dengue Checker
+                Tentang SiGap Dengue (Sistem Tanggap Dengue)
               </h1>
               <p className="text-lg md:text-xl opacity-90 max-w-3xl mx-auto">
                 Sistem deteksi dini Demam Berdarah Dengue berbasis AI untuk membantu masyarakat Indonesia
@@ -37,13 +37,13 @@ export default function AboutPage() {
               <div>
                 <img
                   src="/dengue.png"
-                  alt="Dengue Checker"
+                  alt="SiGap Dengue"
                   className="w-full max-w-md mx-auto"
                 />
               </div>
               <div className="space-y-4 text-gray-700">
                 <p className="text-lg leading-relaxed">
-                  <strong className="text-red-700">Dengue Checker</strong> adalah aplikasi web inovatif yang dirancang untuk membantu deteksi dini Demam Berdarah Dengue (DBD) menggunakan teknologi Artificial Intelligence.
+                  <strong className="text-red-700">SiGap Dengue</strong> adalah aplikasi web inovatif yang dirancang untuk membantu deteksi dini Demam Berdarah Dengue (DBD) menggunakan teknologi Artificial Intelligence.
                 </p>
                 <p className="leading-relaxed">
                   Dengan memanfaatkan algoritma Machine Learning seperti <strong>Logistic Regression</strong> dan <strong>Support Vector Machine (SVM)</strong>, aplikasi ini dapat memprediksi kemungkinan seseorang terkena DBD berdasarkan gejala klinis dan hasil laboratorium yang diinputkan.
@@ -322,7 +322,7 @@ export default function AboutPage() {
         {/* CTA Section */}
         <section className="py-16 bg-white">
           <div className="mx-auto max-w-screen-xl px-4">
-            <div className="bg-gradient-to-r from-red-600 to-red-800 rounded-2xl p-12 text-center text-white">
+            <div className="bg-gradient-to-r from-red-700 to-red-900 rounded-2xl p-12 text-center text-white">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
                 Siap Melakukan Pemeriksaan?
               </h2>

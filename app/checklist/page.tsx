@@ -264,14 +264,20 @@ export default function PreventionChecklistPage() {
       <Navbar active="checklist" />
 
       <div className="pt-20">
-        {/* Header */}
-        <div className="bg-gradient-to-r from-red-700 to-red-900 text-white">
-          <div className="max-w-4xl mx-auto px-4 py-12">
+        {/* Header with background image and red overlay */}
+        <div className="relative min-h-[180px]">
+          {/* Background image (z-0 so it's behind overlay and content) */}
+          <div className="absolute inset-0 z-0 bg-[url('/background/bgmisi.png')] bg-cover bg-center"></div>
+
+          {/* Semi-transparent red overlay for readability (above bg, below content) */}
+          <div className="absolute inset-0 z-10 bg-red-900/60"></div>
+
+          <div className="relative z-20 max-w-4xl mx-auto px-4 py-16 text-white">
             <div className="text-center">
               <h1 className="text-4xl font-bold mb-4">
                 Checklist Pencegahan Interaktif
               </h1>
-              <p className="text-xl text-red-100">
+              <p className="text-xl text-red-100/90">
                 Lakukan langkah pencegahan DBD secara rutin dan pantau progress mingguan Anda
               </p>
             </div>

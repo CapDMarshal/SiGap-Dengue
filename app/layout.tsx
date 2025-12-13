@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Dengue Detector - Deteksi DBD Lebih Dini',
+  title: 'SiGap Dengue - Deteksi Demam Berdarah Dengue Lebih Dini',
   description: 'Sistem deteksi Demam Berdarah Dengue (DBD) menggunakan AI',
 }
 

@@ -9,47 +9,11 @@ interface FormProps {
 }
 
 export default function FormGejalaUtama({ formData, setFormData }: FormProps) {
-    const isDemamDisabled = formData.KDEMA === 'Tidak'
-
-    useEffect(() => {
-        const images = ['ddema-img', 'suhun-img']
-        images.forEach((id) => {
-            const img = document.querySelector(`img#${id}`) as HTMLImageElement
-            if (img) {
-                img.style.transition = '0.5s'
-                img.style.filter = isDemamDisabled ? 'grayscale(100%)' : 'none'
-            }
-        })
-    }, [isDemamDisabled])
-
     return (
-        <div
-            id="form-gejala-utama"
-            className="block w-full px-4 md:px-16 py-10 bg-white border border-gray-200 rounded-lg shadow"
-        >
-            <div className="flex w-full justify-between items-center py-4">
-                <h3 className="text-3xl font-bold tracking-tight text-red-700">
-                    Gejala Utama
-                </h3>
-                <a
-                    href="#form-gejala-tambahan"
-                    className="flex h-fit items-center justify-center gap-x-2 px-4 py-2 text-sm font-medium text-white bg-red-700 border border-transparent rounded-md shadow-sm hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="w-5 h-5">
-                        <path d="M5 12h14" />
-                        <path d="m12 5 7 7-7 7" />
-                    </svg>
-                    <span className="text-nowrap">Lanjut</span>
-                </a>
-            </div>
+        <div>
+            <h3 className="mb-8 text-3xl font-bold tracking-tight text-red-700">
+                Gejala Utama
+            </h3>
 
             <div className="flex flex-col gap-y-8">
                 <div className="flex flex-col gap-y-4 md:flex-row gap-x-4 justify-between">
@@ -59,43 +23,44 @@ export default function FormGejalaUtama({ formData, setFormData }: FormProps) {
                             <h5 className="mb-2 text-xl font-medium tracking-tight text-gray-900">
                                 Apakah anda merasakan demam?
                             </h5>
-                            <p className="font-normal text-gray-700">
+                            <p className="font-normal text-gray-700 mb-4">
                                 Jika suhu tubuh anda di atas 38°C, maka anda seharusnya
                                 merasakan demam
                             </p>
-                        </label>
+                            <ul className="w-full items-center text-sm font-medium flex gap-4">
+                                {['Iya', 'Tidak'].map((choice, index) => {
+                                    const checked = formData.KDEMA === choice
+                                    return (
+                                        <li key={choice} className="flex-1 rounded-xl border border-gray-200">
+                                            <div
+                                                className={`flex items-center px-8 transition-colors duration-200 rounded-xl ${
+                                                    checked ? 'bg-red-700 text-white' : 'bg-white text-gray-900'
+                                                }`}
+                                            >
+                                                <input
+                                                    id={`kdema-${index}`}
+                                                    type="radio"
+                                                    value={choice}
+                                                    name="KDEMA"
+                                                    checked={checked}
+                                                    onChange={(e) =>
+                                                        setFormData({ ...formData, KDEMA: e.target.value })
+                                                    }
+                                                    className="hidden"
+                                                />
+                                                <label
+                                                    htmlFor={`kdema-${index}`}
+                                                    className="w-full py-3 text-center text-sm font-medium cursor-pointer"
+                                                >
+                                                    {choice}
+                                                </label>
+                                            </div>
+                                        </li>
+                                    )
+                                })}
+                            </ul>
+                        </div>
                     </div>
-                    <ul className="w-full sm:w-1/2 items-center text-sm font-medium sm:flex gap-4 sm:gap-6">
-                        {['Iya', 'Tidak'].map((choice, index) => {
-                            const checked = formData.KDEMA === choice
-                            return (
-                                <li key={choice} className="flex-1 rounded-xl border border-gray-200">
-                                    <div
-                                        className={`flex items-center px-8 transition-colors duration-200 rounded-xl ${checked ? 'bg-red-700 text-white' : 'bg-white text-gray-900'
-                                            }`}
-                                    >
-                                        <input
-                                            id={`kdema-${index}`}
-                                            type="radio"
-                                            value={choice}
-                                            name="KDEMA"
-                                            checked={checked}
-                                            onChange={(e) =>
-                                                setFormData({ ...formData, KDEMA: e.target.value })
-                                            }
-                                            className="hidden"
-                                        />
-                                        <label
-                                            htmlFor={`kdema-${index}`}
-                                            className="w-full py-3 text-center text-sm font-medium cursor-pointer"
-                                        >
-                                            {choice}
-                                        </label>
-                                    </div>
-                                </li>
-                            )
-                        })}
-                    </ul>
                 </div>
 
                 <div className="grid gap-6 md:grid-cols-2">
@@ -108,9 +73,9 @@ export default function FormGejalaUtama({ formData, setFormData }: FormProps) {
                                 width={64}
                                 height={64}
                                 alt="Question"
-                                className="w-16"
+                                className="w-16 flex-shrink-0"
                             />
-                            <label className="flex flex-col">
+                            <label className="flex flex-col flex-1">
                                 <h5 className="mb-2 text-xl font-medium tracking-tight text-gray-900">
                                     Durasi demam (hari)
                                 </h5>
@@ -122,14 +87,23 @@ export default function FormGejalaUtama({ formData, setFormData }: FormProps) {
                         <input
                             type="number"
                             name="DDEMA"
-                            className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block p-2.5"
+                            className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-700 focus:border-red-700 block p-2.5 disabled:opacity-50 disabled:cursor-not-allowed"
                             min={1}
+                            max={31}
                             step={1}
-                            value={formData.DDEMA}
-                            onChange={(e) =>
-                                setFormData({ ...formData, DDEMA: parseInt(e.target.value) })
-                            }
-                            disabled={isDemamDisabled}
+                            value={formData.DDEMA || 1}
+                            onFocus={(e) => e.target.select()}
+                            onChange={(e) => {
+                                const value = e.target.value === '' ? 1 : parseInt(e.target.value)
+                                const finalValue = value < 1 ? 1 : value
+                                setFormData({ ...formData, DDEMA: finalValue })
+                            }}
+                            onBlur={(e) => {
+                                if (e.target.value === '' || parseInt(e.target.value) < 1) {
+                                    setFormData({ ...formData, DDEMA: 1 })
+                                }
+                            }}
+                            disabled={formData.KDEMA !== 'Iya'}
                         />
                     </div>
 
@@ -142,9 +116,9 @@ export default function FormGejalaUtama({ formData, setFormData }: FormProps) {
                                 width={64}
                                 height={64}
                                 alt="Question"
-                                className="w-16"
+                                className="w-16 flex-shrink-0"
                             />
-                            <label className="flex flex-col">
+                            <label className="flex flex-col flex-1">
                                 <h5 className="mb-2 text-xl font-medium tracking-tight text-gray-900">
                                     Suhu saat ini (°C)
                                 </h5>
@@ -156,15 +130,22 @@ export default function FormGejalaUtama({ formData, setFormData }: FormProps) {
                         <input
                             type="number"
                             name="SUHUN"
-                            className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block p-2.5"
+                            className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-700 focus:border-red-700 block p-2.5 disabled:opacity-50 disabled:cursor-not-allowed"
                             min={35.0}
                             max={45.0}
                             step={0.1}
-                            value={formData.SUHUN}
-                            onChange={(e) =>
-                                setFormData({ ...formData, SUHUN: parseFloat(e.target.value) })
-                            }
-                            disabled={isDemamDisabled}
+                            value={formData.SUHUN || ''}
+                            onFocus={(e) => e.target.select()}
+                            onChange={(e) => {
+                                const value = e.target.value === '' ? '' : parseFloat(e.target.value)
+                                setFormData({ ...formData, SUHUN: value })
+                            }}
+                            onBlur={(e) => {
+                                if (e.target.value === '' || parseFloat(e.target.value) < 35) {
+                                    setFormData({ ...formData, SUHUN: 35 })
+                                }
+                            }}
+                            disabled={formData.KDEMA !== 'Iya'}
                         />
                     </div>
                 </div>

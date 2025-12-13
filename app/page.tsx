@@ -13,6 +13,7 @@ import PreventionTipsSection from './components/home/PreventionTipsSection'
 import MapSection from './components/home/MapSection'
 import FeaturesSection from './components/home/FeaturesSection'
 import CTASection from './components/home/CTASection'
+import FAQCards from './components/FAQCards'
 
 export default function Home() {
   const [user, setUser] = useState<User | null>(null)
@@ -48,6 +49,9 @@ export default function Home() {
 
       {/* Hero Section */}
       <HeroSection user={user} isLoading={isLoading} />
+
+      {/* FAQ Cards Section */}
+      <FAQCards />
 
       {/* FAQ/Edukasi Section */}
       <FAQSection />

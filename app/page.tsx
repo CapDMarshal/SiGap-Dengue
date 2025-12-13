@@ -15,6 +15,7 @@ import MapSection from './components/home/MapSection'
 import FeaturesSection from './components/home/FeaturesSection'
 import CTASection from './components/home/CTASection'
 import FAQCards from './components/home/FAQCards'
+import FAQCardsMobile from './components/home/FAQCardsMobile'
 
 export default function Home() {
   const [user, setUser] = useState<User | null>(null)
@@ -51,8 +52,13 @@ export default function Home() {
       {/* Hero Section */}
       <HeroSection user={user} isLoading={isLoading} />
 
-      {/* FAQ Cards Section */}
-      <FAQCards />
+      {/* FAQ Cards Section - Responsive */}
+      <div className="hidden md:block">
+        <FAQCards />
+      </div>
+      <div className="block md:hidden">
+        <FAQCardsMobile />
+      </div>
 
       {/* Quick Tips Cards Section */}
       <PreventionTipsSection />

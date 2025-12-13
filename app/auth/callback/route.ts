@@ -7,12 +7,18 @@ export async function GET(request: NextRequest) {
   const code = searchParams.get('code')
   const next = searchParams.get('next') ?? '/form'
 
+  // Validate environment variables
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    console.error('Missing Supabase environment variables')
+    return NextResponse.redirect(`${origin}/login?error=config_error`)
+  }
+
   if (code) {
     const cookieStore = await cookies()
-    
+
     const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
       {
         cookies: {
           get(name: string) {
@@ -32,6 +38,9 @@ export async function GET(request: NextRequest) {
     if (!error) {
       return NextResponse.redirect(`${origin}${next}`)
     }
+
+    console.error('Auth error:', error)
+    return NextResponse.redirect(`${origin}/login?error=${error.message}`)
   }
 
   return NextResponse.redirect(`${origin}/login?error=auth_failed`)

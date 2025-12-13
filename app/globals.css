@@ -1,5 +1,3 @@
-/* Optimized font loading with font-display: swap for better FCP (~410ms improvement) */
-@import url('https://overpass-30e2.kxcdn.com/overpass.css');
 @import "tailwindcss";
 
 @theme {
@@ -20,7 +18,6 @@
 * {
     scroll-behavior: smooth;
     scroll-margin-top: 50px;
-    font-family: 'Overpass', sans-serif;
 }
 
 h1,

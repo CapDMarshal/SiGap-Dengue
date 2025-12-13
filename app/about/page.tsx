@@ -247,7 +247,7 @@ export default function AboutPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Developer 1 */}
-              
+
 
               {/* Developer 2 */}
               <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
@@ -265,9 +265,9 @@ export default function AboutPage() {
                   <h3 className="text-xl font-bold text-gray-900 mb-2">
                     Fardila Bintang Adinata
                   </h3>
-                  <p className="text-red-700 font-medium mb-3">Machine Learning Engineer</p>
+                  <p className="text-red-700 font-medium mb-3">UI/UX Designer & Developer</p>
                   <p className="text-gray-600 text-sm mb-4">
-                    Fokus pada pengembangan model AI dan data processing
+                    Merancang interface dan user experience aplikasi
                   </p>
                 </div>
               </div>
@@ -288,9 +288,9 @@ export default function AboutPage() {
                   <h3 className="text-xl font-bold text-gray-900 mb-2">
                     Alif Arya Kusuma
                   </h3>
-                  <p className="text-red-700 font-medium mb-3">UI/UX Designer & Developer</p>
+                  <p className="text-red-700 font-medium mb-3">Machine Learning Engineer</p>
                   <p className="text-gray-600 text-sm mb-4">
-                    Merancang interface dan user experience aplikasi
+                    Fokus pada pengembangan model AI dan data processing
                   </p>
                 </div>
               </div>

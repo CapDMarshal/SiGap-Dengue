@@ -48,7 +48,7 @@ function Step1() {
       const { data: { user } } = await supabase.auth.getUser()
       setUser(user)
     }
-    
+
     getUser()
 
     // Listen for auth changes
@@ -162,7 +162,7 @@ function Step1() {
         <span> Deteksi DBD hanya dengan </span>
         <span className="text-red-700"> beberapa pertanyaan saja! </span>
       </div>
-      
+
       {user ? (
         // Logged in: Show single "Lanjutkan" button
         <div className="flex flex-col gap-4">
@@ -300,12 +300,12 @@ function Step2() {
           strokeLinecap="round"
           strokeLinejoin="round"
         >
-          <path d="M3 7V5a2 2 0 0 1 2-2h2"/>
-          <path d="M17 3h2a2 2 0 0 1 2 2v2"/>
-          <path d="M21 17v2a2 2 0 0 1-2 2h-2"/>
-          <path d="M7 21H5a2 2 0 0 1-2-2v-2"/>
-          <circle cx="12" cy="12" r="3"/>
-          <path d="m16 16-1.9-1.9"/>
+          <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+          <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+          <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+          <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+          <circle cx="12" cy="12" r="3" />
+          <path d="m16 16-1.9-1.9" />
         </svg>
         <span className="text-nowrap">Periksa</span>
       </button>
@@ -345,17 +345,17 @@ function FormGejalaUtama({ formData, setFormData }: FormProps) {
           href="#form-gejala-tambahan"
           className="flex h-fit items-center justify-center gap-x-2 px-4 py-2 text-sm font-medium text-white bg-red-700 border border-transparent rounded-md shadow-sm hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
         >
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            viewBox="0 0 24 24" 
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
             fill="none"
-            stroke="currentColor" 
-            strokeWidth="2" 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             className="w-5 h-5">
-              <path d="M5 12h14"/>
-              <path d="m12 5 7 7-7 7"/>
+            <path d="M5 12h14" />
+            <path d="m12 5 7 7-7 7" />
           </svg>
           <span className="text-nowrap">Lanjut</span>
         </a>
@@ -375,38 +375,37 @@ function FormGejalaUtama({ formData, setFormData }: FormProps) {
               </p>
             </label>
           </div>
-            <ul className="w-full sm:w-1/2 items-center text-sm font-medium bg-white rounded-lg sm:flex gap-4 sm:gap-6 sm:divide-x sm:divide-gray-200">
+          <ul className="w-full sm:w-1/2 items-center text-sm font-medium sm:flex gap-4 sm:gap-6">
             {['Iya', 'Tidak'].map((choice, index) => {
               const checked = formData.KDEMA === choice
               return (
-              <li key={choice} className="flex-1 rounded-lg border border-gray-200">
-                <div
-                className={`flex items-center px-8 transition-colors duration-200 rounded-lg ${
-                  checked ? 'bg-red-700 text-white' : 'bg-white text-gray-900'
-                }`}
-                >
-                <input
-                  id={`kdema-${index}`}
-                  type="radio"
-                  value={choice}
-                  name="KDEMA"
-                  checked={checked}
-                  onChange={(e) =>
-                  setFormData({ ...formData, KDEMA: e.target.value })
-                  }
-                  className="hidden"
-                />
-                <label
-                  htmlFor={`kdema-${index}`}
-                  className="w-full py-3 text-center text-sm font-medium cursor-pointer"
-                >
-                  {choice}
-                </label>
-                </div>
-              </li>
+                <li key={choice} className="flex-1 rounded-xl border border-gray-200">
+                  <div
+                    className={`flex items-center px-8 transition-colors duration-200 rounded-xl ${checked ? 'bg-red-700 text-white' : 'bg-white text-gray-900'
+                      }`}
+                  >
+                    <input
+                      id={`kdema-${index}`}
+                      type="radio"
+                      value={choice}
+                      name="KDEMA"
+                      checked={checked}
+                      onChange={(e) =>
+                        setFormData({ ...formData, KDEMA: e.target.value })
+                      }
+                      className="hidden"
+                    />
+                    <label
+                      htmlFor={`kdema-${index}`}
+                      className="w-full py-3 text-center text-sm font-medium cursor-pointer"
+                    >
+                      {choice}
+                    </label>
+                  </div>
+                </li>
               )
             })}
-            </ul>
+          </ul>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
@@ -545,17 +544,17 @@ function FormGejalaTambahan({ formData, setFormData }: FormProps) {
           href="#form-uji-lab"
           className="flex h-fit items-center justify-center gap-x-2 px-4 py-2 text-sm font-medium text-white bg-red-700 border border-transparent rounded-md shadow-sm hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
         >
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            viewBox="0 0 24 24" 
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
             fill="none"
-            stroke="currentColor" 
-            strokeWidth="2" 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             className="w-5 h-5">
-              <path d="M5 12h14"/>
-              <path d="m12 5 7 7-7 7"/>
+            <path d="M5 12h14" />
+            <path d="m12 5 7 7-7 7" />
           </svg>
           <span className="text-nowrap">Lanjut</span>
         </a>
@@ -566,7 +565,7 @@ function FormGejalaTambahan({ formData, setFormData }: FormProps) {
           <div key={startIdx} className="grid gap-6 md:grid-cols-2">
             {symptoms.slice(startIdx, startIdx + 2).map((symptom) => (
               <div key={symptom.code} className="flex flex-col gap-y-4">
-                <div className="flex gap-x-8 items-center">
+                <div className="flex gap-x-8 items-center min-h-[140px]">
                   <img src={symptom.img} alt="Question" className="w-16" />
                   <label className="flex flex-col">
                     <h5 className="mb-2 text-xl font-medium tracking-tight text-gray-900">
@@ -575,19 +574,18 @@ function FormGejalaTambahan({ formData, setFormData }: FormProps) {
                     <p className="font-normal text-gray-700">{symptom.desc}</p>
                   </label>
                 </div>
-                <ul className="w-full items-center text-sm font-medium bg-white border border-gray-200 rounded-lg sm:flex gap-6 sm:gap-8 sm:divide-x sm:divide-gray-200">
+                <ul className="w-full items-center text-sm font-medium sm:flex gap-6 sm:gap-8">
                   {['Iya', 'Tidak'].map((choice, index) => {
                     const checked = formData[symptom.code] === choice
                     return (
                       <li
                         key={choice}
-                        className="flex-1 rounded-lg"
+                        className="flex-1 rounded-xl border border-gray-200"
                         style={{ minWidth: 0 }}
                       >
                         <div
-                          className={`flex items-center px-8 transition-colors duration-200 rounded-lg ${
-                            checked ? 'bg-red-700 text-white' : 'bg-white text-gray-900'
-                          }`}
+                          className={`flex items-center px-8 transition-colors duration-200 rounded-xl ${checked ? 'bg-red-700 text-white' : 'bg-white text-gray-900'
+                            }`}
                         >
                           <input
                             id={`${symptom.code}-${index}`}
@@ -659,44 +657,43 @@ function FormUjiLab({ formData, setFormData }: FormProps) {
               </p>
             </label>
           </div>
-            <ul className="w-full sm:w-1/2 items-center text-sm font-medium bg-white rounded-lg sm:flex gap-4 sm:gap-6 sm:divide-x sm:divide-gray-200">
+          <ul className="w-full sm:w-1/2 items-center text-sm font-medium sm:flex gap-4 sm:gap-6">
             {['Sudah', 'Belum'].map((choice, index) => {
               const checked = formData.ULABO === choice
               return (
-              <li key={choice} className="flex-1 rounded-lg border border-gray-200">
-                <div
-                className={`flex items-center px-8 transition-colors duration-200 rounded-lg ${
-                  checked ? 'bg-red-700 text-white' : 'bg-white text-gray-900'
-                }`}
-                >
-                <input
-                  id={`ulabo-${index}`}
-                  type="radio"
-                  value={choice}
-                  name="ULABO"
-                  checked={checked}
-                  onChange={(e) =>
-                  setFormData({ ...formData, ULABO: e.target.value })
-                  }
-                  className="hidden"
-                />
-                <label
-                  htmlFor={`ulabo-${index}`}
-                  className="w-full py-3 text-center text-sm font-medium cursor-pointer"
-                >
-                  {choice}
-                </label>
-                </div>
-              </li>
+                <li key={choice} className="flex-1 rounded-xl border border-gray-200">
+                  <div
+                    className={`flex items-center px-8 transition-colors duration-200 rounded-xl ${checked ? 'bg-red-700 text-white' : 'bg-white text-gray-900'
+                      }`}
+                  >
+                    <input
+                      id={`ulabo-${index}`}
+                      type="radio"
+                      value={choice}
+                      name="ULABO"
+                      checked={checked}
+                      onChange={(e) =>
+                        setFormData({ ...formData, ULABO: e.target.value })
+                      }
+                      className="hidden"
+                    />
+                    <label
+                      htmlFor={`ulabo-${index}`}
+                      className="w-full py-3 text-center text-sm font-medium cursor-pointer"
+                    >
+                      {choice}
+                    </label>
+                  </div>
+                </li>
               )
             })}
-            </ul>
+          </ul>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
           {/* WBC */}
           <div className="flex flex-col gap-y-4">
-            <div className="flex gap-x-8 items-center">
+            <div className="flex gap-x-8 items-center min-h-[140px]">
               <img
                 id="jwbcs-img"
                 src="/white-blood-cell.png"
@@ -730,7 +727,7 @@ function FormUjiLab({ formData, setFormData }: FormProps) {
 
           {/* Hemoglobin */}
           <div className="flex flex-col gap-y-4">
-            <div className="flex gap-x-8 items-center">
+            <div className="flex gap-x-8 items-center min-h-[140px]">
               <img
                 id="hemog-img"
                 src="/red-blood-cells.png"
@@ -766,7 +763,7 @@ function FormUjiLab({ formData, setFormData }: FormProps) {
         <div className="grid gap-6 md:grid-cols-2">
           {/* Hematocrit */}
           <div className="flex flex-col gap-y-4">
-            <div className="flex gap-x-8 items-center">
+            <div className="flex gap-x-8 items-center min-h-[140px]">
               <img
                 id="hemat-img"
                 src="/blood-test.png"
@@ -800,7 +797,7 @@ function FormUjiLab({ formData, setFormData }: FormProps) {
 
           {/* Platelet */}
           <div className="flex flex-col gap-y-4">
-            <div className="flex gap-x-8 items-center">
+            <div className="flex gap-x-8 items-center min-h-[140px]">
               <img
                 id="jplat-img"
                 src="/thermometer.png"

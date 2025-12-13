@@ -4,13 +4,14 @@ import { useState, useEffect, use } from 'react'
 import { useRouter } from 'next/navigation'
 import Navbar from '../../components/Navbar'
 import { getDengueCheckById, DengueCheckRecord, deleteDengueCheck } from '@/lib/dengue-service'
+import { downloadReport, getModelNameDisplay, getStatusInfo } from '@/lib/report-generator'
 import { createClient } from '../../../utils/supabase/client'
 
 export default function HistoryDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter()
   const supabase = createClient()
   const { id } = use(params)
-  
+
   const [record, setRecord] = useState<DengueCheckRecord | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -20,7 +21,7 @@ export default function HistoryDetailPage({ params }: { params: Promise<{ id: st
     const checkAuthAndFetchData = async () => {
       // Check if user is logged in
       const { data: { user } } = await supabase.auth.getUser()
-      
+
       if (!user) {
         router.push('/login')
         return
@@ -29,13 +30,13 @@ export default function HistoryDetailPage({ params }: { params: Promise<{ id: st
       // Fetch detail data
       setLoading(true)
       const result = await getDengueCheckById(id)
-      
+
       if (result.success && result.data) {
         setRecord(result.data)
       } else {
         setError(result.error || 'Gagal memuat detail pemeriksaan')
       }
-      
+
       setLoading(false)
     }
 
@@ -49,7 +50,7 @@ export default function HistoryDetailPage({ params }: { params: Promise<{ id: st
 
     setDeleting(true)
     const result = await deleteDengueCheck(id)
-    
+
     if (result.success) {
       router.push('/history')
     } else {
@@ -70,57 +71,9 @@ export default function HistoryDetailPage({ params }: { params: Promise<{ id: st
     })
   }
 
-  const getStatusInfo = (prediction: number, probability: number) => {
-    if (prediction === 1) {
-      if (probability >= 75) {
-        return {
-          status: 'Positif DBD',
-          color: 'bg-red-100 text-red-800 border-red-300',
-          icon: (
-            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-            </svg>
-          ),
-          recommendation: 'Segera konsultasikan ke dokter atau fasilitas kesehatan terdekat. Hasil pemeriksaan menunjukkan indikasi kuat DBD.',
-          bgColor: 'bg-red-50'
-        }
-      } else {
-        return {
-          status: 'Kemungkinan DBD',
-          color: 'bg-yellow-100 text-yellow-800 border-yellow-300',
-          icon: (
-            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-            </svg>
-          ),
-          recommendation: 'Disarankan untuk memeriksakan diri ke dokter untuk pemeriksaan lebih lanjut. Pantau gejala yang muncul.',
-          bgColor: 'bg-yellow-50'
-        }
-      }
-    }
-    return {
-      status: 'Negatif DBD',
-      color: 'bg-green-100 text-green-800 border-green-300',
-      icon: (
-        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-        </svg>
-      ),
-      recommendation: 'Hasil pemeriksaan tidak menunjukkan indikasi DBD. Tetap jaga kesehatan dan kebersihan lingkungan.',
-      bgColor: 'bg-green-50'
-    }
-  }
 
-  const getModelNameDisplay = (modelName: string): string => {
-    const modelMap: Record<string, string> = {
-      'all_data': 'Model Lengkap (Demam + Lab + Gejala)',
-      'fever_general_data': 'Model Demam (Demam + Gejala)',
-      'lab_general_data': 'Model Lab (Lab + Gejala)',
-      'only_general_data': 'Model Gejala (Hanya Gejala)',
-      'decision_tree_v1': 'Model Lama (v1)'
-    }
-    return modelMap[modelName] || modelName
-  }
+
+
 
   if (loading) {
     return (
@@ -175,12 +128,55 @@ export default function HistoryDetailPage({ params }: { params: Promise<{ id: st
     )
   }
 
-  const statusInfo = getStatusInfo(record.prediction, record.probability || 0)
+  // Helper function to enrich status info with UI specific properties
+  const getUIStatusInfo = (prediction: number, probability: number) => {
+    const baseInfo = getStatusInfo(prediction, probability)
+
+    if (baseInfo.status === 'Positif DBD') {
+      return {
+        ...baseInfo,
+        color: 'bg-red-100 text-red-800 border-red-300',
+        icon: (
+          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+          </svg>
+        ),
+        recommendation: 'Segera konsultasikan ke dokter atau fasilitas kesehatan terdekat. Hasil pemeriksaan menunjukkan indikasi kuat DBD.',
+        bgColor: 'bg-red-50'
+      }
+    } else if (baseInfo.status === 'Kemungkinan DBD') {
+      return {
+        ...baseInfo,
+        color: 'bg-yellow-100 text-yellow-800 border-yellow-300',
+        icon: (
+          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+          </svg>
+        ),
+        recommendation: 'Disarankan untuk memeriksakan diri ke dokter untuk pemeriksaan lebih lanjut. Pantau gejala yang muncul.',
+        bgColor: 'bg-yellow-50'
+      }
+    } else {
+      return {
+        ...baseInfo,
+        color: 'bg-green-100 text-green-800 border-green-300',
+        icon: (
+          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+          </svg>
+        ),
+        recommendation: 'Hasil pemeriksaan tidak menunjukkan indikasi DBD. Tetap jaga kesehatan dan kebersihan lingkungan.',
+        bgColor: 'bg-green-50'
+      }
+    }
+  }
+
+  const statusInfo = getUIStatusInfo(record.prediction, record.probability || 0)
 
   return (
     <div>
       <Navbar active="history" />
-      
+
       <div style={{ top: 0, marginTop: 80 }} className="bg-gray-50 min-h-screen py-8">
         <div className="mx-auto max-w-screen-xl px-4">
           {/* Back Button */}
@@ -244,13 +240,12 @@ export default function HistoryDetailPage({ params }: { params: Promise<{ id: st
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-3">
                     <div
-                      className={`h-3 rounded-full ${
-                        record.prediction === 1
-                          ? record.probability >= 75
-                            ? 'bg-red-600'
-                            : 'bg-yellow-500'
-                          : 'bg-green-500'
-                      }`}
+                      className={`h-3 rounded-full ${record.prediction === 1
+                        ? record.probability >= 75
+                          ? 'bg-red-600'
+                          : 'bg-yellow-500'
+                        : 'bg-green-500'
+                        }`}
                       style={{ width: `${Math.round(record.probability || 0)}%` }}
                     ></div>
                   </div>
@@ -274,9 +269,8 @@ export default function HistoryDetailPage({ params }: { params: Promise<{ id: st
               <div className="space-y-3">
                 <div className="flex justify-between items-center py-2 border-b border-gray-100">
                   <span className="text-gray-600 text-sm">Mengalami Demam</span>
-                  <span className={`font-medium px-3 py-1 rounded-full text-xs ${
-                    record.kdema === 'Iya' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800'
-                  }`}>
+                  <span className={`font-medium px-3 py-1 rounded-full text-xs ${record.kdema === 'Iya' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800'
+                    }`}>
                     {record.kdema}
                   </span>
                 </div>
@@ -306,9 +300,8 @@ export default function HistoryDetailPage({ params }: { params: Promise<{ id: st
               <div className="space-y-3">
                 <div className="flex justify-between items-center py-2 border-b border-gray-100">
                   <span className="text-gray-600 text-sm">Status Uji Lab</span>
-                  <span className={`font-medium px-3 py-1 rounded-full text-xs ${
-                    record.ulabo === 'Sudah' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-                  }`}>
+                  <span className={`font-medium px-3 py-1 rounded-full text-xs ${record.ulabo === 'Sudah' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                    }`}>
                     {record.ulabo}
                   </span>
                 </div>
@@ -409,91 +402,7 @@ export default function HistoryDetailPage({ params }: { params: Promise<{ id: st
           {/* Action Buttons */}
           <div className="mt-6 flex flex-col sm:flex-row gap-4">
             <button
-              onClick={() => {
-                const report = `
-╔═══════════════════════════════════════════════════════════════════╗
-║              LAPORAN HASIL PEMERIKSAAN DBD                        ║
-║                  Dengue Fever Check Report                        ║
-╚═══════════════════════════════════════════════════════════════════╝
-
-INFORMASI PEMERIKSAAN
-─────────────────────────────────────────────────────────────────────
-Tanggal Pemeriksaan : ${formatDate(record.created_at)}
-ID Pemeriksaan      : ${record.id}
-
-HASIL PEMERIKSAAN
-─────────────────────────────────────────────────────────────────────
-Status              : ${statusInfo.status}
-Tingkat Kepercayaan : ${Math.round(record.probability || 0)}%
-Model Prediksi      : ${record.model_used}
-
-${statusInfo.status === 'Positif DBD' ? '⚠️  PERHATIAN: Hasil menunjukkan indikasi POSITIF DBD\n    Segera konsultasikan ke dokter atau fasilitas kesehatan!' : 
-  statusInfo.status === 'Kemungkinan DBD' ? '⚠️  PERINGATAN: Ada kemungkinan DBD\n    Disarankan untuk memeriksakan diri ke dokter.' :
-  '✓  Hasil pemeriksaan tidak menunjukkan indikasi DBD\n    Tetap jaga kesehatan dan kebersihan lingkungan.'}
-
-DATA DEMAM
-─────────────────────────────────────────────────────────────────────
-Mengalami Demam     : ${record.kdema}
-${record.kdema === 'Iya' ? `Durasi Demam        : ${record.ddema} hari
-Suhu Tubuh          : ${record.suhun}°C` : ''}
-
-DATA UJI LABORATORIUM
-─────────────────────────────────────────────────────────────────────
-Status Uji Lab      : ${record.ulabo}
-${record.ulabo === 'Sudah' ? `Leukosit (WBC)      : ${record.jwbcs.toFixed(1)} x10³/μL
-Hemoglobin          : ${record.hemog.toFixed(1)} g/dL
-Hematokrit          : ${record.hemat}%
-Trombosit           : ${record.jplat} x10³/μL` : ''}
-
-GEJALA KLINIS
-─────────────────────────────────────────────────────────────────────
-[${record.skpla === 'Iya' ? '✓' : '✗'}] Sakit Kepala Parah
-[${record.nymat === 'Iya' ? '✓' : '✗'}] Nyeri Belakang Mata
-[${record.nysen === 'Iya' ? '✓' : '✗'}] Nyeri Sendi/Otot
-[${record.rsmul === 'Iya' ? '✓' : '✗'}] Rasa Logam di Mulut
-[${record.hinfm === 'Iya' ? '✓' : '✗'}] Hilang Nafsu Makan
-[${record.nyper === 'Iya' ? '✓' : '✗'}] Nyeri Perut
-[${record.mumun === 'Iya' ? '✓' : '✗'}] Mual/Muntah
-[${record.mdiar === 'Iya' ? '✓' : '✗'}] Diare
-
-INFORMASI MODEL
-─────────────────────────────────────────────────────────────────────
-Model yang digunakan menggunakan algoritma Logistic Regression untuk
-memprediksi kemungkinan DBD berdasarkan data yang dimasukkan.
-
-Varian Model: ${getModelNameDisplay(record.model_used)}
-
-DISCLAIMER
-─────────────────────────────────────────────────────────────────────
-⚠️  PENTING: Hasil pemeriksaan ini bersifat prediktif dan tidak dapat
-    menggantikan diagnosis medis profesional. Selalu konsultasikan
-    dengan dokter untuk diagnosis yang akurat.
-
-─────────────────────────────────────────────────────────────────────
-Laporan dibuat oleh: Dengue Checker System
-Website: https://dengue-checker.vercel.app
-Waktu cetak: ${new Date().toLocaleString('id-ID', { 
-  weekday: 'long', 
-  year: 'numeric', 
-  month: 'long', 
-  day: 'numeric',
-  hour: '2-digit',
-  minute: '2-digit'
-})}
-═══════════════════════════════════════════════════════════════════════
-`.trim()
-
-                const blob = new Blob([report], { type: 'text/plain;charset=utf-8' })
-                const url = URL.createObjectURL(blob)
-                const link = document.createElement('a')
-                link.href = url
-                const fileName = `Laporan-DBD-${formatDate(record.created_at).replace(/\s/g, '-')}.txt`
-                link.download = fileName
-                document.body.appendChild(link)
-                link.click()
-                document.body.removeChild(link)
-                URL.revokeObjectURL(url)
-              }}
+              onClick={() => downloadReport(record)}
               className="flex-1 bg-green-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-700 transition-colors flex items-center justify-center gap-2"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

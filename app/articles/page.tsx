@@ -34,14 +34,14 @@ export default function ArticlesPage() {
   const fetchNews = async (query: string) => {
     setIsLoading(true)
     setError('')
-    
+
     try {
       const response = await fetch(`/api/news?q=${encodeURIComponent(query)}`)
-      
+
       if (!response.ok) {
         throw new Error('Failed to fetch news')
       }
-      
+
       const data = await response.json()
       setArticles(data.articles || [])
     } catch (err) {
@@ -58,10 +58,10 @@ export default function ArticlesPage() {
 
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr)
-    return date.toLocaleDateString('id-ID', { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
+    return date.toLocaleDateString('id-ID', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
     })
   }
 
@@ -69,29 +69,36 @@ export default function ArticlesPage() {
     const date = new Date(dateStr)
     const now = new Date()
     const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60))
-    
+
     if (diffInHours < 1) return 'Baru saja'
     if (diffInHours < 24) return `${diffInHours} jam yang lalu`
-    
+
     const diffInDays = Math.floor(diffInHours / 24)
     if (diffInDays < 7) return `${diffInDays} hari yang lalu`
-    
+
     return formatDate(dateStr)
   }
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar active="articles" />
-      
+
       <div className="pt-20">
         {/* Header */}
-        <div className="bg-gradient-to-r from-red-600 to-red-800 text-white">
-          <div className="max-w-screen-xl mx-auto px-4 py-16">
-            <div className="text-center">
+
+        <div
+          className="text-white bg-cover bg-center bg-no-repeat"
+          style={{
+            minHeight: '50vh',
+            backgroundImage: `linear-gradient(to right, rgb(220, 38, 38) 20%, rgba(220, 38, 38, 0.8) 50%, rgba(220, 38, 38, 0) 100%), url('/article_header.jpg')`
+          }}
+        >
+          <div className="max-w-screen-xl mx-auto px-4 py-24">
+            <div className="text-left">
               <h1 className="text-4xl lg:text-5xl font-bold mb-4">
                 Berita DBD Terkini
               </h1>
-              <p className="text-xl text-red-100 max-w-2xl mx-auto">
+              <p className="text-xl text-red-50 max-w-2xl text-shadow-sm">
                 Informasi terbaru seputar Demam Berdarah Dengue, pencegahan, penelitian, dan perkembangan teknologi deteksi DBD
               </p>
             </div>
@@ -107,11 +114,10 @@ export default function ArticlesPage() {
                 <button
                   key={category.key}
                   onClick={() => setSelectedCategory(category.key)}
-                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                    selectedCategory === category.key
-                      ? 'bg-red-700 text-white shadow-lg'
-                      : 'bg-white text-gray-700 border border-gray-300 hover:bg-red-50 hover:border-red-300'
-                  }`}
+                  className={`px-4 py-2 rounded-full font-medium transition-colors ${selectedCategory === category.key
+                    ? 'bg-red-700 text-white shadow-lg'
+                    : 'bg-white text-gray-700 border border-gray-300 hover:bg-red-50 hover:border-red-300'
+                    }`}
                 >
                   {category.label}
                 </button>
@@ -166,7 +172,7 @@ export default function ArticlesPage() {
                           <div className="w-full h-full flex items-center justify-center text-white text-6xl">📰</div>
                         )}
                       </div>
-                      
+
                       <div className="p-6">
                         <div className="flex items-center gap-4 mb-3 text-sm text-gray-600">
                           <span className="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-medium">
@@ -174,15 +180,15 @@ export default function ArticlesPage() {
                           </span>
                           <span>📅 {getTimeAgo(article.publishedAt)}</span>
                         </div>
-                        
+
                         <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 leading-tight">
                           {article.title}
                         </h3>
-                        
+
                         <p className="text-gray-600 mb-4 line-clamp-3">
                           {article.description || 'Baca selengkapnya di sumber berita...'}
                         </p>
-                        
+
                         <div className="flex items-center justify-between">
                           <span className="text-sm text-gray-500">
                             {article.author ? `👤 ${article.author}` : `📰 ${article.source.name}`}
@@ -191,7 +197,7 @@ export default function ArticlesPage() {
                             href={article.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="bg-red-700 text-white px-4 py-2 rounded-lg font-medium hover:bg-red-800 transition-colors flex items-center gap-2"
+                            className="bg-red-700 text-white px-4 py-2 rounded-full font-medium hover:bg-red-800 transition-colors flex items-center gap-2"
                           >
                             Baca Selengkapnya
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -232,7 +238,7 @@ export default function ArticlesPage() {
                   className="inline-flex items-center gap-2 bg-red-700 text-white px-6 py-3 rounded-lg font-medium hover:bg-red-800 transition-colors"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   Cek Gejala DBD
                 </Link>
@@ -241,7 +247,7 @@ export default function ArticlesPage() {
                   className="inline-flex items-center gap-2 bg-white border border-red-300 text-red-700 px-6 py-3 rounded-lg font-medium hover:bg-red-50 transition-colors"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                   </svg>
                   Kembali ke Beranda
                 </Link>

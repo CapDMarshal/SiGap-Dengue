@@ -10,7 +10,6 @@ import { createClient } from '../../utils/supabase/client'
 function LoginContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const supabase = createClient()
 
   const [loading, setLoading] = useState(false)
   const [authError, setAuthError] = useState<string | null>(null)
@@ -24,6 +23,7 @@ function LoginContent() {
 
     // Check if user is already logged in
     const checkUser = async () => {
+      const supabase = createClient()
       const {
         data: { session },
       } = await supabase.auth.getSession()
@@ -32,12 +32,14 @@ function LoginContent() {
       }
     }
     checkUser()
-  }, [router, supabase, searchParams])
+  }, [router, searchParams])
 
   const handleGoogleAuth = async () => {
     setLoading(true)
 
     try {
+      const supabase = createClient()
+
       // Debug information
       console.log('=== GOOGLE AUTH DEBUG ===')
       console.log('NODE_ENV:', process.env.NODE_ENV)

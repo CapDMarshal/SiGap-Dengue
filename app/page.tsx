@@ -1,6 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import dynamicImport from 'next/dynamic'
+import Link from 'next/link'
 import Footer from './components/Footer'
 import Navbar from './components/Navbar'
 import { createClient } from '../utils/supabase/client'

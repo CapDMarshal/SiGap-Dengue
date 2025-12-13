@@ -1,7 +1,5 @@
 'use client'
 
-import NextImage from 'next/image'
-
 interface FormProps {
     formData: any
     setFormData: (data: any) => void
@@ -74,29 +72,35 @@ export default function FormGejalaTambahan({ formData, setFormData }: FormProps)
                 Gejala Tambahan
             </h3>
 
-            <div className="flex flex-col gap-y-8">
-                {[0, 2, 4, 6].map((startIdx) => (
-                    <div key={startIdx} className="grid gap-6 md:grid-cols-2">
-                        {symptoms.slice(startIdx, startIdx + 2).map((symptom) => (
-                            <div key={symptom.code} className="flex flex-col gap-y-4">
-                                <div className="flex gap-x-8 items-center min-h-[140px]">
-                                    <NextImage src={symptom.img} width={64} height={64} alt="Question" className="w-16" />
-                                    <label className="flex flex-col">
-                                        <h5 className="mb-2 text-xl font-medium tracking-tight text-gray-900">
-                                            {symptom.title}
-                                        </h5>
-                                        <p className="font-normal text-gray-700">{symptom.desc}</p>
-                                    </label>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {symptoms.map((symptom) => {
+                    const isSelected = formData[symptom.code] === 'Iya'
+                    return (
+                        <button
+                            key={symptom.code}
+                            type="button"
+                            onClick={() => handleToggle(symptom.code)}
+                            className={`flex flex-col gap-3 p-6 rounded-2xl border-2 transition-all duration-200 cursor-pointer hover:shadow-md ${isSelected
+                                    ? 'bg-red-700 border-red-700 shadow-sm'
+                                    : 'bg-white border-gray-200 hover:border-gray-300'
+                                }`}
+                        >
+                            <div className="flex items-center gap-3">
+                                <div className={`w-12 h-12 flex-shrink-0 rounded-full flex items-center justify-center ${isSelected ? 'bg-red-100' : 'bg-gray-100'
+                                    }`}>
+                                    <img
+                                        src={symptom.img}
+                                        alt={symptom.title}
+                                        className="w-8 h-8 object-contain"
+                                    />
                                 </div>
-                                <h5 className={`text-left text-base font-semibold ${
-                                    isSelected ? 'text-white' : 'text-gray-900'
-                                }`}>
+                                <h5 className={`text-left text-base font-semibold ${isSelected ? 'text-white' : 'text-gray-900'
+                                    }`}>
                                     {symptom.title}
                                 </h5>
                             </div>
-                            <p className={`text-xs text-left line-clamp-2 ${
-                                isSelected ? 'text-white' : 'text-gray-600'
-                            }`}>
+                            <p className={`text-xs text-left line-clamp-2 ${isSelected ? 'text-white' : 'text-gray-600'
+                                }`}>
                                 {symptom.desc}
                             </p>
                         </button>

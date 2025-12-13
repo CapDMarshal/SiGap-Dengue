@@ -173,6 +173,70 @@ export default function FAQCards() {
     }
   }
 
+  const navigateToCard = (newIndex: number) => {
+    if (newIndex >= 0 && newIndex < faqData.length) {
+      setActiveCard(newIndex)
+      cardsRef.current.forEach((card, i) => {
+        if (card) {
+          if (i === newIndex) {
+            gsap.to(card, {
+              x: 0,
+              y: -50,
+              rotation: 0,
+              zIndex: 10,
+              scale: 1.05,
+              duration: 0.6,
+              ease: 'power2.out'
+            })
+          } else {
+            const offset = (i - newIndex) * 8
+            gsap.to(card, {
+              x: offset,
+              y: offset + 20,
+              rotation: 0,
+              zIndex: 5 - Math.abs(i - newIndex),
+              scale: 0.95,
+              duration: 0.6,
+              ease: 'power2.out'
+            })
+          }
+        }
+      })
+    }
+  }
+
+  const handlePrevCard = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    if (activeCard !== null && activeCard > 0) {
+      navigateToCard(activeCard - 1)
+    }
+  }
+
+  const handleNextCard = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    if (activeCard !== null && activeCard < faqData.length - 1) {
+      navigateToCard(activeCard + 1)
+    }
+  }
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (activeCard !== null) {
+        if (e.key === 'ArrowLeft' && activeCard > 0) {
+          navigateToCard(activeCard - 1)
+        } else if (e.key === 'ArrowRight' && activeCard < faqData.length - 1) {
+          navigateToCard(activeCard + 1)
+        } else if (e.key === 'Escape') {
+          returnToSpread()
+        }
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [activeCard])
+
   return (
     <div
       className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 py-20 px-4"
@@ -269,12 +333,76 @@ export default function FAQCards() {
         })}
       </div>
 
-      {/* Instructions */}
-      {/* <div className="mt-12 text-center max-w-md">
-        <p className="text-sm text-gray-500 italic">
-          💡 Tip: Klik pada kartu untuk melihat detail lengkap. Klik di luar kartu untuk kembali.
-        </p>
-      </div> */}
+      {/* Navigation Controls - Show when card is active */}
+      {activeCard !== null && (
+        <>
+          {/* Previous Button */}
+          {activeCard > 0 && (
+            <button
+              onClick={handlePrevCard}
+              className="fixed left-8 top-1/2 -translate-y-1/2 z-20 bg-red-700 hover:bg-red-800 text-white p-4 rounded-full shadow-2xl transition-all hover:scale-110 active:scale-95"
+              aria-label="Previous card"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+          )}
+
+          {/* Next Button */}
+          {activeCard < faqData.length - 1 && (
+            <button
+              onClick={handleNextCard}
+              className="fixed right-8 top-1/2 -translate-y-1/2 z-20 bg-red-700 hover:bg-red-800 text-white p-4 rounded-full shadow-2xl transition-all hover:scale-110 active:scale-95"
+              aria-label="Next card"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          )}
+
+          {/* Card Indicators */}
+          <div className="fixed bottom-12 left-1/2 -translate-x-1/2 z-20 flex gap-2 bg-white/90 backdrop-blur px-4 py-3 rounded-full shadow-xl">
+            {faqData.map((_, index) => (
+              <button
+                key={index}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  navigateToCard(index)
+                }}
+                className={`transition-all ${
+                  activeCard === index
+                    ? 'w-8 h-3 bg-red-700'
+                    : 'w-3 h-3 bg-gray-300 hover:bg-gray-400'
+                } rounded-full`}
+                aria-label={`Go to card ${index + 1}`}
+              />
+            ))}
+          </div>
+
+          {/* Close Button */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation()
+              returnToSpread()
+            }}
+            className="fixed top-8 right-8 z-20 bg-gray-800 hover:bg-gray-900 text-white p-3 rounded-full shadow-2xl transition-all hover:scale-110 active:scale-95"
+            aria-label="Close"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+
+          {/* Keyboard Hint */}
+          {/* <div className="fixed bottom-28 left-1/2 -translate-x-1/2 z-20 text-xs text-gray-500 bg-white/80 backdrop-blur px-3 py-1 rounded-full">
+            Gunakan ← → atau klik tombol untuk navigasi
+          </div> */}
+        </>
+      )}
+
+
     </div>
   )
 }

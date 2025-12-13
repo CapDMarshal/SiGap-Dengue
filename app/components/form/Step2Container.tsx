@@ -1,13 +1,24 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import FormGejalaUtama from './FormGejalaUtama'
 import FormGejalaTambahan from './FormGejalaTambahan'
 import FormUjiLab from './FormUjiLab'
 
-export default function Step2Container() {
+interface Step2ContainerProps {
+    onStepChange?: (step: number) => void
+}
+
+export default function Step2Container({ onStepChange }: Step2ContainerProps) {
     const router = useRouter()
+    const [currentStep, setCurrentStep] = useState(1)
+
+    useEffect(() => {
+        if (onStepChange) {
+            onStepChange(currentStep)
+        }
+    }, [currentStep, onStepChange])
 
     // Form state
     const [formData, setFormData] = useState({
@@ -39,43 +50,73 @@ export default function Step2Container() {
         router.push('/result')
     }
 
+    const handleNext = () => {
+        if (currentStep < 3) {
+            setCurrentStep(currentStep + 1)
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+        } else {
+            handleSubmit({ preventDefault: () => {} } as React.FormEvent)
+        }
+    }
+
+    const handleBack = () => {
+        if (currentStep > 1) {
+            setCurrentStep(currentStep - 1)
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+        } else {
+            router.push('/form')
+        }
+    }
+
     return (
-        <form
-            onSubmit={handleSubmit}
-            className="flex flex-col gap-y-6 px-4 lg:px-16 my-6"
-        >
-            {/* Form Gejala Utama */}
-            <FormGejalaUtama formData={formData} setFormData={setFormData} />
+        <div className="min-h-screen bg-slate-50">
 
-            {/* Form Gejala Tambahan */}
-            <FormGejalaTambahan formData={formData} setFormData={setFormData} />
+            {/* Form Container */}
+            <div className="max-w-6xl mx-auto px-4 py-8">
+                <div className="bg-white rounded-2xl shadow-sm p-6 md:p-10">
+                    {/* Form Content */}
+                    {currentStep === 1 && (
+                        <FormGejalaUtama formData={formData} setFormData={setFormData} />
+                    )}
+                    {currentStep === 2 && (
+                        <FormGejalaTambahan formData={formData} setFormData={setFormData} />
+                    )}
+                    {currentStep === 3 && (
+                        <FormUjiLab formData={formData} setFormData={setFormData} />
+                    )}
 
-            {/* Form Uji Lab */}
-            <FormUjiLab formData={formData} setFormData={setFormData} />
-
-            <button
-                type="submit"
-                className="flex items-center justify-center gap-x-2 px-4 py-2 text-sm font-medium text-white bg-red-700 border border-transparent rounded-md shadow-sm hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-            >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-5 h-5"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                >
-                    <path d="M3 7V5a2 2 0 0 1 2-2h2" />
-                    <path d="M17 3h2a2 2 0 0 1 2 2v2" />
-                    <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
-                    <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
-                    <circle cx="12" cy="12" r="3" />
-                    <path d="m16 16-1.9-1.9" />
-                </svg>
-                <span className="text-nowrap">Periksa</span>
-            </button>
-        </form>
+                    {/* Navigation Buttons */}
+                    <div className="flex items-center justify-between mt-8 pt-6 border-t">
+                        <button
+                            type="button"
+                            onClick={handleBack}
+                            className="px-6 py-3 text-base font-medium text-gray-700 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                        >
+                            Kembali
+                        </button>
+                        <button
+                            type="button"
+                            onClick={handleNext}
+                            className="flex items-center gap-2 px-6 py-3 text-base font-medium text-white bg-red-700 rounded-lg hover:bg-red-800 transition-colors"
+                        >
+                            {currentStep === 3 ? 'Selesai' : 'Lanjut'}
+                            {currentStep < 3 && (
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="w-5 h-5"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                >
+                                    <path d="M5 12h14" />
+                                    <path d="m12 5 7 7-7 7" />
+                                </svg>
+                            )}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     )
 }

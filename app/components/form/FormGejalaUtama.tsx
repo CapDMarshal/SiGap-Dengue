@@ -1,5 +1,8 @@
 'use client'
 
+import { useEffect } from 'react'
+import NextImage from 'next/image'
+
 interface FormProps {
     formData: any
     setFormData: (data: any) => void
@@ -13,11 +16,10 @@ export default function FormGejalaUtama({ formData, setFormData }: FormProps) {
             </h3>
 
             <div className="flex flex-col gap-y-8">
-                {/* Apakah Merasakan Demam */}
-                <div className="flex flex-col gap-y-4">
-                    <div className="flex gap-x-6 items-start">
-                        <img src="/sick.png" alt="Question" className="w-16 flex-shrink-0" />
-                        <div className="flex-1">
+                <div className="flex flex-col gap-y-4 md:flex-row gap-x-4 justify-between">
+                    <div className="flex gap-x-8 items-center">
+                        <NextImage src="/sick.png" width={64} height={64} alt="Question" className="w-16" />
+                        <label className="flex flex-col">
                             <h5 className="mb-2 text-xl font-medium tracking-tight text-gray-900">
                                 Apakah anda merasakan demam?
                             </h5>
@@ -64,9 +66,12 @@ export default function FormGejalaUtama({ formData, setFormData }: FormProps) {
                 <div className="grid gap-6 md:grid-cols-2">
                     {/* Durasi Demam */}
                     <div className="flex flex-col gap-y-4">
-                        <div className="flex gap-x-6 items-center">
-                            <img
+                        <div className="flex gap-x-8 items-center">
+                            <NextImage
+                                id="ddema-img"
                                 src="/schedule.png"
+                                width={64}
+                                height={64}
                                 alt="Question"
                                 className="w-16 flex-shrink-0"
                             />
@@ -104,9 +109,12 @@ export default function FormGejalaUtama({ formData, setFormData }: FormProps) {
 
                     {/* Suhu */}
                     <div className="flex flex-col gap-y-4">
-                        <div className="flex gap-x-6 items-center">
-                            <img
+                        <div className="flex gap-x-8 items-center">
+                            <NextImage
+                                id="suhun-img"
                                 src="/thermometer.png"
+                                width={64}
+                                height={64}
                                 alt="Question"
                                 className="w-16 flex-shrink-0"
                             />

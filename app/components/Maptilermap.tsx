@@ -55,6 +55,7 @@ export default function MapTilerMap({ data, layout }: MapTilerMapProps) {
       style: maptilersdk.MapStyle.STREETS,
       center: [117.5, -2.5], // Indonesia center [lng, lat]
       zoom: 5,
+      attributionControl: false, // Disable attribution to prevent third-party cookies
     })
 
     map.current = newMap

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import NextImage from 'next/image'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Navbar from '../components/Navbar'
@@ -57,9 +58,11 @@ export default function RegisterPage() {
             <div className="mx-auto max-w-md w-full">
               <div className="bg-white rounded-lg shadow-lg p-8">
                 <div className="text-center mb-8">
-                  <img
+                  <NextImage
                     src="/dengue.png"
                     alt="Dengue Logo"
+                    width={96}
+                    height={96}
                     className="w-24 mx-auto mb-4"
                   />
                   <h1 className="text-3xl font-extrabold text-gray-900">

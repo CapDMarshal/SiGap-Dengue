@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { createClient } from '../../utils/supabase/client'
 import { User } from '@supabase/supabase-js'
+import NextImage from 'next/image'
 
 interface NavbarProps {
   active: 'home' | 'form' | 'login' | 'history' | 'about' | 'articles' | 'checklist' | 'profile'
@@ -167,7 +168,7 @@ export default function Navbar({ active }: NavbarProps) {
               rel="noopener noreferrer"
             >
               {/* Logo untuk mobile - ukuran lebih kecil */}
-              <img src="/dengue.png" className="h-8 md:h-10" alt="SiGap Dengue Logo" />
+              <NextImage src="/dengue.png" width={48} height={48} className="h-8 md:h-12 w-auto" alt="SiGap Dengue Logo" priority />
             </a>
           </div>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse gap-3">
@@ -316,18 +317,13 @@ export default function Navbar({ active }: NavbarProps) {
             <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-white md:dark:bg-white dark:border-gray-700">
               <li>
                 <Link href="/" className={active === 'home' ? activeList : regularList}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
+                  <svg xmlns="http://www.w3.org/2000/svg"
                     className="w-5 h-5"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                    <polyline points="9 22 9 12 15 12 15 22" />
+                    viewBox="0 0 16 16"
+                    fill="currentColor">
+                    <path
+                      d="M12.5 12.618c.307-.275.5-.674.5-1.118V6.977a1.5 1.5 0 0 0-.585-1.189l-3.5-2.692a1.5 1.5 0 0 0-1.83 0l-3.5 2.692A1.5 1.5 0 0 0 3 6.978V11.5A1.496 1.496 0 0 0 4.493 13H5V9.5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2V13h.507c.381-.002.73-.146.993-.382m2-1.118a3 3 0 0 1-3 3h-7a3 3 0 0 1-3-3V6.977A3 3 0 0 1 2.67 4.6l3.5-2.692a3 3 0 0 1 3.66 0l3.5 2.692a3.003 3.003 0 0 1 1.17 2.378zm-5-2A.5.5 0 0 0 9 9H7a.5.5 0 0 0-.5.5V13h3z"
+                      clipRule="evenodd" />
                   </svg>
                   Beranda
                 </Link>
@@ -382,16 +378,12 @@ export default function Navbar({ active }: NavbarProps) {
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="w-5 h-5"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M12 2a10 10 0 1 0 10 10H12V2z" />
-                      <path d="M12 2v10l6.4 6.4" />
-                      <circle cx="12" cy="12" r="1" />
+                      viewBox="0 0 16 16">
+                      <path
+                        fill="currentColor"
+                        fillRule="evenodd"
+                        d="M13.293 0c.39 0 .707.317.707.707V2h1.293a.707.707 0 0 1 .5 1.207l-1.46 1.46A1.138 1.138 0 0 1 13.53 5h-1.47L8.53 8.53a.75.75 0 0 1-1.06-1.06L11 3.94V2.47c0-.301.12-.59.333-.804l1.46-1.46a.707.707 0 0 1 .5-.207ZM2.5 8a5.5 5.5 0 0 1 6.598-5.39a.75.75 0 0 0 .298-1.47A7 7 0 1 0 14.86 6.6a.75.75 0 0 0-1.47.299A5.5 5.5 0 1 1 2.5 8m5.364-2.496a.75.75 0 0 0-.08-1.498A4 4 0 1 0 11.988 8.3a.75.75 0 0 0-1.496-.111a2.5 2.5 0 1 1-2.63-2.686Z"
+                        clipRule="evenodd" />
                     </svg>
                     Misi
                   </Link>

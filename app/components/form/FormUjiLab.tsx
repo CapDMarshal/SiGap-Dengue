@@ -1,5 +1,8 @@
 'use client'
 
+import { useEffect } from 'react'
+import NextImage from 'next/image'
+
 interface FormProps {
     formData: any
     setFormData: (data: any) => void
@@ -15,11 +18,10 @@ export default function FormUjiLab({ formData, setFormData }: FormProps) {
             </h3>
 
             <div className="flex flex-col gap-y-8">
-                {/* Apakah Sudah Uji Lab */}
-                <div className="flex flex-col gap-y-4">
-                    <div className="flex gap-x-6 items-start">
-                        <img src="/blood-analysis.png" alt="Question" className="w-16 flex-shrink-0" />
-                        <div className="flex-1">
+                <div className="flex flex-col gap-y-4 md:flex-row gap-x-4 justify-between">
+                    <div className="flex gap-x-8 items-center">
+                        <NextImage src="/blood-analysis.png" width={64} height={64} alt="Question" className="w-16" />
+                        <label className="flex flex-col">
                             <h5 className="mb-2 text-xl font-medium tracking-tight text-gray-900">
                                 Apakah anda sudah melakukan uji darah di Laboratorium?
                             </h5>
@@ -65,9 +67,12 @@ export default function FormUjiLab({ formData, setFormData }: FormProps) {
                 <div className="grid gap-6 md:grid-cols-2">
                     {/* WBC */}
                     <div className="flex flex-col gap-y-4">
-                        <div className="flex gap-x-6 items-center">
-                            <img
+                        <div className="flex gap-x-8 items-center min-h-[140px]">
+                            <NextImage
+                                id="jwbcs-img"
                                 src="/white-blood-cell.png"
+                                width={64}
+                                height={64}
                                 alt="Question"
                                 className="w-16 flex-shrink-0"
                             />
@@ -98,9 +103,12 @@ export default function FormUjiLab({ formData, setFormData }: FormProps) {
 
                     {/* Hemoglobin */}
                     <div className="flex flex-col gap-y-4">
-                        <div className="flex gap-x-6 items-center">
-                            <img
+                        <div className="flex gap-x-8 items-center min-h-[140px]">
+                            <NextImage
+                                id="hemog-img"
                                 src="/red-blood-cells.png"
+                                width={64}
+                                height={64}
                                 alt="Question"
                                 className="w-16 flex-shrink-0"
                             />
@@ -133,9 +141,12 @@ export default function FormUjiLab({ formData, setFormData }: FormProps) {
                 <div className="grid gap-6 md:grid-cols-2">
                     {/* Hematocrit */}
                     <div className="flex flex-col gap-y-4">
-                        <div className="flex gap-x-6 items-center">
-                            <img
+                        <div className="flex gap-x-8 items-center min-h-[140px]">
+                            <NextImage
+                                id="hemat-img"
                                 src="/blood-test.png"
+                                width={64}
+                                height={64}
                                 alt="Question"
                                 className="w-16 flex-shrink-0"
                             />
@@ -166,9 +177,12 @@ export default function FormUjiLab({ formData, setFormData }: FormProps) {
 
                     {/* Platelet */}
                     <div className="flex flex-col gap-y-4">
-                        <div className="flex gap-x-6 items-center">
-                            <img
+                        <div className="flex gap-x-8 items-center min-h-[140px]">
+                            <NextImage
+                                id="jplat-img"
                                 src="/thermometer.png"
+                                width={64}
+                                height={64}
                                 alt="Question"
                                 className="w-16 flex-shrink-0"
                             />

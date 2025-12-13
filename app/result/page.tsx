@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState, useRef } from 'react'
+import NextImage from 'next/image'
 import { useRouter } from 'next/navigation'
 import Navbar from '../components/Navbar'
 import Stepper from '../components/Stepper'
@@ -131,7 +132,7 @@ export default function ResultPage() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img src="/uty_logo.png" className="h-10" alt="UTY Logo" />
+                <NextImage src="/uty_logo.png" width={40} height={40} className="h-10 w-auto" alt="UTY Logo" />
               </a>
             </div>
             <p className="flex items-center text-md font-normal text-center text-gray-800">
@@ -193,9 +194,11 @@ export default function ResultPage() {
         {/* Card Result */}
         <div className="mt-0 md:mt-8 flex flex-col md:flex-row gap-4 w-full lg:w-1/2 bg-white border border-gray-200 rounded-lg shadow-lg px-4">
           <div className="flex justify-center items-center aspect-square p-12">
-            <img
+            <NextImage
               className="w-40 rounded-t-lg"
               src={prediction === 0 ? '/protected.png' : '/mosquito.png'}
+              width={160}
+              height={160}
               alt="Classification Result"
             />
           </div>
@@ -264,7 +267,7 @@ export default function ResultPage() {
               <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-8">
                 <blockquote className="flex flex-col gap-y-4 rounded-lg bg-gray-50 p-6 shadow-sm sm:p-8">
                   <div className="flex items-center gap-4">
-                    <img alt="Icon" src="/doctor.png" className="w-16" />
+                    <NextImage alt="Icon" src="/doctor.png" width={64} height={64} className="w-16" />
                     <p className="mt-0.5 text-lg font-medium text-gray-900">
                       Konsultasi ke dokter
                     </p>
@@ -298,7 +301,7 @@ export default function ResultPage() {
 
                 <blockquote className="flex flex-col gap-y-4 rounded-lg bg-gray-50 p-6 shadow-sm sm:p-8">
                   <div className="flex items-center gap-4">
-                    <img alt="Icon" src="/fogging.png" className="w-16" />
+                    <NextImage alt="Icon" src="/fogging.png" width={64} height={64} className="w-16" />
                     <p className="mt-0.5 text-lg font-medium text-gray-900">
                       Melakukan penyemprotan
                     </p>
@@ -332,7 +335,7 @@ export default function ResultPage() {
 
                 <blockquote className="flex flex-col gap-y-4 rounded-lg bg-gray-50 p-6 shadow-sm sm:p-8">
                   <div className="flex items-center gap-4">
-                    <img alt="Icon" src="/mosquito (1).png" className="w-16" />
+                    <NextImage alt="Icon" src="/mosquito (1).png" width={64} height={64} className="w-16" />
                     <p className="mt-0.5 text-lg font-medium text-gray-900">
                       Memberi bubuk abate
                     </p>

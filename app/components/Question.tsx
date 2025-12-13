@@ -1,3 +1,5 @@
+import NextImage from 'next/image'
+
 interface QuestionProps {
   title: string
   description: string

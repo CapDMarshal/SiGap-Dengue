@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import NextImage from 'next/image'
 
 export default function Footer() {
     return (
@@ -8,7 +9,7 @@ export default function Footer() {
                     {/* Column 1: About */}
                     <div className="col-span-1 md:col-span-2">
                         <div className="flex items-center gap-3 mb-4">
-                            <img src="/dengue.png" className="h-10" alt="SiGap Dengue Logo" />
+                            <NextImage src="/dengue.png" width={40} height={40} className="h-10 w-auto" alt="SiGap Dengue Logo" />
                             <h3 className="text-xl font-bold">SiGap Dengue</h3>
                         </div>
                         <p className="text-gray-400 mb-4">

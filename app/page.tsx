@@ -10,6 +10,7 @@ import { User } from '@supabase/supabase-js'
 
 import TipsCard from '@/components/TipsCard'
 import TipsDetailCard from '@/components/TipsDetailCard'
+import FAQCards from './components/FAQCards'
 
 const MapTilerMap = dynamic(() => import('./components/Maptilermap'), {
   ssr: false,
@@ -549,25 +550,25 @@ export default function Home() {
                           50% { transform: translate(-20px, 10px) rotate(25deg); }
                           75% { transform: translate(10px, 15px) rotate(0deg); }
                         }
-                        
+
                         @keyframes crosshair-hunt {
                           0%, 100% { transform: translate(0, 0) scale(1); }
                           25% { transform: translate(-15px, 10px) scale(1.05); }
                           50% { transform: translate(20px, -12px) scale(0.95); }
                           75% { transform: translate(-10px, -15px) scale(1.02); }
                         }
-                        
+
                         @keyframes mosquito-fall {
                           0% { transform: translate(0, 0) rotate(12deg); opacity: 1; }
                           50% { transform: translate(0, 150px) rotate(180deg); opacity: 0.5; }
                           100% { transform: translate(0, 300px) rotate(360deg); opacity: 0; }
                         }
-                        
+
                         @keyframes crosshair-lock {
                           0%, 100% { transform: translate(0, 0) scale(1); }
                           50% { transform: translate(0, 0) scale(1.1); }
                         }
-                        
+
                         @keyframes shot-flash {
                           0%, 100% { opacity: 0; }
                           50% { opacity: 1; }
@@ -764,22 +765,7 @@ export default function Home() {
       </div>
 
       {/* FAQ/Edukasi Section */}
-      <section className="min-h-screen bg-white flex items-center">
-        <div className="mx-auto max-w-screen-xl px-4 py-20 w-full">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              Pertanyaan Umum tentang DBD
-            </h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              Pertanyaan umum seputar DBD yang perlu Anda ketahui untuk pencegahan dan penanganan yang tepat
-            </p>
-          </div>
-
-          <div className="max-w-4xl mx-auto">
-            <FAQAccordion />
-          </div>
-        </div>
-      </section>
+      <FAQCards />
 
       {/* Quick Tips Cards Section */}
       <section id="tips-section" className="min-h-screen bg-gray-50 flex items-center relative overflow-hidden">

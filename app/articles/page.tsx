@@ -90,7 +90,7 @@ export default function ArticlesPage() {
           className="text-white bg-cover bg-center bg-no-repeat"
           style={{
             minHeight: '50vh',
-            backgroundImage: `linear-gradient(to right, rgb(220, 38, 38) 20%, rgba(220, 38, 38, 0.8) 50%, rgba(220, 38, 38, 0) 100%), url('/article_header.jpg')`
+            backgroundImage: `linear-gradient(to right, #780606 20%, rgba(120, 6, 6, 0.8) 50%, rgba(120, 6, 6, 0) 100%), url('/article_header.jpg')`
           }}
         >
           <div className="max-w-screen-xl mx-auto px-4 py-24">

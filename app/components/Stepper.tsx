@@ -4,7 +4,7 @@ interface StepperProps {
 
 export default function Stepper({ active }: StepperProps) {
   const activeStep =
-    'size-6 rounded-full bg-red-600 text-center text-[10px]/6 font-bold text-white'
+    'size-6 rounded-full bg-red-700 text-center text-[10px]/6 font-bold text-white'
   const regularStep =
     'size-6 rounded-full bg-gray-100 text-center text-[10px]/6 font-bold'
 

@@ -99,7 +99,7 @@ export default function PreventionChecklistPage() {
     const getUser = async () => {
       const { data: { user } } = await supabase.auth.getUser()
       setUser(user)
-      
+
       if (user) {
         await loadWeeklyProgress(user.id)
       }
@@ -110,7 +110,7 @@ export default function PreventionChecklistPage() {
 
   const loadWeeklyProgress = async (userId: string) => {
     const weekStart = getWeekStart()
-    
+
     // Coba ambil progress minggu ini
     const { data: existingProgress } = await supabase
       .from('weekly_prevention_progress')
@@ -141,8 +141,8 @@ export default function PreventionChecklistPage() {
   }
 
   const handleChecklistChange = (itemId: string) => {
-    const updatedChecklist = checklist.map(item => 
-      item.id === itemId 
+    const updatedChecklist = checklist.map(item =>
+      item.id === itemId
         ? { ...item, isCompleted: !item.isCompleted }
         : item
     )
@@ -233,7 +233,7 @@ export default function PreventionChecklistPage() {
                 Login Diperlukan
               </h1>
               <p className="text-gray-600 mb-8">
-                Fitur Checklist Pencegahan Interaktif hanya tersedia untuk pengguna yang sudah login. 
+                Fitur Checklist Pencegahan Interaktif hanya tersedia untuk pengguna yang sudah login.
                 Masuk untuk melacak progress pencegahan DBD mingguan Anda.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -262,10 +262,10 @@ export default function PreventionChecklistPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar active="checklist" />
-      
+
       <div className="pt-20">
         {/* Header */}
-        <div className="bg-gradient-to-r from-red-600 to-red-800 text-white">
+        <div className="bg-gradient-to-r from-red-700 to-red-900 text-white">
           <div className="max-w-4xl mx-auto px-4 py-12">
             <div className="text-center">
               <h1 className="text-4xl font-bold mb-4">
@@ -288,15 +288,15 @@ export default function PreventionChecklistPage() {
               <div className="text-4xl font-bold text-red-700 mb-4">
                 {progress.percentage}%
               </div>
-              
+
               {/* Progress Bar */}
               <div className="w-full bg-gray-200 rounded-full h-4 mb-4">
-                <div 
+                <div
                   className="bg-gradient-to-r from-red-500 to-red-600 h-4 rounded-full transition-all duration-500"
                   style={{ width: `${progress.percentage}%` }}
                 ></div>
               </div>
-              
+
               <p className="text-gray-600">
                 {progress.completed} dari {progress.total} langkah pencegahan telah diselesaikan
               </p>
@@ -332,25 +332,23 @@ export default function PreventionChecklistPage() {
             <h3 className="text-xl font-semibold text-gray-900 mb-4">
               Langkah-Langkah Pencegahan DBD
             </h3>
-            
+
             {checklist.map((item, index) => (
               <button
                 key={item.id}
                 onClick={() => handleChecklistChange(item.id)}
-                className={`w-full bg-white rounded-lg border-2 p-4 transition-all duration-300 text-left hover:scale-[1.02] ${
-                  item.isCompleted 
-                    ? 'border-green-200 bg-green-50' 
+                className={`w-full bg-white rounded-lg border-2 p-4 transition-all duration-300 text-left hover:scale-[1.02] ${item.isCompleted
+                    ? 'border-green-200 bg-green-50'
                     : 'border-gray-200 hover:border-red-200 hover:shadow-md'
-                }`}
+                  }`}
               >
                 <div className="flex items-start gap-4">
                   {/* Checkbox */}
                   <div
-                    className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
-                      item.isCompleted
+                    className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${item.isCompleted
                         ? 'bg-green-500 border-green-500 text-white'
                         : 'border-gray-300 hover:border-red-500'
-                    }`}
+                      }`}
                   >
                     {item.isCompleted && (
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -366,7 +364,7 @@ export default function PreventionChecklistPage() {
                         {item.category.charAt(0).toUpperCase() + item.category.slice(1)}
                       </span>
                     </div>
-                    
+
                     <h4 className={`font-semibold mb-1 ${item.isCompleted ? 'text-green-800 line-through' : 'text-gray-900'}`}>
                       {item.title}
                     </h4>
@@ -391,7 +389,7 @@ export default function PreventionChecklistPage() {
             <p className="text-gray-600 mb-6">
               Simpan progress Anda untuk melacak perkembangan pencegahan DBD dari minggu ke minggu
             </p>
-            
+
             <button
               onClick={saveWeeklyProgress}
               disabled={saving}
@@ -413,11 +411,10 @@ export default function PreventionChecklistPage() {
             </button>
 
             {saveMessage && (
-              <div className={`mt-4 p-3 rounded-lg ${
-                saveMessage.includes('Gagal') 
-                  ? 'bg-red-100 text-red-700' 
+              <div className={`mt-4 p-3 rounded-lg ${saveMessage.includes('Gagal')
+                  ? 'bg-red-100 text-red-700'
                   : 'bg-green-100 text-green-700'
-              }`}>
+                }`}>
                 {saveMessage}
               </div>
             )}

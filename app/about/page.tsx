@@ -10,7 +10,7 @@ export default function AboutPage() {
 
       <div style={{ top: 0, marginTop: 80 }}>
         {/* Hero Section */}
-        <section className="bg-gradient-to-r from-red-600 to-red-800 text-white py-16">
+        <section className="bg-gradient-to-r from-red-700 to-red-900 text-white py-16">
           <div className="mx-auto max-w-screen-xl px-4">
             <div className="text-center">
               <h1 className="text-4xl md:text-5xl font-bold mb-4">
@@ -322,7 +322,7 @@ export default function AboutPage() {
         {/* CTA Section */}
         <section className="py-16 bg-white">
           <div className="mx-auto max-w-screen-xl px-4">
-            <div className="bg-gradient-to-r from-red-600 to-red-800 rounded-2xl p-12 text-center text-white">
+            <div className="bg-gradient-to-r from-red-700 to-red-900 rounded-2xl p-12 text-center text-white">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
                 Siap Melakukan Pemeriksaan?
               </h2>

@@ -377,7 +377,7 @@ export default function Home() {
                 <div className="space-y-4">
                   <h1 className="text-4xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
                     <span className="block">Deteksi DBD</span>
-                    <span className="block text-red-600">lebih dini!</span>
+                    <span className="block text-red-700">lebih dini!</span>
                   </h1>
 
                   <p className="text-xl text-gray-600 leading-relaxed max-w-lg">
@@ -388,7 +388,7 @@ export default function Home() {
 
                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
                   <Link
-                    className="group flex items-center justify-center gap-3 bg-red-700 text-white px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:bg-red-800 transform hover:scale-105 transition-all duration-300"
+                    className="group flex items-center justify-center gap-3 bg-gradient-to-r from-red-700 to-red-800 text-white px-8 py-4 rounded-xl font-semibold shadow-lg shadow-red-900/20 hover:shadow-red-900/40 hover:from-red-800 hover:to-red-900 transform hover:scale-105 transition-all duration-300"
                     href="/form"
                   >
                     <svg
@@ -1119,7 +1119,12 @@ export default function Home() {
       </section>
 
       {/* Section: CTA */}
-      <section className="py-16 bg-gradient-to-r from-red-600 to-red-800">
+      <section
+        className="py-16 text-white bg-right bg-no-repeat bg-cover"
+        style={{
+          backgroundImage: `linear-gradient(to right, #780606 0%, rgba(120, 6, 6, 1) 50%, rgba(120, 6, 6, 0.5) 100%), url('/magnifying_glass.jpg')`,
+        }}
+      >
         <div className="mx-auto max-w-screen-xl px-4">
           <div className="text-center text-white">
             <h2 className="text-3xl md:text-4xl mb-4">
@@ -1131,24 +1136,21 @@ export default function Home() {
             <div className="flex flex-wrap justify-center gap-4">
               <Link
                 href="/form"
-                className="flex gap-x-2 items-center rounded bg-white px-8 py-4 text-sm font-medium text-red-700 shadow-lg hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-white/50 active:bg-gray-200 transition-all"
+                className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-gradient-to-r from-red-700 to-red-800 hover:from-red-800 hover:to-red-900 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900 shadow-lg shadow-red-900/20 hover:shadow-red-900/40 hover:scale-[1.02] transition-all duration-200"
               >
                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-5 h-5"
-                  viewBox="0 0 24 24"
+                  className="mr-2 -ml-1 w-5 h-5"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <path d="M3 7V5a2 2 0 0 1 2-2h2" />
-                  <path d="M17 3h2a2 2 0 0 1 2 2v2" />
-                  <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
-                  <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
-                  <circle cx="12" cy="12" r="3" />
-                  <path d="m16 16-1.9-1.9" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
                 </svg>
                 Mulai Pemeriksaan
               </Link>

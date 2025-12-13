@@ -135,7 +135,7 @@ function Step1() {
               transition: 'opacity 0.5s'
             }}
           >
-            <svg className="w-48 h-48 lg:w-72 lg:h-72 text-red-500" viewBox="0 0 100 100" fill="none" stroke="currentColor">
+            <svg className="w-48 h-48 lg:w-72 lg:h-72 text-red-700" viewBox="0 0 100 100" fill="none" stroke="currentColor">
               <circle cx="50" cy="50" r="45" strokeWidth={isShot ? "3" : "1.5"} opacity={isShot ? "1" : "0.6"} style={{ transition: 'all 0.3s' }} />
               <circle cx="50" cy="50" r="35" strokeWidth="1" opacity="0.4" />
               <line x1="50" y1="5" x2="50" y2="25" strokeWidth="2" strokeLinecap="round" opacity={isShot ? "1" : "0.8"} />
@@ -149,7 +149,7 @@ function Step1() {
           {/* Shot Flash Effect */}
           {isShot && !isFalling && (
             <div
-              className="absolute inset-0 bg-red-500 rounded-full pointer-events-none"
+              className="absolute inset-0 bg-red-700 rounded-full pointer-events-none"
               style={{
                 animation: 'shot-flash 0.3s ease-out',
                 mixBlendMode: 'screen'
@@ -168,7 +168,7 @@ function Step1() {
         <div className="flex flex-col gap-4">
           <Link
             href="/form?step=1"
-            className="flex gap-x-2 rounded bg-red-700 px-12 py-3 text-sm font-medium text-white shadow hover:bg-red-800 focus:outline-none focus:ring active:bg-red-500 sm:w-auto justify-center"
+            className="flex gap-x-2 rounded bg-red-700 px-12 py-3 text-sm font-medium text-white shadow hover:bg-red-800 focus:outline-none focus:ring active:bg-red-800 sm:w-auto justify-center"
           >
             Lanjutkan
             <svg
@@ -190,7 +190,7 @@ function Step1() {
         <div className="flex flex-col gap-4">
           <Link
             href="/form?step=1"
-            className="flex gap-x-2 rounded bg-red-700 px-6 py-3 text-sm font-medium text-white shadow hover:bg-red-800 focus:outline-none focus:ring active:bg-red-500 sm:w-auto justify-center"
+            className="flex gap-x-2 rounded bg-red-700 px-6 py-3 text-sm font-medium text-white shadow hover:bg-red-800 focus:outline-none focus:ring active:bg-red-800 sm:w-auto justify-center"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

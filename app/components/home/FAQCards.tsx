@@ -95,9 +95,10 @@ export default function FAQCards() {
   const [activeCard, setActiveCard] = useState<number | null>(null)
   const cardsRef = useRef<(HTMLDivElement | null)[]>([])
   const containerRef = useRef<HTMLDivElement>(null)
+  const isAnimatingRef = useRef(false)
 
   useEffect(() => {
-    // Initial positioning for 5 cards
+    // Initial positioning for 5 cards with GPU acceleration
     cardsRef.current.forEach((card, index) => {
       if (card) {
         gsap.set(card, {
@@ -105,7 +106,9 @@ export default function FAQCards() {
           y: 0,
           rotation: (index - 2) * 4,
           zIndex: index,
-          scale: 1
+          scale: 1,
+          force3D: true, // Enable GPU acceleration
+          willChange: 'transform' // Hint to browser for optimization
         })
       }
     })
@@ -113,27 +116,33 @@ export default function FAQCards() {
 
   const handleCardClick = (index: number, event: React.MouseEvent) => {
     event.stopPropagation()
+
+    // Prevent multiple animations at once
+    if (isAnimatingRef.current) return
+
     if (activeCard === index) {
-      // Return to spread position
       returnToSpread()
     } else {
-      // Stack cards with clicked card on top
+      isAnimatingRef.current = true
       setActiveCard(index)
+
       cardsRef.current.forEach((card, i) => {
         if (card) {
           if (i === index) {
-            // Active card goes to center top
             gsap.to(card, {
               x: 0,
               y: -50,
               rotation: 0,
               zIndex: 10,
               scale: 1.05,
-              duration: 0.6,
-              ease: 'power2.out'
+              duration: 0.4, // Reduced from 0.6
+              ease: 'power2.out',
+              force3D: true,
+              onComplete: () => {
+                isAnimatingRef.current = false
+              }
             })
           } else {
-            // Other cards stack below with slight offset
             const offset = (i - index) * 8
             gsap.to(card, {
               x: offset,
@@ -141,8 +150,9 @@ export default function FAQCards() {
               rotation: 0,
               zIndex: 5 - Math.abs(i - index),
               scale: 0.95,
-              duration: 0.6,
-              ease: 'power2.out'
+              duration: 0.4, // Reduced from 0.6
+              ease: 'power2.out',
+              force3D: true
             })
           }
         }
@@ -151,7 +161,11 @@ export default function FAQCards() {
   }
 
   const returnToSpread = () => {
+    if (isAnimatingRef.current) return
+
+    isAnimatingRef.current = true
     setActiveCard(null)
+
     cardsRef.current.forEach((card, i) => {
       if (card) {
         gsap.to(card, {
@@ -160,22 +174,28 @@ export default function FAQCards() {
           rotation: (i - 2) * 4,
           zIndex: i,
           scale: 1,
-          duration: 0.6,
-          ease: 'power2.out'
+          duration: 0.4, // Reduced from 0.6
+          ease: 'power2.out',
+          force3D: true,
+          onComplete: () => {
+            isAnimatingRef.current = false
+          }
         })
       }
     })
   }
 
   const handleBackdropClick = () => {
-    if (activeCard !== null) {
+    if (activeCard !== null && !isAnimatingRef.current) {
       returnToSpread()
     }
   }
 
   const navigateToCard = (newIndex: number) => {
-    if (newIndex >= 0 && newIndex < faqData.length) {
+    if (newIndex >= 0 && newIndex < faqData.length && !isAnimatingRef.current) {
+      isAnimatingRef.current = true
       setActiveCard(newIndex)
+
       cardsRef.current.forEach((card, i) => {
         if (card) {
           if (i === newIndex) {
@@ -185,8 +205,12 @@ export default function FAQCards() {
               rotation: 0,
               zIndex: 10,
               scale: 1.05,
-              duration: 0.6,
-              ease: 'power2.out'
+              duration: 0.4, // Reduced from 0.6
+              ease: 'power2.out',
+              force3D: true,
+              onComplete: () => {
+                isAnimatingRef.current = false
+              }
             })
           } else {
             const offset = (i - newIndex) * 8
@@ -196,8 +220,9 @@ export default function FAQCards() {
               rotation: 0,
               zIndex: 5 - Math.abs(i - newIndex),
               scale: 0.95,
-              duration: 0.6,
-              ease: 'power2.out'
+              duration: 0.4, // Reduced from 0.6
+              ease: 'power2.out',
+              force3D: true
             })
           }
         }
@@ -207,14 +232,14 @@ export default function FAQCards() {
 
   const handlePrevCard = (e: React.MouseEvent) => {
     e.stopPropagation()
-    if (activeCard !== null && activeCard > 0) {
+    if (activeCard !== null && activeCard > 0 && !isAnimatingRef.current) {
       navigateToCard(activeCard - 1)
     }
   }
 
   const handleNextCard = (e: React.MouseEvent) => {
     e.stopPropagation()
-    if (activeCard !== null && activeCard < faqData.length - 1) {
+    if (activeCard !== null && activeCard < faqData.length - 1 && !isAnimatingRef.current) {
       navigateToCard(activeCard + 1)
     }
   }
@@ -222,7 +247,7 @@ export default function FAQCards() {
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (activeCard !== null) {
+      if (activeCard !== null && !isAnimatingRef.current) {
         if (e.key === 'ArrowLeft' && activeCard > 0) {
           navigateToCard(activeCard - 1)
         } else if (e.key === 'ArrowRight' && activeCard < faqData.length - 1) {
@@ -239,10 +264,10 @@ export default function FAQCards() {
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 py-20 px-4"
+      className="relative min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 py-20 px-4"
       onClick={handleBackdropClick}
     >
-      <div className="mb-12 text-center">
+      <div className="mb-2 text-center">
         <h2 className="text-4xl font-bold text-gray-800 mb-4">
           Pertanyaan Umum tentang DBD
         </h2>
@@ -266,7 +291,10 @@ export default function FAQCards() {
               onClick={(e) => handleCardClick(index, e)}
               className="absolute w-96 h-[450px] bg-white rounded-3xl shadow-2xl cursor-pointer overflow-hidden border border-gray-200 transition-shadow hover:shadow-3xl"
               style={{
-                transformOrigin: 'center center'
+                transformOrigin: 'center center',
+                willChange: 'transform',
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden'
               }}
             >
               {/* Card Header */}
@@ -316,11 +344,10 @@ export default function FAQCards() {
 
                 {/* Card Footer Badge */}
                 <div className="mt-auto pt-4">
-                  <div className={`inline-block px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                    activeCard === index
-                      ? colors.badge
-                      : 'bg-gray-100 text-gray-600'
-                  }`}>
+                  <div className={`inline-block px-4 py-2 rounded-full text-sm font-medium transition-colors ${activeCard === index
+                    ? colors.badge
+                    : 'bg-gray-100 text-gray-600'
+                    }`}>
                     {activeCard === index ? 'Klik lagi untuk kembali' : 'Klik untuk detail'}
                   </div>
                 </div>
@@ -340,7 +367,7 @@ export default function FAQCards() {
           {activeCard > 0 && (
             <button
               onClick={handlePrevCard}
-              className="fixed left-8 top-1/2 -translate-y-1/2 z-20 bg-red-700 hover:bg-red-800 text-white p-4 rounded-full shadow-2xl transition-all hover:scale-110 active:scale-95"
+              className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 bg-red-700 hover:bg-red-800 text-white p-4 rounded-full shadow-2xl transition-all hover:scale-110 active:scale-95"
               aria-label="Previous card"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -353,7 +380,7 @@ export default function FAQCards() {
           {activeCard < faqData.length - 1 && (
             <button
               onClick={handleNextCard}
-              className="fixed right-8 top-1/2 -translate-y-1/2 z-20 bg-red-700 hover:bg-red-800 text-white p-4 rounded-full shadow-2xl transition-all hover:scale-110 active:scale-95"
+              className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 bg-red-700 hover:bg-red-800 text-white p-4 rounded-full shadow-2xl transition-all hover:scale-110 active:scale-95"
               aria-label="Next card"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -361,25 +388,6 @@ export default function FAQCards() {
               </svg>
             </button>
           )}
-
-          {/* Card Indicators */}
-          <div className="fixed bottom-12 left-1/2 -translate-x-1/2 z-20 flex gap-2 bg-white/90 backdrop-blur px-4 py-3 rounded-full shadow-xl">
-            {faqData.map((_, index) => (
-              <button
-                key={index}
-                onClick={(e) => {
-                  e.stopPropagation()
-                  navigateToCard(index)
-                }}
-                className={`transition-all ${
-                  activeCard === index
-                    ? 'w-8 h-3 bg-red-700'
-                    : 'w-3 h-3 bg-gray-300 hover:bg-gray-400'
-                } rounded-full`}
-                aria-label={`Go to card ${index + 1}`}
-              />
-            ))}
-          </div>
 
           {/* Close Button */}
           <button

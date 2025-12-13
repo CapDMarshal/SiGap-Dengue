@@ -543,7 +543,7 @@ Aplikasi ini **BUKAN** pengganti diagnosis medis profesional. Hasil prediksi han
 - [Leaflet](https://leafletjs.com/) - Open-source JavaScript library for maps
 - [WHO](https://www.who.int/) - Dengue data and guidelines
 - [Kemenkes RI](https://www.kemkes.go.id/) - Indonesian health data
-
+.
 ---
 
 <div align="center">

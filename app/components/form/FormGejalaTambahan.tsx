@@ -1,5 +1,7 @@
 'use client'
 
+import NextImage from 'next/image'
+
 interface FormProps {
     formData: any
     setFormData: (data: any) => void
@@ -92,7 +94,7 @@ export default function FormGejalaTambahan({ formData, setFormData }: FormProps)
                         {symptoms.slice(startIdx, startIdx + 2).map((symptom) => (
                             <div key={symptom.code} className="flex flex-col gap-y-4">
                                 <div className="flex gap-x-8 items-center min-h-[140px]">
-                                    <img src={symptom.img} alt="Question" className="w-16" />
+                                    <NextImage src={symptom.img} width={64} height={64} alt="Question" className="w-16" />
                                     <label className="flex flex-col">
                                         <h5 className="mb-2 text-xl font-medium tracking-tight text-gray-900">
                                             {symptom.title}

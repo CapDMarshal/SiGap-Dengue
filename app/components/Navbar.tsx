@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { createClient } from '../../utils/supabase/client'
 import { User } from '@supabase/supabase-js'
+import NextImage from 'next/image'
 
 interface NavbarProps {
   active: 'home' | 'form' | 'login' | 'history' | 'about' | 'articles' | 'checklist' | 'profile'
@@ -167,7 +168,7 @@ export default function Navbar({ active }: NavbarProps) {
               rel="noopener noreferrer"
             >
               {/* Logo untuk mobile - ukuran lebih kecil */}
-              <img src="/dengue.png" className="h-8 md:h-12" alt="SiGap Dengue Logo" />
+              <NextImage src="/dengue.png" width={48} height={48} className="h-8 md:h-12 w-auto" alt="SiGap Dengue Logo" priority />
             </a>
           </div>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse gap-3">

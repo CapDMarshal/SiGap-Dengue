@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import NextImage from 'next/image'
 
 interface FormProps {
     formData: any
@@ -53,7 +54,7 @@ export default function FormGejalaUtama({ formData, setFormData }: FormProps) {
             <div className="flex flex-col gap-y-8">
                 <div className="flex flex-col gap-y-4 md:flex-row gap-x-4 justify-between">
                     <div className="flex gap-x-8 items-center">
-                        <img src="/sick.png" alt="Question" className="w-16" />
+                        <NextImage src="/sick.png" width={64} height={64} alt="Question" className="w-16" />
                         <label className="flex flex-col">
                             <h5 className="mb-2 text-xl font-medium tracking-tight text-gray-900">
                                 Apakah anda merasakan demam?
@@ -101,9 +102,11 @@ export default function FormGejalaUtama({ formData, setFormData }: FormProps) {
                     {/* Durasi Demam */}
                     <div className="flex flex-col gap-y-4">
                         <div className="flex gap-x-8 items-center">
-                            <img
+                            <NextImage
                                 id="ddema-img"
                                 src="/schedule.png"
+                                width={64}
+                                height={64}
                                 alt="Question"
                                 className="w-16"
                             />
@@ -133,9 +136,11 @@ export default function FormGejalaUtama({ formData, setFormData }: FormProps) {
                     {/* Suhu */}
                     <div className="flex flex-col gap-y-4">
                         <div className="flex gap-x-8 items-center">
-                            <img
+                            <NextImage
                                 id="suhun-img"
                                 src="/thermometer.png"
+                                width={64}
+                                height={64}
                                 alt="Question"
                                 className="w-16"
                             />

@@ -14,7 +14,7 @@ export default function AboutPage() {
           <div className="mx-auto max-w-screen-xl px-4">
             <div className="text-center">
               <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                Tentang Dengue Checker
+                Tentang SiGap Dengue (Sistem Tanggap Dengue)
               </h1>
               <p className="text-lg md:text-xl opacity-90 max-w-3xl mx-auto">
                 Sistem deteksi dini Demam Berdarah Dengue berbasis AI untuk membantu masyarakat Indonesia
@@ -43,7 +43,7 @@ export default function AboutPage() {
               </div>
               <div className="space-y-4 text-gray-700">
                 <p className="text-lg leading-relaxed">
-                  <strong className="text-red-700">Dengue Checker</strong> adalah aplikasi web inovatif yang dirancang untuk membantu deteksi dini Demam Berdarah Dengue (DBD) menggunakan teknologi Artificial Intelligence.
+                  <strong className="text-red-700">SiGap Dengue</strong> adalah aplikasi web inovatif yang dirancang untuk membantu deteksi dini Demam Berdarah Dengue (DBD) menggunakan teknologi Artificial Intelligence.
                 </p>
                 <p className="leading-relaxed">
                   Dengan memanfaatkan algoritma Machine Learning seperti <strong>Logistic Regression</strong> dan <strong>Support Vector Machine (SVM)</strong>, aplikasi ini dapat memprediksi kemungkinan seseorang terkena DBD berdasarkan gejala klinis dan hasil laboratorium yang diinputkan.

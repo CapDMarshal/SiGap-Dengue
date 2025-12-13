@@ -1122,7 +1122,8 @@ export default function Home() {
       <section
         className="py-16 text-white bg-right bg-no-repeat bg-cover"
         style={{
-          backgroundImage: `linear-gradient(to right, #780606 0%, rgba(120, 6, 6, 1) 50%, rgba(120, 6, 6, 0.5) 100%), url('/magnifying_glass.jpg')`,
+          backgroundImage: `linear-gradient(to right, #780606 20%, rgba(120, 6, 6, 0.8) 50%, rgba(120, 6, 6, 0) 100%), url('/magnifying_glass.jpg')`,
+          minHeight: '50vh',
         }}
       >
         <div className="mx-auto max-w-screen-xl px-4">

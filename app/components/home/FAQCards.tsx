@@ -8,6 +8,7 @@ interface FAQCard {
   question: string
   icon: string
   color: string
+  backgroundUrl: string
   content: Array<{ icon: string; text: string }>
 }
 
@@ -17,6 +18,7 @@ const faqData: FAQCard[] = [
     question: "Bagaimana mengenali gejala awal DBD?",
     icon: "❓",
     color: "red",
+    backgroundUrl: "https://images.unsplash.com/photo-1579154204601-01588f351e67?q=80&w=2070",
     content: [
       { icon: "🌡️", text: "Demam tinggi mendadak (38°C - 40°C) tanpa sebab yang jelas" },
       { icon: "🤕", text: "Sakit kepala hebat yang terasa menusuk, terutama di area belakang mata" },
@@ -31,6 +33,7 @@ const faqData: FAQCard[] = [
     question: "Apakah DBD bisa menular antar manusia?",
     icon: "🦟",
     color: "red",
+    backgroundUrl: "https://asset.kompas.com/crops/aoFyj1dKTGJxK1TEanlHyigR2H0=/63x94:863x627/750x500/data/photo/2018/12/08/1132293230.jpg",
     content: [
       { icon: "❌", text: "TIDAK! DBD tidak menular dari manusia ke manusia secara langsung" },
       { icon: "🦟", text: "DBD hanya menular melalui gigitan nyamuk Aedes aegypti yang terinfeksi virus dengue" },
@@ -45,6 +48,7 @@ const faqData: FAQCard[] = [
     question: "Apa perbedaan DBD dan tipes?",
     icon: "🔍",
     color: "red",
+    backgroundUrl: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070",
     content: [
       { icon: "🌡️", text: "DBD: Demam tinggi mendadak vs Tipes: Demam naik bertahap" },
       { icon: "🤕", text: "DBD: Sakit kepala hebat dan nyeri mata vs Tipes: Sakit kepala ringan" },
@@ -59,6 +63,7 @@ const faqData: FAQCard[] = [
     question: "Apa yang harus dilakukan dalam 24 jam pertama demam?",
     icon: "⏰",
     color: "red",
+    backgroundUrl: "https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=2071",
     content: [
       { icon: "🌡️", text: "Monitor suhu tubuh setiap 2-3 jam dan catat dalam buku harian" },
       { icon: "💊", text: "Berikan paracetamol untuk menurunkan demam, HINDARI aspirin dan ibuprofen" },
@@ -73,6 +78,7 @@ const faqData: FAQCard[] = [
     question: "Kapan harus segera ke dokter?",
     icon: "🏥",
     color: "red",
+    backgroundUrl: "https://th.bing.com/th/id/OIP.L61_ldQ2xcvgzyjeO7qsvwHaEK?w=328&h=185&c=7&r=0&o=7&cb=ucfimg2&dpr=1.3&pid=1.7&rm=3&ucfimg=1",
     content: [
       { icon: "🚨", text: "Demam tinggi berlangsung lebih dari 3 hari berturut-turut" },
       { icon: "🤮", text: "Muntah terus-menerus sehingga tidak bisa makan atau minum" },
@@ -298,11 +304,23 @@ export default function FAQCards() {
               }}
             >
               {/* Card Header */}
-              <div className={`absolute top-0 left-0 right-0 h-28 bg-gradient-to-br ${colors.gradient} flex items-center justify-center`}>
-                <span className="text-white text-8xl font-bold opacity-30">
+              <div className={`absolute top-0 left-0 right-0 h-28 bg-gradient-to-br ${colors.gradient} flex items-center justify-center overflow-hidden`}>
+                {/* Background Image with Transparency */}
+                <div
+                  className="absolute inset-0 bg-cover bg-center opacity-70"
+                  style={{
+                    backgroundImage: `url(${faq.backgroundUrl})`,
+                    backgroundBlendMode: 'overlay'
+                  }}
+                />
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-red-700/80 to-red-800/80" />
+
+                {/* Number */}
+                <span className="relative text-white text-8xl font-bold opacity-30 z-10">
                   {String(faq.id).padStart(2, '0')}
                 </span>
-                <div className="absolute top-6 left-6 text-5xl">
+                <div className="absolute top-6 left-6 text-5xl z-10">
                   {/* {faq.icon} */}
                 </div>
               </div>

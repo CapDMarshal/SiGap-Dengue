@@ -5,6 +5,10 @@ import { createClient } from '../../utils/supabase/client'
 import { User } from '@supabase/supabase-js'
 import Navbar from '../components/Navbar'
 import Link from 'next/link'
+import ProfileHeader from '../components/profile/ProfileHeader'
+import StatsGrid from '../components/profile/StatsGrid'
+import BadgeGrid from '../components/profile/BadgeGrid'
+import CTASection from '../components/profile/CTASection'
 
 // Interface untuk badge/achievement
 interface Badge {
@@ -40,7 +44,6 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(true)
   const [badges, setBadges] = useState<Badge[]>([])
   const [stats, setStats] = useState<UserProfile | null>(null)
-  const [selectedCategory, setSelectedCategory] = useState<string>('all')
   const supabase = createClient()
 
   // Definisi semua badges yang tersedia
@@ -470,10 +473,6 @@ export default function ProfilePage() {
     }
   }
 
-  const filteredBadges = selectedCategory === 'all'
-    ? badges
-    : badges.filter(badge => badge.category === selectedCategory)
-
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50">
@@ -518,197 +517,17 @@ export default function ProfilePage() {
 
       <div className="pt-20">
         {/* Header */}
-        <div className="bg-gradient-to-r from-red-700 to-red-900 text-white">
-          <div className="max-w-6xl mx-auto px-4 py-12">
-            <div className="flex items-center gap-6">
-              <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center text-3xl font-bold">
-                {userProfile?.full_name?.[0]?.toUpperCase() ||
-                  user?.user_metadata?.full_name?.[0]?.toUpperCase() ||
-                  user?.user_metadata?.name?.[0]?.toUpperCase() ||
-                  user.email?.[0]?.toUpperCase() || 'U'}
-              </div>
-              <div>
-                <h1 className="text-3xl font-bold mb-2">
-                  {userProfile?.full_name ||
-                    user?.user_metadata?.full_name ||
-                    user?.user_metadata?.name ||
-                    user.email?.split('@')[0] ||
-                    'User'}
-                </h1>
-                <p className="text-red-100">
-                  {user.email}
-                </p>
-                <p className="text-red-100 text-sm">
-                  Bergabung sejak: {new Date(user.created_at || '').toLocaleDateString('id-ID')}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ProfileHeader user={user} userProfile={userProfile} />
 
         <div className="max-w-6xl mx-auto px-4 py-8">
           {/* Statistics Cards */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            <div className="bg-white rounded-lg shadow-md p-6 text-center">
-              <div className="text-2xl font-bold text-red-700">{stats?.totalWeeks || 0}</div>
-              <div className="text-sm text-gray-600">Total Minggu</div>
-            </div>
-            <div className="bg-white rounded-lg shadow-md p-6 text-center">
-              <div className="text-2xl font-bold text-green-600">{stats?.perfectWeeks || 0}</div>
-              <div className="text-sm text-gray-600">Minggu Sempurna</div>
-            </div>
-            <div className="bg-white rounded-lg shadow-md p-6 text-center">
-              <div className="text-2xl font-bold text-orange-600">{stats?.currentStreak || 0}</div>
-              <div className="text-sm text-gray-600">Streak Saat Ini</div>
-            </div>
-            <div className="bg-white rounded-lg shadow-md p-6 text-center">
-              <div className="text-2xl font-bold text-purple-600">{stats?.totalBadges || 0}</div>
-              <div className="text-sm text-gray-600">Total Badges</div>
-            </div>
-          </div>
+          <StatsGrid stats={stats} />
 
-          {/* Overall Stats */}
-          <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Statistik Pencegahan</h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <h3 className="font-semibold text-gray-800 mb-2">Rata-rata Completion</h3>
-                <div className="w-full bg-gray-200 rounded-full h-3 mb-2">
-                  <div
-                    className="bg-gradient-to-r from-red-500 to-red-600 h-3 rounded-full"
-                    style={{ width: `${stats?.averageCompletion || 0}%` }}
-                  ></div>
-                </div>
-                <p className="text-sm text-gray-600">{stats?.averageCompletion || 0}%</p>
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-800 mb-2">Streak Terpanjang</h3>
-                <p className="text-3xl font-bold text-orange-600">{stats?.longestStreak || 0}</p>
-                <p className="text-sm text-gray-600">minggu berturut-turut</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Badge Categories Filter */}
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Koleksi Badges</h2>
-            <div className="flex flex-wrap gap-2">
-              {[
-                { key: 'all', label: 'Semua', count: badges.length },
-                { key: 'consistency', label: 'Konsistensi', count: badges.filter(b => b.category === 'consistency').length },
-                { key: 'streak', label: 'Perfect Streak', count: badges.filter(b => b.category === 'streak').length },
-                { key: 'completion', label: 'Pencapaian', count: badges.filter(b => b.category === 'completion').length },
-                { key: 'milestone', label: 'Milestone', count: badges.filter(b => b.category === 'milestone').length }
-              ].map((category) => (
-                <button
-                  key={category.key}
-                  onClick={() => setSelectedCategory(category.key)}
-                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${selectedCategory === category.key
-                    ? 'bg-red-700 text-white'
-                    : 'bg-white text-gray-700 border border-gray-300 hover:bg-red-50'
-                    }`}
-                >
-                  {category.label} ({category.count})
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Badges Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredBadges.map((badge) => (
-              <div
-                key={badge.id}
-                className={`relative bg-white rounded-xl shadow-lg overflow-hidden border-2 transition-all duration-300 ${badge.isEarned
-                  ? 'border-green-200 bg-gradient-to-br from-green-50 to-white'
-                  : 'border-gray-200 bg-gradient-to-br from-gray-50 to-white opacity-75'
-                  }`}
-              >
-                {/* Badge Icon */}
-                <div className={`h-32 flex items-center justify-center bg-gradient-to-r ${badge.color}`}>
-                  <div className="text-6xl">{badge.icon}</div>
-                  {badge.isEarned && (
-                    <div className="absolute top-2 right-2 bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center">
-                      ✓
-                    </div>
-                  )}
-                </div>
-
-                {/* Badge Content */}
-                <div className="p-6">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getCategoryColor(badge.category)}`}>
-                      {badge.category.charAt(0).toUpperCase() + badge.category.slice(1)}
-                    </span>
-                  </div>
-
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">
-                    {badge.name}
-                  </h3>
-
-                  <p className="text-gray-600 text-sm mb-3">
-                    {badge.description}
-                  </p>
-
-                  <div className="text-xs text-gray-500 mb-3">
-                    Syarat: {badge.requirement}
-                  </div>
-
-                  {/* Progress Bar untuk badge yang belum earned */}
-                  {!badge.isEarned && badge.progress && (
-                    <div className="mb-3">
-                      <div className="flex justify-between text-xs text-gray-600 mb-1">
-                        <span>Progress</span>
-                        <span>{badge.progress.current}/{badge.progress.target}</span>
-                      </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
-                        <div
-                          className="bg-gradient-to-r from-red-400 to-red-600 h-2 rounded-full transition-all duration-300"
-                          style={{ width: `${Math.min((badge.progress.current / badge.progress.target) * 100, 100)}%` }}
-                        ></div>
-                      </div>
-                    </div>
-                  )}
-
-                  {badge.isEarned && badge.earnedAt && (
-                    <div className="text-xs text-green-600 font-medium">
-                      Diraih: {new Date(badge.earnedAt).toLocaleDateString('id-ID')}
-                    </div>
-                  )}
-
-                  {!badge.isEarned && (
-                    <div className="text-xs text-gray-500">
-                      Belum tercapai
-                    </div>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
+          {/* Badges Grid with Filters */}
+          <BadgeGrid badges={badges} getCategoryColor={getCategoryColor} />
 
           {/* Call to Action */}
-          <div className="mt-12 bg-gradient-to-r from-red-50 to-red-100 rounded-xl p-8 border border-red-200 text-center">
-            <h3 className="text-2xl font-bold text-red-900 mb-4">
-              Raih Badge Selanjutnya! 🎯
-            </h3>
-            <p className="text-red-800 mb-6">
-              Lakukan checklist pencegahan secara konsisten untuk membuka badge baru dan meningkatkan level pencegahan DBD Anda.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/checklist"
-                className="bg-red-700 text-white px-6 py-3 rounded-lg font-medium hover:bg-red-800 transition-colors"
-              >
-                Lanjutkan Misi
-              </Link>
-              <Link
-                href="/history"
-                className="bg-white border border-red-300 text-red-700 px-6 py-3 rounded-lg font-medium hover:bg-red-50 transition-colors"
-              >
-                Lihat Riwayat
-              </Link>
-            </div>
-          </div>
+          <CTASection />
         </div>
       </div>
     </div>

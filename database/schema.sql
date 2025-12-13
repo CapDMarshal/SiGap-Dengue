@@ -200,6 +200,8 @@ CREATE TABLE IF NOT EXISTS public.weekly_prevention_progress (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
     week_start DATE NOT NULL,
+    completed_items TEXT[] DEFAULT ARRAY[]::TEXT[],
+    total_items INTEGER DEFAULT 0,
     completion_percentage NUMERIC DEFAULT 0,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
@@ -211,6 +213,9 @@ CREATE POLICY "Users can view their own progress" ON public.weekly_prevention_pr
 
 CREATE POLICY "Users can insert their own progress" ON public.weekly_prevention_progress
     FOR INSERT WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users can update their own progress" ON public.weekly_prevention_progress
+    FOR UPDATE USING (auth.uid() = user_id) WITH CHECK (auth.uid() = user_id);
 
 CREATE TABLE IF NOT EXISTS public.user_achievements (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,

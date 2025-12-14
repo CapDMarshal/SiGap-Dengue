@@ -123,7 +123,7 @@ export default function ResultPage() {
         )}
 
         {/* Alert Rating */}
-        <div
+        {/* <div
           id="marketing-banner"
           tabIndex={-1}
           className="fixed z-50 flex flex-col-reverse gap-y-4 items-center md:flex-row justify-between w-[calc(100%-2rem)] p-4 -translate-x-1/2 bg-white border border-gray-100 rounded-lg shadow-sm lg:max-w-7xl left-1/2 bottom-10"
@@ -193,7 +193,7 @@ export default function ResultPage() {
               <span className="sr-only">Close banner</span>
             </button>
           </div>
-        </div>
+        </div> */}
 
         {/* Card Result */}
         <div className="mt-0 md:mt-8 flex flex-col md:flex-row gap-4 w-full lg:w-1/2 bg-white border border-gray-200 rounded-lg shadow-lg px-4">

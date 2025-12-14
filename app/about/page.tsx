@@ -65,12 +65,60 @@ export default function AboutPage() {
               </h2>
               <div className="w-20 h-1 bg-red-700 mx-auto mb-6"></div>
               <p className="text-gray-600 max-w-2xl mx-auto">
-                Berbagai fitur yang memudahkan Anda dalam melakukan deteksi DBD
+                Platform komprehensif untuk deteksi, pencegahan, dan edukasi DBD dengan teknologi AI dan gamifikasi
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Feature 1 */}
+            {/* First Row - 4 Features */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+              {/* Feature 1 - AI Detection */}
+              <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                <div className="w-14 h-14 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg"
+                    className="w-7 h-7 text-red-700"
+                    viewBox="0 0 24 24"
+                    fill="currentColor">
+                    <g fill="none"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5">
+                      <path d="m21.255 7.134l-.494-.857c-.373-.648-.56-.972-.877-1.1c-.71-.29-1.908.32-2.615.52c-.627.144-1.165-.058-1.696-.364a2 2 0 0 1-.788-.968c-.214-.64-.358-1.767-.925-2.176C13.6 2 13.252 2 12.557 2h-1.114c-.695 0-1.042 0-1.303.189c-.567.409-.71 1.536-.925 2.176c-.213.554-.633.878-1.125 1.162a2 2 0 0 1-1.359.17c-.706-.2-1.905-.81-2.615-.52c-.317.128-.504.452-.877 1.1l-.494.857c-.35.607-.525.91-.49 1.234c.083.803 1.253 1.682 1.767 2.257c.252.319.43.875.43 1.375s-.178 1.056-.43 1.375c-.514.575-1.684 1.454-1.768 2.257c-.034.324.141.627.491 1.234l.494.857c.373.648.56.972.877 1.1c.71.29 1.909-.32 2.615-.52c.982-.226 2.123.39 2.484 1.332c.214.64.358 1.767.925 2.176c.261.189.608.189 1.303.189h1.114c.695 0 1.042 0 1.303-.189c.262-.189.372-.518.591-1.178c.247-.74.42-1.517 1.122-1.966c.53-.306 1.069-.508 1.696-.364c.707.2 1.905.81 2.615.52c.317-.128.504-.452.877-1.1l.494-.857c.35-.607.525-.91.49-1.234c-.084-.803-1.253-1.682-1.767-2.257c-.583-.738-.582-2.012 0-2.75c.514-.575 1.683-1.454 1.768-2.257c.034-.324-.141-.627-.491-1.234" />
+                      <path d="m7.438 14.992l1.841-5.525a.694.694 0 0 1 1.317 0l1.842 5.525m-4-2h3m4-4v6" />
+                    </g>
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  Deteksi AI
+                </h3>
+                <p className="text-gray-600">
+                  Algoritma machine learning untuk prediksi DBD akurat berdasarkan gejala dan hasil laboratorium.
+                </p>
+              </div>
+
+              {/* Feature 2 - Weekly Missions */}
+              <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                <div className="w-14 h-14 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-7 h-7 text-red-700"
+                    viewBox="0 0 16 16">
+                    <path
+                      fill="currentColor"
+                      fillRule="evenodd"
+                      d="M13.293 0c.39 0 .707.317.707.707V2h1.293a.707.707 0 0 1 .5 1.207l-1.46 1.46A1.138 1.138 0 0 1 13.53 5h-1.47L8.53 8.53a.75.75 0 0 1-1.06-1.06L11 3.94V2.47c0-.301.12-.59.333-.804l1.46-1.46a.707.707 0 0 1 .5-.207ZM2.5 8a5.5 5.5 0 0 1 6.598-5.39a.75.75 0 0 0 .298-1.47A7 7 0 1 0 14.86 6.6a.75.75 0 0 0-1.47.299A5.5 5.5 0 1 1 2.5 8m5.364-2.496a.75.75 0 0 0-.08-1.498A4 4 0 1 0 11.988 8.3a.75.75 0 0 0-1.496-.111a2.5 2.5 0 1 1-2.63-2.686Z"
+                      clipRule="evenodd" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  Misi Mingguan
+                </h3>
+                <p className="text-gray-600">
+                  Checklist interaktif pencegahan DBD dengan tracking progress dan reward untuk konsistensi.
+                </p>
+              </div>
+
+              {/* Feature 3 - Achievement System */}
               <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
                 <div className="w-14 h-14 bg-red-100 rounded-lg flex items-center justify-center mb-4">
                   <svg
@@ -83,19 +131,19 @@ export default function AboutPage() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   >
-                    <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                    <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" />
+                    <circle cx="12" cy="8" r="7" />
+                    <polyline points="8.21,13.89 7,23 12,20 17,23 15.79,13.88" />
                   </svg>
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">
-                  Prediksi Berbasis AI
+                  Sistem Badges
                 </h3>
                 <p className="text-gray-600">
-                  Menggunakan model Machine Learning seperti Logistic Regression dan SVM yang telah dilatih dengan dataset klinis untuk memberikan prediksi akurat.
+                  Kumpulkan badges untuk konsistensi pencegahan dan pencapaian milestone tertentu.
                 </p>
               </div>
 
-              {/* Feature 2 */}
+              {/* Feature 4 - News Aggregator */}
               <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
                 <div className="w-14 h-14 bg-red-100 rounded-lg flex items-center justify-center mb-4">
                   <svg
@@ -108,22 +156,50 @@ export default function AboutPage() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   >
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                    <polyline points="14 2 14 8 20 8" />
-                    <line x1="16" x2="8" y1="13" y2="13" />
-                    <line x1="16" x2="8" y1="17" y2="17" />
-                    <polyline points="10 9 9 9 8 9" />
+                    <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2" />
+                    <path d="M18 14h-8" />
+                    <path d="M15 18h-5" />
+                    <path d="M10 6h8" />
                   </svg>
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">
-                  Form Interaktif
+                  Berita Terkini
                 </h3>
                 <p className="text-gray-600">
-                  Interface yang user-friendly dengan form wizard multi-step untuk kemudahan input data gejala dan hasil lab.
+                  Update berita dan informasi terbaru seputar DBD dari berbagai sumber terpercaya.
+                </p>
+              </div>
+            </div>
+
+            {/* Second Row - 3 Features */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Feature 5 - Data Visualization */}
+              <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                <div className="w-14 h-14 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-7 h-7 text-red-700"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <path d="M3 9h18" />
+                    <path d="M9 21V9" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  Peta Sebaran
+                </h3>
+                <p className="text-gray-600">
+                  Visualisasi interaktif sebaran kasus DBD di Indonesia dengan teknologi heatmap untuk awareness.
                 </p>
               </div>
 
-              {/* Feature 3 */}
+              {/* Feature 6 - History Tracking */}
               <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
                 <div className="w-14 h-14 bg-red-100 rounded-lg flex items-center justify-center mb-4">
                   <svg
@@ -143,14 +219,14 @@ export default function AboutPage() {
                   </svg>
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">
-                  Riwayat Pemeriksaan
+                  Riwayat Lengkap
                 </h3>
                 <p className="text-gray-600">
-                  Simpan dan akses riwayat pemeriksaan Anda untuk monitoring perkembangan kesehatan dari waktu ke waktu.
+                  Tracking pemeriksaan dan progress pencegahan dengan analytics mendalam untuk monitoring kesehatan.
                 </p>
               </div>
 
-              {/* Feature 4 */}
+              {/* Feature 7 - Educational Content */}
               <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
                 <div className="w-14 h-14 bg-red-100 rounded-lg flex items-center justify-center mb-4">
                   <svg
@@ -163,69 +239,15 @@ export default function AboutPage() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   >
-                    <rect x="3" y="3" width="18" height="18" rx="2" />
-                    <path d="M3 9h18" />
-                    <path d="M9 21V9" />
+                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
                   </svg>
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">
-                  Visualisasi Data
+                  Edukasi Interaktif
                 </h3>
                 <p className="text-gray-600">
-                  Peta interaktif yang menampilkan sebaran kasus DBD di Indonesia untuk meningkatkan awareness masyarakat.
-                </p>
-              </div>
-
-              {/* Feature 5 */}
-              <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
-                <div className="w-14 h-14 bg-red-100 rounded-lg flex items-center justify-center mb-4">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-7 h-7 text-red-700"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                    <circle cx="9" cy="7" r="4" />
-                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
-                  Mode Anonim
-                </h3>
-                <p className="text-gray-600">
-                  Lakukan pemeriksaan tanpa harus login, menjaga privasi Anda dengan tetap mendapatkan hasil prediksi.
-                </p>
-              </div>
-
-              {/* Feature 6 */}
-              <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
-                <div className="w-14 h-14 bg-red-100 rounded-lg flex items-center justify-center mb-4">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-7 h-7 text-red-700"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" x2="12" y1="15" y2="3" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
-                  Export Hasil
-                </h3>
-                <p className="text-gray-600">
-                  Download hasil pemeriksaan dalam format yang dapat dibawa ke fasilitas kesehatan untuk konsultasi lebih lanjut.
+                  FAQ komprehensif dan tips pencegahan DBD dengan format yang mudah dipahami oleh masyarakat.
                 </p>
               </div>
             </div>
@@ -247,9 +269,6 @@ export default function AboutPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Developer 1 */}
-
-
-              {/* Developer 2 */}
               <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
                 <div className="bg-gradient-to-r from-red-600 to-red-800 h-32"></div>
                 <div className="text-center -mt-16 pb-8 px-6">
@@ -272,7 +291,7 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              {/* Developer 3 */}
+              {/* Developer 2 */}
               <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
                 <div className="bg-gradient-to-r from-red-600 to-red-800 h-32"></div>
                 <div className="text-center -mt-16 pb-8 px-6">
@@ -294,13 +313,15 @@ export default function AboutPage() {
                   </p>
                 </div>
               </div>
+
+              {/* Developer 3 */}
               <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
                 <div className="bg-gradient-to-r from-red-600 to-red-800 h-32"></div>
                 <div className="text-center -mt-16 pb-8 px-6">
                   <div className="w-32 h-32 rounded-full bg-gray-200 border-4 border-white mx-auto mb-4 flex items-center justify-center overflow-hidden">
                     <Image
                       src="/images/dika.png"
-                      alt="Alif Arya Kusuma"
+                      alt="Andhika Prasetyo"
                       width={128}
                       height={128}
                       className="w-full h-auto text-gray-400"

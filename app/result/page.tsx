@@ -14,6 +14,7 @@ export default function ResultPage() {
   const [probability, setProbability] = useState<number>(0)
   const [saving, setSaving] = useState<boolean>(false)
   const [saveError, setSaveError] = useState<string | null>(null)
+  const [isAnonymous, setIsAnonymous] = useState<boolean>(false)
   const hasRun = useRef(false) // Track if save has already run
 
   useEffect(() => {
@@ -65,10 +66,13 @@ export default function ResultPage() {
 
       setSaving(false)
 
-      if (!saveResult.success) {
+      // Only show error if NOT anonymous and save failed
+      if (!saveResult.success && !saveResult.isAnonymous) {
         setSaveError(saveResult.error || 'Gagal menyimpan hasil')
-      } else {
-        // Store the check ID for future reference
+      } else if (saveResult.isAnonymous) {
+        setIsAnonymous(true)
+      } else if (saveResult.success && !saveResult.isAnonymous) {
+        // Store the check ID for future reference (only for authenticated users)
         localStorage.setItem('lastCheckId', saveResult.id || '')
       }
     }
@@ -99,8 +103,8 @@ export default function ResultPage() {
       </div>
 
       <div className="flex flex-col items-center px-4 md:px-16">
-        {/* Save Status Notification */}
-        {saveError && (
+        {/* Save Status Notification - Only show for authenticated users */}
+        {saveError || isAnonymous && (
           <div className="w-full max-w-4xl mb-4 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
             <div className="flex items-start gap-2">
               <svg className="w-5 h-5 text-yellow-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">

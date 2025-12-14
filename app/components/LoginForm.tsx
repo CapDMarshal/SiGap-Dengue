@@ -22,12 +22,53 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
 
     try {
       const supabase = createClient()
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       })
 
       if (error) throw error
+
+      // Check jika user belum verifikasi OTP
+      if (data.user) {
+        const otpCheckResponse = await fetch(`/api/auth/otp/verify?email=${encodeURIComponent(email)}`)
+        const otpCheckData = await otpCheckResponse.json()
+
+        if (!otpCheckData.verified) {
+          // Logout user untuk prevent akses ke protected routes
+          await supabase.auth.signOut()
+
+          // User belum verifikasi OTP, kirim OTP baru dan redirect
+          setMessage({
+            type: 'error',
+            text: 'Akun Anda belum diverifikasi. Mengirim kode OTP...',
+          })
+
+          try {
+            const otpResponse = await fetch('/api/auth/otp/send', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                email,
+                userId: data.user.id
+              }),
+            })
+
+            const otpData = await otpResponse.json()
+
+            if (!otpResponse.ok && otpResponse.status !== 429) {
+              throw new Error(otpData.error || 'Failed to send OTP')
+            }
+
+            setTimeout(() => {
+              window.location.href = `/verify-otp?email=${encodeURIComponent(email)}`
+            }, 1500)
+            return
+          } catch (otpError) {
+            console.error('OTP Error:', otpError)
+          }
+        }
+      }
 
       onSuccess()
     } catch (error: any) {

@@ -124,20 +124,52 @@ export default function SignUpForm({ onSuccess }: SignUpFormProps) {
           text: 'Email sudah terdaftar. Silakan gunakan email lain atau login.',
         })
       } else {
-        setMessage({
-          type: 'success',
-          text: 'Pendaftaran berhasil! Silakan cek email Anda untuk verifikasi.',
-        })
+        // Logout user immediately after signup to prevent auto-login
+        await supabase.auth.signOut()
 
-        // Clear form
-        setFullName('')
-        setEmail('')
-        setPassword('')
-        setConfirmPassword('')
+        // Kirim OTP ke email user
+        try {
+          const otpResponse = await fetch('/api/auth/otp/send', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email,
+              userId: data.user?.id
+            }),
+          })
 
-        setTimeout(() => {
-          onSuccess()
-        }, 2000)
+          const otpData = await otpResponse.json()
+
+          if (!otpResponse.ok) {
+            throw new Error(otpData.error || 'Failed to send OTP')
+          }
+
+          setMessage({
+            type: 'success',
+            text: 'Pendaftaran berhasil! Kode OTP telah dikirim ke email Anda.',
+          })
+
+          // Clear form
+          setFullName('')
+          setEmail('')
+          setPassword('')
+          setConfirmPassword('')
+
+          // Redirect ke halaman verify OTP
+          setTimeout(() => {
+            window.location.href = `/verify-otp?email=${encodeURIComponent(email)}`
+          }, 1500)
+        } catch (otpError: any) {
+          console.error('OTP Error:', otpError)
+          setMessage({
+            type: 'success',
+            text: 'Pendaftaran berhasil! Namun gagal mengirim OTP. Silakan login.',
+          })
+
+          setTimeout(() => {
+            onSuccess()
+          }, 2000)
+        }
       }
     } catch (error: any) {
       // More verbose logging for the UI and console

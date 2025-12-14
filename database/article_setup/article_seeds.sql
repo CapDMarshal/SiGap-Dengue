@@ -77,6 +77,6 @@ INSERT INTO public.news_articles (
     'https://porosmedia.com/wp-content/uploads/2025/11/IMG-20251126-WA0104.jpg',
     NOW() - INTERVAL '18 days',
     'Porosmedia.com',
-    'Pemcegahan Dengue'
+    'Pencegahan Dengue'
 )
 ON CONFLICT (url) DO NOTHING;

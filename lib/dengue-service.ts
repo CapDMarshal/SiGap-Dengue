@@ -30,19 +30,25 @@ export interface DengueCheckRecord extends DengueCheckData {
 
 /**
  * Save dengue check result to database
+ * Returns success: true for anonymous users without actually saving
  */
-export async function saveDengueCheck(data: DengueCheckData): Promise<{ success: boolean; id?: string; error?: string }> {
+export async function saveDengueCheck(data: DengueCheckData): Promise<{ success: boolean; id?: string; error?: string; isAnonymous?: boolean }> {
   try {
     const supabase = createClient()
 
     // Get current user if logged in
     const { data: { user } } = await supabase.auth.getUser()
-    
-    // Prepare data for insertion
+
+    // Skip save for anonymous users - return success immediately
+    if (!user) {
+      return { success: true, isAnonymous: true }
+    }
+
+    // Prepare data for insertion (only for authenticated users)
     // Round numeric values to avoid precision overflow
     // PostgreSQL numeric type has precision limits
     const checkData = {
-      user_id: user?.id || null,
+      user_id: user.id,
       kdema: data.kdema,
       ddema: Math.min(Math.max(Math.round(data.ddema), 0), 365), // Clamp between 0-365 days
       suhun: Math.min(Math.max(Math.round(data.suhun * 10) / 10, 0), 50), // Clamp temp 0-50°C, 1 decimal
@@ -89,7 +95,7 @@ export async function getDengueCheckHistory(): Promise<{ success: boolean; data?
 
     // Get current user
     const { data: { user } } = await supabase.auth.getUser()
-    
+
     if (!user) {
       return { success: false, error: 'User not authenticated' }
     }
@@ -142,7 +148,7 @@ export async function deleteDengueCheck(id: string): Promise<{ success: boolean;
 
     // Get current user
     const { data: { user } } = await supabase.auth.getUser()
-    
+
     if (!user) {
       return { success: false, error: 'User not authenticated' }
     }

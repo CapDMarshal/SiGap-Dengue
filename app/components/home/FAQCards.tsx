@@ -111,7 +111,7 @@ export default function FAQCards() {
           x: index * 200 - 400,
           y: 0,
           rotation: (index - 2) * 4,
-          zIndex: index,
+          zIndex: faqData.length - 1 - index,
           scale: 1,
           force3D: true, // Enable GPU acceleration
           willChange: 'transform' // Hint to browser for optimization
@@ -178,7 +178,7 @@ export default function FAQCards() {
           x: i * 200 - 400,
           y: 0,
           rotation: (i - 2) * 4,
-          zIndex: i,
+          zIndex: faqData.length - 1 - i,
           scale: 1,
           duration: 0.4, // Reduced from 0.6
           ease: 'power2.out',

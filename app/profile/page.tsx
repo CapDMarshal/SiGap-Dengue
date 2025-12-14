@@ -9,34 +9,7 @@ import ProfileHeader from '../components/profile/ProfileHeader'
 import StatsGrid from '../components/profile/StatsGrid'
 import BadgeGrid from '../components/profile/BadgeGrid'
 import CTASection from '../components/profile/CTASection'
-
-// Interface untuk badge/achievement
-interface Badge {
-  id: string
-  name: string
-  description: string
-  icon: string
-  color: string
-  category: 'consistency' | 'completion' | 'streak' | 'milestone'
-  requirement: string
-  isEarned: boolean
-  earnedAt?: string
-  progress?: {
-    current: number
-    target: number
-  }
-}
-
-// Interface untuk user profile data
-interface UserProfile {
-  totalWeeks: number
-  perfectWeeks: number
-  currentStreak: number
-  longestStreak: number
-  averageCompletion: number
-  totalBadges: number
-  lastActivity: string
-}
+import { Badge, UserProfile } from '../components/profile/types'
 
 export default function ProfilePage() {
   const [user, setUser] = useState<User | null>(null)
@@ -413,8 +386,70 @@ export default function ProfilePage() {
       })
 
       setBadges(updatedBadges)
+
+      // Simpan badges yang baru earned ke database
+      await saveEarnedBadgesToDatabase(userId, updatedBadges)
+
+      // Update stats setelah badges disimpan
+      await updateBadgeCount(userId)
     } catch (error) {
       console.error('Error checking badges:', error)
+    }
+  }
+
+  const saveEarnedBadgesToDatabase = async (userId: string, badges: Badge[]) => {
+    try {
+      // Get existing achievements from database
+      const { data: existingAchievements } = await supabase
+        .from('user_achievements')
+        .select('badge_id')
+        .eq('user_id', userId)
+
+      const existingIds = new Set(existingAchievements?.map(a => a.badge_id) || [])
+
+      // Filter badges yang earned tapi belum ada di database
+      const newEarnedBadges = badges.filter(badge =>
+        badge.isEarned && !existingIds.has(badge.id)
+      )
+
+      // Insert new achievements
+      if (newEarnedBadges.length > 0) {
+        const achievementsToInsert = newEarnedBadges.map(badge => ({
+          user_id: userId,
+          badge_id: badge.id,
+          earned_at: badge.earnedAt || new Date().toISOString()
+        }))
+
+        const { error } = await supabase
+          .from('user_achievements')
+          .insert(achievementsToInsert)
+
+        if (error) {
+          console.error('Error inserting achievements:', error)
+        } else {
+          console.log(`Saved ${newEarnedBadges.length} new achievements to database`)
+        }
+      }
+    } catch (error) {
+      console.error('Error saving badges to database:', error)
+    }
+  }
+
+  const updateBadgeCount = async (userId: string) => {
+    try {
+      const { count: badgeCount } = await supabase
+        .from('user_achievements')
+        .select('*', { count: 'exact' })
+        .eq('user_id', userId)
+
+      if (stats) {
+        setStats({
+          ...stats,
+          totalBadges: badgeCount || 0
+        })
+      }
+    } catch (error) {
+      console.error('Error updating badge count:', error)
     }
   }
 
@@ -461,16 +496,6 @@ export default function ProfilePage() {
     }
 
     return false
-  }
-
-  const getCategoryColor = (category: string) => {
-    switch (category) {
-      case 'consistency': return 'text-orange-600 bg-orange-100'
-      case 'completion': return 'text-green-600 bg-green-100'
-      case 'streak': return 'text-purple-600 bg-purple-100'
-      case 'milestone': return 'text-blue-600 bg-blue-100'
-      default: return 'text-gray-600 bg-gray-100'
-    }
   }
 
   if (loading) {
@@ -524,7 +549,7 @@ export default function ProfilePage() {
           <StatsGrid stats={stats} />
 
           {/* Badges Grid with Filters */}
-          <BadgeGrid badges={badges} getCategoryColor={getCategoryColor} />
+          <BadgeGrid badges={badges} />
 
           {/* Call to Action */}
           <CTASection />

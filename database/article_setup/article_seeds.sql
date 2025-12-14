@@ -60,5 +60,23 @@ INSERT INTO public.news_articles (
     NOW() - INTERVAL '10 days',
     'RSUPN Dr. Cipto Mangunkusumo',
     'Berita DBD Terbaru'
+),
+(
+    'Vaksin Dengue 1 Dosis Mulai Diuji di Indonesia, Libatkan 1.000 …',
+    '25 Nov 2025 · Uji klinis vaksin dengue dosis tunggal dimulai untuk menekan kasus DBD di Indonesia dan memperkuat perlindungan jangka panjang.',
+    'https://www.liputan6.com/health/read/6220565/vaksin-dengue-1-dosis-mulai-diuji-di-indonesia-libatkan-1000-responden',
+    'https://cdn0-production-images-kly.akamaized.net/828Go8ob1iy6yEoRAp6WiImqNrA=/1200x675/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/5423398/original/052572700_1764060916-Menteri_Kesehatan_RI__Budi_Gunadi_Sadikin_di_Uji_Klinis_Vaksin_Dengue.JPG',
+    NOW() - INTERVAL '19 days',
+    'liputan6.com',
+    'Vaksin Dengue'
+),
+(
+    'Kota Bandung Gotong Royong Cegah DBD, - Porosmedia.com',
+    '26 Nov 2025 · Porosmedia.com, Bandung – Memasuki puncak musim hujan, kewaspadaan terhadap Demam Berdarah Dengue (DBD) di Kota Bandung kembali berada pada level tinggi. Pemkot …',
+    'https://porosmedia.com/kota-bandung-gotong-royong-cegah-dbd-unsur-kewilayahan-jadi-garda-terdepan/',
+    'https://porosmedia.com/wp-content/uploads/2025/11/IMG-20251126-WA0104.jpg',
+    NOW() - INTERVAL '18 days',
+    'Porosmedia.com',
+    'Pemcegahan Dengue'
 )
 ON CONFLICT (url) DO NOTHING;

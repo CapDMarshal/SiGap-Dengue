@@ -2,29 +2,13 @@
 
 import { useState } from 'react'
 import BadgeCard from './BadgeCard'
-
-interface Badge {
-    id: string
-    name: string
-    description: string
-    icon: string
-    color: string
-    category: 'consistency' | 'completion' | 'streak' | 'milestone'
-    requirement: string
-    isEarned: boolean
-    earnedAt?: string
-    progress?: {
-        current: number
-        target: number
-    }
-}
+import { Badge } from './types'
 
 interface BadgeGridProps {
     badges: Badge[]
-    getCategoryColor: (category: string) => string
 }
 
-export default function BadgeGrid({ badges, getCategoryColor }: BadgeGridProps) {
+export default function BadgeGrid({ badges }: BadgeGridProps) {
     const [selectedCategory, setSelectedCategory] = useState<string>('all')
 
     const filteredBadges = selectedCategory === 'all'
@@ -33,10 +17,13 @@ export default function BadgeGrid({ badges, getCategoryColor }: BadgeGridProps) 
 
     return (
         <>
-            {/* Badge Categories Filter */}
+            {/* Badge Categories Filter dengan Modern Style */}
             <div className="mb-6">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Koleksi Badges</h2>
-                <div className="flex flex-wrap gap-2">
+                <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                    <span className="text-4xl">🏅</span>
+                    Koleksi Badges
+                </h2>
+                <div className="flex flex-wrap gap-3">
                     {[
                         { key: 'all', label: 'Semua', count: badges.length },
                         { key: 'consistency', label: 'Konsistensi', count: badges.filter(b => b.category === 'consistency').length },
@@ -47,24 +34,23 @@ export default function BadgeGrid({ badges, getCategoryColor }: BadgeGridProps) 
                         <button
                             key={category.key}
                             onClick={() => setSelectedCategory(category.key)}
-                            className={`px-4 py-2 rounded-lg font-medium transition-colors ${selectedCategory === category.key
-                                    ? 'bg-red-700 text-white'
-                                    : 'bg-white text-gray-700 border border-gray-300 hover:bg-red-50'
+                            className={`px-5 py-3 rounded-2xl font-bold transition-all duration-300 transform hover:scale-105 shadow-md ${selectedCategory === category.key
+                                    ? 'bg-[#780606] text-white shadow-lg scale-105'
+                                    : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-[#780606] hover:text-[#780606]'
                                 }`}
                         >
-                            {category.label} ({category.count})
+                            {category.label} <span className="ml-1 opacity-75">({category.count})</span>
                         </button>
                     ))}
                 </div>
             </div>
 
-            {/* Badges Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Badges Grid dengan space untuk floating badges */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pt-12">
                 {filteredBadges.map((badge) => (
                     <BadgeCard
                         key={badge.id}
                         badge={badge}
-                        getCategoryColor={getCategoryColor}
                     />
                 ))}
             </div>

@@ -1,60 +1,91 @@
 'use client'
 
-interface UserProfile {
-    totalWeeks: number
-    perfectWeeks: number
-    currentStreak: number
-    longestStreak: number
-    averageCompletion: number
-    totalBadges: number
-    lastActivity: string
-}
+import { UserProfile } from './types'
 
 interface StatsGridProps {
     stats: UserProfile | null
 }
 
 export default function StatsGrid({ stats }: StatsGridProps) {
+    const statCards = [
+        {
+            value: stats?.totalWeeks || 0,
+            label: 'Total Minggu',
+            icon: '📅'
+        },
+        {
+            value: stats?.perfectWeeks || 0,
+            label: 'Minggu Sempurna',
+            icon: '⭐'
+        },
+        {
+            value: stats?.currentStreak || 0,
+            label: 'Streak Saat Ini',
+            icon: '🔥'
+        },
+        {
+            value: stats?.totalBadges || 0,
+            label: 'Total Badges',
+            icon: '🏆'
+        }
+    ]
+
     return (
         <>
-            {/* Statistics Cards */}
+            {/* Statistics Cards - Layout Horizontal seperti Screenshot */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                <div className="bg-white rounded-lg shadow-md p-6 text-center">
-                    <div className="text-2xl font-bold text-red-700">{stats?.totalWeeks || 0}</div>
-                    <div className="text-sm text-gray-600">Total Minggu</div>
-                </div>
-                <div className="bg-white rounded-lg shadow-md p-6 text-center">
-                    <div className="text-2xl font-bold text-green-600">{stats?.perfectWeeks || 0}</div>
-                    <div className="text-sm text-gray-600">Minggu Sempurna</div>
-                </div>
-                <div className="bg-white rounded-lg shadow-md p-6 text-center">
-                    <div className="text-2xl font-bold text-orange-600">{stats?.currentStreak || 0}</div>
-                    <div className="text-sm text-gray-600">Streak Saat Ini</div>
-                </div>
-                <div className="bg-white rounded-lg shadow-md p-6 text-center">
-                    <div className="text-2xl font-bold text-purple-600">{stats?.totalBadges || 0}</div>
-                    <div className="text-sm text-gray-600">Total Badges</div>
-                </div>
+                {statCards.map((stat, index) => (
+                    <div
+                        key={index}
+                        className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-5 flex items-center gap-4 border border-gray-100"
+                    >
+                        {/* Icon Circle */}
+                        <div className="w-14 h-14 bg-[#780606] rounded-full flex items-center justify-center text-2xl flex-shrink-0 shadow-md">
+                            {stat.icon}
+                        </div>
+
+                        {/* Stats */}
+                        <div className="flex-1">
+                            <div className="text-3xl font-extrabold text-gray-900">
+                                {stat.value}
+                            </div>
+                            <div className="text-xs text-gray-600 font-medium leading-tight">
+                                {stat.label}
+                            </div>
+                        </div>
+                    </div>
+                ))}
             </div>
 
-            {/* Overall Stats */}
-            <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Statistik Pencegahan</h2>
+            {/* Statistik Pencegahan - Clean Design seperti Screenshot */}
+            <div className="bg-white rounded-2xl shadow-md p-6 mb-8 border border-gray-100">
+                <h2 className="text-xl font-bold text-gray-900 mb-6">Statistik Pencegahan</h2>
                 <div className="grid md:grid-cols-2 gap-6">
+                    {/* Rata-rata Completion */}
                     <div>
-                        <h3 className="font-semibold text-gray-800 mb-2">Rata-rata Completion</h3>
-                        <div className="w-full bg-gray-200 rounded-full h-3 mb-2">
-                            <div
-                                className="bg-gradient-to-r from-red-500 to-red-600 h-3 rounded-full"
-                                style={{ width: `${stats?.averageCompletion || 0}%` }}
-                            ></div>
+                        <h3 className="text-sm font-semibold text-gray-700 mb-3">Rata-rata Completion</h3>
+                        <div className="mb-3">
+                            <div className="text-2xl font-bold text-gray-900 mb-2">
+                                {stats?.averageCompletion || 0}%
+                            </div>
+                            <div className="w-full bg-gray-200 rounded-full h-2.5">
+                                <div
+                                    className="bg-[#780606] h-2.5 rounded-full transition-all duration-500"
+                                    style={{ width: `${stats?.averageCompletion || 0}%` }}
+                                ></div>
+                            </div>
                         </div>
-                        <p className="text-sm text-gray-600">{stats?.averageCompletion || 0}%</p>
                     </div>
+
+                    {/* Streak Terpanjang */}
                     <div>
-                        <h3 className="font-semibold text-gray-800 mb-2">Streak Terpanjang</h3>
-                        <p className="text-3xl font-bold text-orange-600">{stats?.longestStreak || 0}</p>
-                        <p className="text-sm text-gray-600">minggu berturut-turut</p>
+                        <h3 className="text-sm font-semibold text-gray-700 mb-3">Streak Terpanjang</h3>
+                        <div className="flex items-baseline gap-2">
+                            <span className="text-4xl font-extrabold text-[#780606]">
+                                {stats?.longestStreak || 0}
+                            </span>
+                            <span className="text-sm text-gray-600">minggu berturut-turut</span>
+                        </div>
                     </div>
                 </div>
             </div>

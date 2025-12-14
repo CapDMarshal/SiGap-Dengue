@@ -68,10 +68,28 @@
 - Download hasil dalam format PDF/Image
 - Monitoring kesehatan dari waktu ke waktu
 
+### ✅ Checklist Pencegahan Mingguan
+- Tracking aktivitas pencegahan DBD dengan metode 3M Plus
+- Progress bar untuk memonitor penyelesaian checklist
+- Sistem achievements untuk memotivasi konsistensi
+- Reset otomatis setiap minggu untuk kebiasaan berkelanjutan
+
+### 🏆 Sistem Achievement
+- Badge "Langkah Pertama" untuk menyelesaikan checklist pertama kali
+- Badge "Pahlawan Setengah Jalan" untuk 50% completion
+- Badge "Minggu Sempurna" untuk 100% completion
+- Riwayat achievements tersimpan di profile
+
+### 📰 Artikel & Edukasi
+- Informasi lengkap tentang DBD dan pencegahannya
+- Tips kesehatan untuk mencegah penyebaran nyamuk
+- Update terkini tentang DBD di Indonesia
+
 ### 📱 Responsive Design
 - Optimal di desktop, tablet, dan mobile
 - Interface adaptif untuk semua ukuran layar
 - Fast loading dan smooth navigation
+- Animasi smooth dengan GSAP
 
 ---
 
@@ -80,7 +98,8 @@
 ### Prasyarat
 
 Pastikan Anda sudah menginstal:
-- **Bun** (Package Manager) - [Download](https://bun.sh/)
+- **Node.js** (v18 atau lebih baru) - [Download](https://nodejs.org/)
+- **npm** atau **Bun** (Package Manager) - npm sudah termasuk dengan Node.js, atau install [Bun](https://bun.sh/) untuk performa lebih cepat
 - **Git** - [Download](https://git-scm.com/)
 - **Akun Supabase** (gratis) - [Sign Up](https://supabase.com/)
 
@@ -93,6 +112,12 @@ cd dengue-checker-nextjs
 
 ### Langkah 2: Install Dependencies
 
+Menggunakan **npm**:
+```bash
+npm install
+```
+
+Atau menggunakan **Bun** (lebih cepat):
 ```bash
 bun install
 ```
@@ -392,13 +417,33 @@ CREATE OR REPLACE TRIGGER create_achievements_trigger
 ### Langkah 5: Jalankan Aplikasi
 
 #### Development Mode:
+
+Menggunakan **npm**:
+```bash
+npm run dev
+```
+
+Atau menggunakan **Bun**:
 ```bash
 bun dev
 ```
 
 Aplikasi akan berjalan di: **http://localhost:3000**
 
+> **Note**: Aplikasi menggunakan Turbopack untuk build yang lebih cepat
+
 #### Production Build:
+
+Menggunakan **npm**:
+```bash
+# Build aplikasi
+npm run build
+
+# Jalankan production server
+npm start
+```
+
+Atau menggunakan **Bun**:
 ```bash
 # Build aplikasi
 bun run build
@@ -416,34 +461,60 @@ bun start
 1. **Akses Homepage**
    - Buka http://localhost:3000
    - Lihat peta sebaran DBD di Indonesia
-   - Klik tombol **"Periksa"**
+   - Baca informasi pencegahan dengan metode 3M Plus
+   - Klik tombol **"Periksa Sekarang"** atau **"Mulai Pemeriksaan"**
 
 2. **Isi Formulir Pemeriksaan**
-   - **Step 1**: Isi data pribadi, gejala demam, dan suhu tubuh
-   - **Step 2**: Centang gejala tambahan yang dialami
-   - **Step 3**: Isi hasil uji laboratorium (jika ada)
-   - Klik **"Submit"** untuk mendapatkan hasil
+   - **Step 1**: Isi data pribadi (nama, umur, no. telp), gejala demam, dan suhu tubuh
+   - **Step 2**: Centang gejala tambahan yang dialami (sakit kepala, nyeri mata, dll)
+   - **Step 3**: Isi hasil uji laboratorium jika sudah melakukan tes darah (WBC, Hemoglobin, Hematokrit, Platelet)
+   - Klik **"Submit"** untuk mendapatkan hasil prediksi
 
 3. **Lihat Hasil Prediksi**
    - Lihat status: **Positif DBD** atau **Negatif DBD**
-   - Baca rekomendasi tindakan
-   - Download hasil untuk dibawa ke dokter
+   - Perhatikan persentase probabilitas
+   - Baca rekomendasi tindakan yang disarankan
+   - Download hasil untuk dibawa ke dokter (opsional)
+
+4. **Eksplorasi Fitur Lainnya**
+   - **Artikel**: Baca artikel tentang DBD dan pencegahannya
+   - **Tentang**: Pelajari lebih lanjut tentang aplikasi dan tim pengembang
 
 ### Untuk User Terdaftar
 
 1. **Daftar/Login**
    - Klik **"Masuk"** di navbar
-   - Pilih **"Daftar"** untuk akun baru
-   - Atau login dengan **Google**
+   - Pilih **"Daftar"** untuk membuat akun baru dengan email/password
+   - Atau login dengan **Google** untuk akses lebih cepat
+   - Verifikasi email jika diminta
 
 2. **Lakukan Pemeriksaan**
    - Sama seperti user tanpa login
-   - Hasil otomatis tersimpan di riwayat
+   - Hasil otomatis tersimpan di riwayat pemeriksaan Anda
 
-3. **Akses Riwayat**
-   - Klik menu **"Riwayat"**
-   - Lihat semua pemeriksaan sebelumnya
-   - Download atau lihat detail hasil lama
+3. **Akses Riwayat Pemeriksaan**
+   - Klik menu **"Riwayat"** di navbar
+   - Lihat semua pemeriksaan yang pernah dilakukan
+   - Lihat detail hasil pemeriksaan sebelumnya
+   - Download atau cetak hasil untuk keperluan medis
+
+4. **Gunakan Checklist Pencegahan Mingguan**
+   - Klik menu **"Checklist"** di navbar
+   - Centang aktivitas pencegahan yang sudah dilakukan
+   - Monitor progress bar untuk melihat penyelesaian
+   - Dapatkan badges achievement saat mencapai milestone tertentu
+   - Checklist akan reset otomatis setiap minggu
+
+5. **Kelola Profile**
+   - Klik foto profil atau menu **"Profile"** di navbar
+   - Lihat informasi akun Anda
+   - Lihat achievement/badges yang telah diraih
+   - Lihat statistik pemeriksaan dan aktivitas pencegahan
+   - Update informasi profil jika diperlukan
+
+6. **Logout**
+   - Klik menu dropdown di foto profil
+   - Pilih **"Keluar"** untuk logout dari akun
 
 ---
 
@@ -451,14 +522,17 @@ bun start
 
 | Kategori | Teknologi |
 |----------|-----------|
-| **Framework** | Next.js 15 (App Router) |
-| **Language** | TypeScript |
+| **Framework** | Next.js 15.5 (App Router) |
+| **Language** | TypeScript 5 |
 | **Styling** | Tailwind CSS 4 |
-| **Authentication** | Supabase Auth |
+| **UI Components** | Flowbite, Flowbite React |
+| **Authentication** | Supabase Auth (Google OAuth) |
 | **Database** | Supabase (PostgreSQL) |
-| **Maps** | Leaflet, Plotly.js |
-| **Machine Learning** | Logistic Regression, SVM |
-| **Package Manager** | Bun |
+| **Maps** | MapTiler SDK, Plotly.js |
+| **Animations** | GSAP 3.14 |
+| **Icons** | React Icons |
+| **Machine Learning** | Logistic Regression, SVM (ScikitJS) |
+| **Package Manager** | npm/bun |
 | **Deployment** | Vercel (recommended) |
 
 ---
@@ -466,37 +540,70 @@ bun start
 ## 📂 Struktur Project
 
 ```
-dengue-checker-nextjs/
+dengue-cheker/
 ├── app/                          # Next.js App Router
 │   ├── components/               # Reusable components
-│   │   ├── Navbar.tsx           # Navigation bar
-│   │   ├── Stepper.tsx          # Progress indicator
-│   │   ├── InputChoice.tsx      # Checkbox group input
-│   │   ├── InputNum.tsx         # Number input
-│   │   ├── Question.tsx         # Question wrapper
-│   │   ├── LeafletMap.tsx       # Map component
-│   │   └── ...
-│   ├── about/                    # About page
-│   ├── form/                     # Multi-step form
+│   │   ├── Navbar.tsx           # Navigation bar dengan menu responsif
+│   │   ├── Footer.tsx           # Footer section
+│   │   ├── Stepper.tsx          # Progress indicator untuk form
+│   │   ├── AuthButton.tsx       # Tombol autentikasi
+│   │   ├── LoginForm.tsx        # Form login
+│   │   ├── SignUpForm.tsx       # Form registrasi
+│   │   ├── Maptilermap.tsx      # Komponen peta interaktif
+│   │   ├── PlotlyChart.tsx      # Chart dengan Plotly
+│   │   ├── form/                # Form components
+│   │   │   ├── FormGejalaUtama.tsx
+│   │   │   ├── FormGejalaTambahan.tsx
+│   │   │   └── FormUjiLab.tsx
+│   │   ├── home/                # Homepage sections
+│   │   │   ├── HeroSection.tsx
+│   │   │   ├── MapSection.tsx
+│   │   │   ├── PreventionTipsSection.tsx
+│   │   │   ├── FeaturesSection.tsx
+│   │   │   ├── CTASection.tsx
+│   │   │   ├── FAQCards.tsx
+│   │   │   └── FAQCardsMobile.tsx
+│   │   └── profile/             # Profile components
+│   │       ├── ProfileHeader.tsx
+│   │       ├── AchievementCard.tsx
+│   │       └── ...
+│   ├── about/                    # About page (Tentang Aplikasi)
+│   ├── articles/                 # Articles page (Artikel DBD)
+│   ├── checklist/                # Weekly prevention checklist
+│   ├── form/                     # Multi-step diagnosis form
 │   ├── history/                  # Examination history
-│   ├── login/                    # Login page
-│   ├── register/                 # Register page
-│   ├── result/                   # Result page
+│   ├── auth/                     # Authentication routes
+│   │   ├── login/
+│   │   └── callback/
+│   ├── profile/                  # User profile page
+│   ├── result/                   # Result page (diagnosis results)
+│   ├── api/                      # API routes
 │   ├── page.tsx                  # Homepage
 │   ├── layout.tsx                # Root layout
+│   ├── globals.css               # Global styles
 │   └── not-found.tsx             # 404 page
 ├── lib/                          # Utilities & logic
-│   ├── model.ts                  # ML models & prediction
+│   ├── model.ts                  # ML models & prediction logic
 │   └── dengue-service.ts         # Supabase services
 ├── utils/                        # Utility functions
 │   └── supabase/                 # Supabase clients
+│       ├── client.ts             # Client-side Supabase client
+│       ├── server.ts             # Server-side Supabase client
+│       └── middleware.ts         # Auth middleware
+├── database/                     # Database migrations & setup
 ├── public/                       # Static assets
 │   ├── images/                   # Images
 │   ├── icons/                    # SVG icons
-│   └── heatmap_geo.json         # Map data
+│   ├── dengue.png               # App logo
+│   └── heatmap_geo.json         # Map data for Indonesia
 ├── types/                        # TypeScript types
 ├── .env.local                    # Environment variables (create this)
-└── package.json                  # Dependencies
+├── .env.example                  # Environment template
+├── package.json                  # Dependencies
+├── tsconfig.json                 # TypeScript config
+├── next.config.ts                # Next.js config
+├── tailwind.config.js            # Tailwind config
+└── README.md                     # This file
 ```
 
 ---
@@ -523,9 +630,9 @@ Project ini dilisensikan di bawah MIT License - lihat file [LICENSE](LICENSE) un
 
 Dibuat oleh mahasiswa Universitas Teknologi Yogyakarta:
 
-- **Alie Pratama** - Full Stack Developer
-- **Zakki Farian** - Machine Learning Engineer  
-- **Ridho Lestari** - UI/UX Designer & Developer
+- **Andhika Prasetyo** - Full Stack Developer
+- **Alif Arya Kusuma** - Machine Learning Engineer  
+- **Fardila Bintang Adinata** - UI/UX Designer & Developer
 
 ---
 
@@ -540,7 +647,10 @@ Aplikasi ini **BUKAN** pengganti diagnosis medis profesional. Hasil prediksi han
 - [Next.js](https://nextjs.org/) - The React Framework
 - [Supabase](https://supabase.com/) - Open Source Firebase Alternative
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
-- [Leaflet](https://leafletjs.com/) - Open-source JavaScript library for maps
+- [MapTiler](https://www.maptiler.com/) - Maps and geolocation services
+- [Plotly.js](https://plotly.com/javascript/) - Interactive data visualization library
+- [GSAP](https://gsap.com/) - Professional-grade animation library
+- [Flowbite](https://flowbite.com/) - Component library built on Tailwind CSS
 - [WHO](https://www.who.int/) - Dengue data and guidelines
 - [Kemenkes RI](https://www.kemkes.go.id/) - Indonesian health data
 .
@@ -549,4 +659,6 @@ Aplikasi ini **BUKAN** pengganti diagnosis medis profesional. Hasil prediksi han
 <div align="center">
   <p>Made with ❤️ for Indonesian Healthcare</p>
   <p>© 2025 SiGap Dengue - Universitas Teknologi Yogyakarta</p>
+</div>
+</p>
 </div>

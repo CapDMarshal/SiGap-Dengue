@@ -22,22 +22,35 @@ const FAQAccordion = () => {
             ]
         },
         {
-            question: "Kapan harus segera ke dokter?",
-            icon: "🏥",
-            color: "yellow",
+            question: "Apakah DBD bisa menular antar manusia?",
+            icon: "🦟",
+            color: "red",
             content: [
-                { icon: "🚨", text: "Demam tinggi berlangsung lebih dari 3 hari berturut-turut" },
-                { icon: "🤮", text: "Muntah terus-menerus sehingga tidak bisa makan atau minum" },
-                { icon: "⚡", text: "Nyeri perut hebat dan berkelanjutan yang tidak tertahankan" },
-                { icon: "🩸", text: "Pendarahan spontan: mimisan, gusi berdarah, atau bintik merah di kulit" },
-                { icon: "😵", text: "Lemas berlebihan, gelisah, atau kehilangan kesadaran" },
-                { icon: "💧", text: "Tanda dehidrasi: mulut kering, jarang buang air kecil, kulit pucat" }
+                { icon: "❌", text: "TIDAK! DBD tidak menular dari manusia ke manusia secara langsung" },
+                { icon: "🦟", text: "DBD hanya menular melalui gigitan nyamuk Aedes aegypti yang terinfeksi virus dengue" },
+                { icon: "�", text: "Nyamuk menjadi pembawa virus setelah menggigit orang yang sudah terinfeksi DBD" },
+                { icon: "⏱️", text: "Virus berkembang dalam tubuh nyamuk selama 8-12 hari sebelum bisa menular ke orang lain" },
+                { icon: "👨‍👩‍👧", text: "Aman merawat pasien DBD di rumah asalkan lingkungan bebas nyamuk" },
+                { icon: "🛡️", text: "Fokus pencegahan: basmi nyamuk dan lindungi pasien dari gigitan nyamuk agar tidak menular ke orang lain" }
+            ]
+        },
+        {
+            question: "Apa perbedaan DBD dan tipes?",
+            icon: "🔍",
+            color: "red",
+            content: [
+                { icon: "🌡️", text: "DBD: Demam tinggi mendadak vs Tipes: Demam naik bertahap" },
+                { icon: "�", text: "DBD: Sakit kepala hebat dan nyeri mata vs Tipes: Sakit kepala ringan" },
+                { icon: "🔴", text: "DBD: Ruam merah kecil muncul hari ke-3 vs Tipes: Bintik merah di dada (rose spot)" },
+                { icon: "�", text: "DBD: Nyeri otot dan sendi parah vs Tipes: Nyeri otot ringan" },
+                { icon: "🍽️", text: "DBD: Mual muntah awal penyakit vs Tipes: Gangguan pencernaan dominan" },
+                { icon: "🧪", text: "Diagnosis pasti memerlukan tes laboratorium: NS1, IgG/IgM untuk DBD" }
             ]
         },
         {
             question: "Apa yang harus dilakukan dalam 24 jam pertama demam?",
             icon: "⏰",
-            color: "blue",
+            color: "red",
             content: [
                 { icon: "🌡️", text: "Monitor suhu tubuh setiap 2-3 jam dan catat dalam buku harian" },
                 { icon: "💊", text: "Berikan paracetamol untuk menurunkan demam, HINDARI aspirin dan ibuprofen" },
@@ -48,16 +61,16 @@ const FAQAccordion = () => {
             ]
         },
         {
-            question: "Apa perbedaan DBD dan tipes?",
-            icon: "🔍",
-            color: "green",
+            question: "Kapan harus segera ke dokter?",
+            icon: "🏥",
+            color: "red",
             content: [
-                { icon: "🌡️", text: "DBD: Demam tinggi mendadak vs Tipes: Demam naik bertahap" },
-                { icon: "🤕", text: "DBD: Sakit kepala hebat dan nyeri mata vs Tipes: Sakit kepala ringan" },
-                { icon: "🔴", text: "DBD: Ruam merah kecil muncul hari ke-3 vs Tipes: Bintik merah di dada (rose spot)" },
-                { icon: "💪", text: "DBD: Nyeri otot dan sendi parah vs Tipes: Nyeri otot ringan" },
-                { icon: "🍽️", text: "DBD: Mual muntah awal penyakit vs Tipes: Gangguan pencernaan dominan" },
-                { icon: "🧪", text: "Diagnosis pasti memerlukan tes laboratorium: NS1, IgG/IgM untuk DBD" }
+                { icon: "🚨", text: "Demam tinggi berlangsung lebih dari 3 hari berturut-turut" },
+                { icon: "�", text: "Muntah terus-menerus sehingga tidak bisa makan atau minum" },
+                { icon: "⚡", text: "Nyeri perut hebat dan berkelanjutan yang tidak tertahankan" },
+                { icon: "🩸", text: "Pendarahan spontan: mimisan, gusi berdarah, atau bintik merah di kulit" },
+                { icon: "😵", text: "Lemas berlebihan, gelisah, atau kehilangan kesadaran" },
+                { icon: "💧", text: "Tanda dehidrasi: mulut kering, jarang buang air kecil, kulit pucat" }
             ]
         }
     ]
